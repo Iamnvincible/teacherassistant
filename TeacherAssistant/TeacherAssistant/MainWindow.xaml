@@ -5,18 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TeacherAssistant"
         mc:Ignorable="d"
-        Title="Teacher Assistant" Height="330" Width="430">
+        Title="" Height="330" Width="430">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="6*"/>
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
         <Grid x:Name="TopBar" Grid.Row="0" Background="#006FA9">
-
+            <TextBlock Text="QQ 体验版" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Wheat"/>
         </Grid>
         <Grid x:Name="LoginGrid" Grid.Row="1" Background="#EBF2F9">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBox x:Name="TeacherNumberBox"  Width="200" Height="30" Margin="20"></TextBox>
+                <TextBox x:Name="TeacherNumberBox"  Width="200" Height="30" Margin="20" BorderThickness="0" SnapsToDevicePixels="True" FontSize="13.333" TextAlignment="Justify" MaxLength="10" MaxLines="1" >
+                    <TextBox.Effect>
+                        <DropShadowEffect ShadowDepth="1" Direction="270" BlurRadius="3" RenderingBias="Quality"/>
+                    </TextBox.Effect>
+                </TextBox>
                 <Button x:Name="Loginbutton"  Width="200" Height="30"></Button>
             </StackPanel>
         </Grid>
