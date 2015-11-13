@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TeacherAssistant.NetWork;
 
 namespace TeacherAssistant
 {
@@ -23,6 +24,11 @@ namespace TeacherAssistant
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Loginbutton_Click(object sender, RoutedEventArgs e)
+        {
+            TableHelp.GetJxbStuList("A041518124736");
         }
     }
 }

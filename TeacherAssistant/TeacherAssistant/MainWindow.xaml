@@ -21,7 +21,7 @@
                         <DropShadowEffect ShadowDepth="1" Direction="270" BlurRadius="3" RenderingBias="Quality"/>
                     </TextBox.Effect>
                 </TextBox>
-                <Button x:Name="Loginbutton"  Width="200" Height="30"></Button>
+                <Button x:Name="Loginbutton"  Width="200" Height="30" Click="Loginbutton_Click"></Button>
             </StackPanel>
         </Grid>
     </Grid>
