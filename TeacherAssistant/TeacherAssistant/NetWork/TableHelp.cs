@@ -45,7 +45,6 @@ namespace TeacherAssistant.NetWork
 
             }
         }
-
         public static List<ClassDetail> GetClassTable(string teachernum)
         {
             WebClient client = new WebClient();
