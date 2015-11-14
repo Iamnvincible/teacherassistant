@@ -14,7 +14,6 @@ namespace TeacherAssistant.Model
         public string Name { get; set; }
         public string Sex { get; set; }
         public string ClassNum { get; set; }
-        public int Year { get; set; }
         public string ClassState { get; set; }
     }
 }
