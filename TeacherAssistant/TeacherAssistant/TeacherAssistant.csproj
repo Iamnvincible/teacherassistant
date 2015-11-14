@@ -63,6 +63,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\ClassDetail.cs" />
     <Compile Include="Model\TeachClassStuA.cs" />
     <Compile Include="Model\TeachClassStuSJ.cs" />
     <Compile Include="View\ClassListWindow.xaml.cs">
@@ -88,7 +89,6 @@
   <ItemGroup>
     <Compile Include="Model\TeachClassStu.cs" />
     <Compile Include="NetWork\TableHelp.cs" />
-    <Compile Include="NetWork\TableParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

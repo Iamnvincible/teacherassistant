@@ -29,8 +29,10 @@ namespace TeacherAssistant
 
         private void Loginbutton_Click(object sender, RoutedEventArgs e)
         {
-            TableHelp.GetJxbStuList("A041518124736");
-            TableHelp.GetJxbStuList("SJ021516266569");
+            //TableHelp.GetJxbStuList("A041518124736");
+            //TableHelp.GetJxbStuList("SJ021516266569");
+            //TableHelp.GetClassTable("040317");
+            TableHelp.GetClassTable("041212"); 
             Window clw = new ClassListWindow();
             clw.Show();
             this.Close();

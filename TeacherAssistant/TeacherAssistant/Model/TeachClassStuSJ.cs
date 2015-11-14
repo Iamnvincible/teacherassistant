@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TeacherAssistant.Model
 {
-    class TeachClassStuSJ:TeachClassStuA
+    class TeachClassStuSJ:TeachClassStu
     {
         public string ClassType { get; set; }
     }
