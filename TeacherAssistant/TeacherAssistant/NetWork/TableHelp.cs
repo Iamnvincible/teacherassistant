@@ -24,17 +24,17 @@ namespace TeacherAssistant.NetWork
             MemoryStream ms;
             HtmlDocument doc = new HtmlDocument();
             HtmlDocument docStockContext = new HtmlDocument();
-            if (jsbnum.ToUpper().StartsWith("S"))
+            if (jsbnum.Substring(20).ToUpper().StartsWith("S"))
             {
-                string urlnew = @"http://jwzx.cqupt.edu.cn/new/labkebiao/showjxbStuList.php?jxb=" + jsbnum;
+                string urlnew = @"http://jwzx.cqupt.edu.cn/new/labkebiao/" + jsbnum;
                 List<TeachClassStuSJ> stulist = new List<TeachClassStuSJ>();
                 GetJxbStuListSJ(out ms, doc, docStockContext, client, urlnew, ref stulist);
                 return stulist;
 
             }
-            else if (jsbnum.ToUpper().StartsWith("A")|| jsbnum.ToUpper().StartsWith("R"))
+            else if (jsbnum.Substring(20).ToUpper().StartsWith("A")|| jsbnum.ToUpper().StartsWith("R"))
             {
-                string url = @"http://jwzx.cqupt.edu.cn/showJxbStuList.php?jxb=" + jsbnum;
+                string url = @"http://jwzx.cqupt.edu.cn/new/labkebiao/" + jsbnum;
                 List<TeachClassStuA> stulist = new List<TeachClassStuA>();
                 GetJxbStuListA(out ms, doc, docStockContext, client, url, ref stulist);
                 return stulist;
@@ -45,6 +45,11 @@ namespace TeacherAssistant.NetWork
 
             }
         }
+        /// <summary>
+        /// 获取教师课表
+        /// </summary>
+        /// <param name="teachernum">教师编号</param>
+        /// <returns></returns>
         public static List<ClassDetail> GetClassTable(string teachernum)
         {
             WebClient client = new WebClient();
@@ -95,15 +100,13 @@ namespace TeacherAssistant.NetWork
                             string classname = inner[0 + offset].InnerText.Trim();
                             string classroom = inner[1 + offset].InnerText.Trim();
                             string lastweeks = inner[2 + offset].InnerText.Trim();
-                            var classtype = item[j].SelectNodes("./font")[l*2].InnerText.Trim();// inner[3 + offset].InnerText;
+                            var classtype = item[j].SelectNodes("./font")[l*2].InnerText.Trim();
                             string subject = inner[4 + offset].InnerText.Trim();
                             string stuclasses = inner[5 + offset].InnerText.Trim();
                             string listurl = item[j].SelectNodes("..//a[@href]")[l].Attributes["href"].Value.Trim();
-                            ClassDetail cd = new ClassDetail { Classroom = classroom, Name = classname, LastWeeks = lastweeks, Subject = subject, ClassType = classtype, StuClasses = stuclasses, Day = date[i], Time = times[i], StudentListURL = listurl };
+                            ClassDetail cd = new ClassDetail { Classroom = classroom, Name = classname, LastWeeks = lastweeks, Subject = subject, ClassType = classtype, StuClasses = stuclasses, Day = date[j], Time = times[i], StudentListURL = listurl };
                             classtable.Add(cd);
                         }
-
-
                     }
                 }
             }
@@ -139,7 +142,7 @@ namespace TeacherAssistant.NetWork
                 var dd = item.SelectNodes("td");
                 var num = Convert.ToInt32(dd[0].InnerText.Trim());
                 var subject = dd[1].InnerText.Trim();
-                var stunum = Convert.ToInt32(dd[2].InnerText.Trim());
+                var stunum =dd[2].InnerText.Trim();
                 var name = dd[3].InnerText.Trim();
                 var sex = dd[4].InnerText.Trim();
                 var classnum = dd[5].InnerText.Trim();
@@ -180,7 +183,7 @@ namespace TeacherAssistant.NetWork
                 var dd = item.SelectNodes("td");
                 var num = Convert.ToInt32(dd[0].InnerText.Trim());
                 var subject = dd[1].InnerText.Trim();
-                var stunum = Convert.ToInt32(dd[2].InnerText.Trim());
+                var stunum =dd[2].InnerText.Trim();
                 var name = dd[3].InnerText.Trim();
                 var sex = dd[4].InnerText.Trim();
                 var classnum = dd[5].InnerText.Trim();

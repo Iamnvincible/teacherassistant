@@ -10,7 +10,7 @@ namespace TeacherAssistant.Model
     {
         public int Num { get; set; }
         public string Subject { get; set; }
-        public int StudentNum { get; set; }
+        public string StudentNum { get; set; }
         public string Name { get; set; }
         public string Sex { get; set; }
         public string ClassNum { get; set; }
