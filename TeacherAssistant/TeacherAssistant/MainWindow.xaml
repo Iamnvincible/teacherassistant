@@ -13,16 +13,16 @@
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
         <Grid x:Name="TopBar" Grid.Row="0" Background="#006FA9">
-            <TextBlock Text="QQ 体验版" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Wheat"/>
+            <TextBlock Text="Windows Presentation Foundation" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Wheat"/>
         </Grid>
         <Grid x:Name="LoginGrid" Grid.Row="1" Background="#EBF2F9">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBox x:Name="TeacherNumberBox"  Width="200" Height="30" Margin="20" BorderThickness="0" SnapsToDevicePixels="True" FontSize="16" Style="{StaticResource Test_TextBox}" MaxLength="10" MaxLines="1"  Text="040317">
+                <TextBox x:Name="TeacherNumberBox"  Width="200" Height="30" Margin="20"  SnapsToDevicePixels="True"  FontSize="16" Style="{StaticResource Test_TextBox}" MaxLength="10" MaxLines="1"  Text="040317">
                     <TextBox.Effect>
-                        <DropShadowEffect ShadowDepth="1" Direction="270" BlurRadius="3" RenderingBias="Quality"/>
+                        <DropShadowEffect ShadowDepth="0" Direction="270" BlurRadius="2" RenderingBias="Quality"/>
                     </TextBox.Effect>
                 </TextBox>
-                <Button x:Name="Loginbutton"  Width="200" Height="30" Click="Loginbutton_Click" Content="Log in"></Button>
+                <Button x:Name="Loginbutton"  Width="200" Height="30" Click="Loginbutton_Click" FontFamily="Microsoft Yahei Light" Content="登 录" Style="{StaticResource RoundButton}"></Button>
             </StackPanel>
         </Grid>
     </Grid>
