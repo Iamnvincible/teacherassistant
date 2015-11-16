@@ -36,6 +36,7 @@ namespace TeacherAssistant.DataBase
             //连接字符串
             string connstr = String.Format("Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0}", path);
             connection = new OleDbConnection(connstr);
+            Debug.WriteLine("连接");
             //connection.Open();
 
             //ADODB.Connection cn = new ADODB.Connection();
@@ -60,7 +61,6 @@ namespace TeacherAssistant.DataBase
             //cn.Close();
         }
         public static void CreateTable(string sql, string path)
-
         {
             string connstr = String.Format("Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0}", path);
             connection = new OleDbConnection(connstr);
@@ -153,20 +153,25 @@ namespace TeacherAssistant.DataBase
         /// <param name="commandText">存储过程名称或者sql命令语句</param>
         /// <param name="commandParameters">执行命令所用参数的集合</param>
         /// <returns>包含结果的读取器</returns>
-        public static OleDbDataReader ExecuteReader(string connectionString, string cmdText, params OleDbParameter[] commandParameters)
+        public static OleDbDataReader ExecuteReader(string sql, string filepath, params OleDbParameter[] commandParameters)
         {
+            string connstr = String.Format("Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0}", filepath);
+            connection = new OleDbConnection(connstr);
             //创建一个SqlCommand对象
-            OleDbCommand cmd = new OleDbCommand();
+            OleDbCommand cmd = new OleDbCommand(sql, connection);
             //创建一个SqlConnection对象
-            OleDbConnection conn = new OleDbConnection(connectionString);
+            //connection = new OleDbConnection(connectionString);
             //在这里我们用一个try/catch结构执行sql文本命令/存储过程，因为如果这个方法产生一个异常我们要关闭连接，因为没有读取器存在，
             //因此commandBehaviour.CloseConnection 就不会执行
             try
             {
+                connection.Open();
+
                 //调用 PrepareCommand 方法，对 SqlCommand 对象设置参数
-                PrepareCommand(cmd, conn, null, cmdText, commandParameters);
+                // PrepareCommand(cmd, connection, null, cmdText, commandParameters);
                 //调用 SqlCommand  的 ExecuteReader 方法
-                OleDbDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                //OleDbDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                OleDbDataReader reader = cmd.ExecuteReader();
                 //清除参数
                 cmd.Parameters.Clear();
                 return reader;
@@ -174,7 +179,7 @@ namespace TeacherAssistant.DataBase
             catch
             {
                 //关闭连接，抛出异常
-                conn.Close();
+                connection.Close();
                 throw;
             }
         }
@@ -309,7 +314,7 @@ namespace TeacherAssistant.DataBase
         /// </summary>
         /// <param name="cmdText"></param>
         /// <param name="filepath"></param>
-        public  static void Transaction(string[] cmdText, string filepath)
+        public static void Transaction(string[] cmdText, string filepath)
         {
             ConnectDB(filepath);
             OleDbCommand cmd = new OleDbCommand();
