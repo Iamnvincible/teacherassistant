@@ -31,30 +31,6 @@
             </Setter>
         </Style>
 
-        <!--圆角button-->
-        <Style x:Key="RoundButton" TargetType="Button">
-            <Setter Property="FontSize" Value="15"/>
-            <Setter Property="Margin" Value="4"/>
-            <Setter Property="FontWeight" Value="Black"/>
-            <Setter Property="Foreground" Value="WhiteSmoke"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Background" Value="#FFFF4300"/>
-            <Setter Property="Width" Value="100"/>
-            <Setter Property="Height" Value="35"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="0" CornerRadius="5" Name="PART_Background">
-                            <Border.Background>
-                                <LinearGradientBrush EndPoint="0,0" StartPoint="0,0">
-                                    <GradientStop Color="#3CC3F5" Offset="0.5" />
-                                </LinearGradientBrush>
-                            </Border.Background>
-                            <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+
     </Application.Resources>
 </Application>
