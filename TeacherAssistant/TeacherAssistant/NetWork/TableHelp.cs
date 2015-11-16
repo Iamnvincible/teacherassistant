@@ -27,12 +27,12 @@ namespace TeacherAssistant.NetWork
             if (jsbnum.Substring(20).ToUpper().StartsWith("S"))
             {
                 string urlnew = @"http://jwzx.cqupt.edu.cn/new/labkebiao/" + jsbnum;
-                List<TeachClassStuSJ> stulist = new List<TeachClassStuSJ>();
-                GetJxbStuListSJ(out ms, doc, docStockContext, client, urlnew, ref stulist);
+                List<TeachClassStuSJ> stulist;
+                GetJxbStuListSJ(out ms, doc, docStockContext, client, urlnew, out stulist);
                 return stulist;
 
             }
-            else if (jsbnum.Substring(20).ToUpper().StartsWith("A")|| jsbnum.ToUpper().StartsWith("R"))
+            else if (jsbnum.Substring(20).ToUpper().StartsWith("A") || jsbnum.ToUpper().StartsWith("R"))
             {
                 string url = @"http://jwzx.cqupt.edu.cn/new/labkebiao/" + jsbnum;
                 List<TeachClassStuA> stulist = new List<TeachClassStuA>();
@@ -52,13 +52,20 @@ namespace TeacherAssistant.NetWork
         /// <returns></returns>
         public static List<ClassDetail> GetClassTable(string teachernum)
         {
-            WebClient client = new WebClient();
             MemoryStream ms;
             HtmlDocument doc = new HtmlDocument();
             HtmlDocument docStockContext = new HtmlDocument();
             string url = @"http://jwzx.cqupt.edu.cn/new/labkebiao/showteakebiao2.php?tid=" + teachernum;
-            ms = new MemoryStream(client.DownloadData(url));
-            doc.Load(ms, Encoding.GetEncoding("gbk"));
+            byte[] downloadbytes = DownLoad(url);
+            if (downloadbytes.Length > 1 && downloadbytes[0] != 0)
+            {
+                ms = new MemoryStream(downloadbytes);
+                doc.Load(ms, Encoding.GetEncoding("gbk"));
+            }
+            else
+            {
+                return null;
+            }
             var table = doc.DocumentNode.SelectSingleNode("/html/body/div/table[1]").InnerHtml;
             docStockContext.LoadHtml(table);
             //获得星期的列表
@@ -87,7 +94,7 @@ namespace TeacherAssistant.NetWork
                 for (int j = 1; j < item.Count; j++)//从星期一到星期天
                 {
                     var iii = item[j].InnerHtml.Trim().LastIndexOf('&');
-                    if (item[j].InnerHtml.Trim().Length!=6)
+                    if (item[j].InnerHtml.Trim().Length != 6)
                     {
                         string innerhtml = item[j].InnerHtml.Replace("&nbsp;", "");
                         string temp = innerhtml.Replace("学生名单", "");
@@ -100,11 +107,11 @@ namespace TeacherAssistant.NetWork
                             string classname = inner[0 + offset].InnerText.Trim();
                             string classroom = inner[1 + offset].InnerText.Trim();
                             string lastweeks = inner[2 + offset].InnerText.Trim();
-                            var classtype = item[j].SelectNodes("./font")[l*2].InnerText.Trim();
+                            var classtype = item[j].SelectNodes("./font")[l * 2].InnerText.Trim();
                             string subject = inner[4 + offset].InnerText.Trim();
                             string stuclasses = inner[5 + offset].InnerText.Trim();
                             string listurl = item[j].SelectNodes("..//a[@href]")[l].Attributes["href"].Value.Trim();
-                            ClassDetail cd = new ClassDetail { Classroom = classroom, Name = classname, LastWeeks = lastweeks, Subject = subject, ClassType = classtype, StuClasses = stuclasses, Day = date[j-1], Time = times[i], StudentListURL = listurl };
+                            ClassDetail cd = new ClassDetail { Classroom = classroom, Name = classname, LastWeeks = lastweeks, Subject = subject, ClassType = classtype, StuClasses = stuclasses, Day = date[j - 1], Time = times[i], StudentListURL = listurl };
                             classtable.Add(cd);
                         }
                     }
@@ -121,10 +128,23 @@ namespace TeacherAssistant.NetWork
         /// <param name="client"></param>
         /// <param name="url">网页地址</param>
         /// <param name="stulist">学生名单集合</param>
-        private static void GetJxbStuListSJ(out MemoryStream ms, HtmlDocument doc, HtmlDocument docStockContext, WebClient client, string url, ref List<TeachClassStuSJ> stulist)
+        private static void GetJxbStuListSJ(out MemoryStream ms, HtmlDocument doc, HtmlDocument docStockContext, WebClient client, string url, out List<TeachClassStuSJ> stulist)
         {
-            ms = new MemoryStream(client.DownloadData(url));
-            doc.Load(ms, Encoding.GetEncoding("gbk"));
+            byte[] downloadbytes = DownLoad(url);
+            stulist = new List<TeachClassStuSJ>();
+            if (downloadbytes.Length > 1 && downloadbytes[0] != 0)
+            {
+                ms = new MemoryStream(downloadbytes);
+                doc.Load(ms, Encoding.GetEncoding("gbk"));
+            }
+            else
+            {
+                ms = null;
+                stulist = null;
+                return;
+            }
+            //ms = new MemoryStream(DownLoad(url));
+            //doc.Load(ms, Encoding.GetEncoding("gbk"));
             var table = doc.DocumentNode.SelectSingleNode("/html/body/table[1]").InnerHtml;
             docStockContext.LoadHtml(table);
             //取得表头
@@ -142,7 +162,7 @@ namespace TeacherAssistant.NetWork
                 var dd = item.SelectNodes("td");
                 var num = Convert.ToInt32(dd[0].InnerText.Trim());
                 var subject = dd[1].InnerText.Trim();
-                var stunum =dd[2].InnerText.Trim();
+                var stunum = dd[2].InnerText.Trim();
                 var name = dd[3].InnerText.Trim();
                 var sex = dd[4].InnerText.Trim();
                 var classnum = dd[5].InnerText.Trim();
@@ -183,7 +203,7 @@ namespace TeacherAssistant.NetWork
                 var dd = item.SelectNodes("td");
                 var num = Convert.ToInt32(dd[0].InnerText.Trim());
                 var subject = dd[1].InnerText.Trim();
-                var stunum =dd[2].InnerText.Trim();
+                var stunum = dd[2].InnerText.Trim();
                 var name = dd[3].InnerText.Trim();
                 var sex = dd[4].InnerText.Trim();
                 var classnum = dd[5].InnerText.Trim();
@@ -193,6 +213,28 @@ namespace TeacherAssistant.NetWork
                 TeachClassStuA t = new TeachClassStuA { Num = num, Subject = subject, StudentNum = stunum, Name = name, Sex = sex, ClassNum = classnum, Year = year, ClassState = state };
                 stulist.Add(t);
             }
+        }
+        private static byte[] DownLoad(string url)
+        {
+            Task<byte[]> task;
+            task = new Task<byte[]>(() =>
+           {
+               try
+               {
+
+                   WebClient wc = new WebClient();
+                   return wc.DownloadData(url);
+               }
+               catch (Exception)
+               {
+
+                   byte[] error = { 0 };
+                   return error;
+               }
+           });
+            task.Start();
+
+            return task.Result.ToArray();
         }
     }
 }

@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:TeacherAssistant"
              StartupUri="MainWindow.xaml">
+        
     <Application.Resources>
+
         <Style x:Key="Test_TextBox" TargetType="{x:Type TextBox}">
 
             <Setter Property="Padding" Value="3,1,0,1"/>
@@ -30,7 +32,16 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
+        <ResourceDictionary x:Key="Metro">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
 
     </Application.Resources>
 </Application>
+ 
