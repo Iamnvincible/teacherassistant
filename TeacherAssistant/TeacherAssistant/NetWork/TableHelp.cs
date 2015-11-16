@@ -104,7 +104,7 @@ namespace TeacherAssistant.NetWork
                             string subject = inner[4 + offset].InnerText.Trim();
                             string stuclasses = inner[5 + offset].InnerText.Trim();
                             string listurl = item[j].SelectNodes("..//a[@href]")[l].Attributes["href"].Value.Trim();
-                            ClassDetail cd = new ClassDetail { Classroom = classroom, Name = classname, LastWeeks = lastweeks, Subject = subject, ClassType = classtype, StuClasses = stuclasses, Day = date[j], Time = times[i], StudentListURL = listurl };
+                            ClassDetail cd = new ClassDetail { Classroom = classroom, Name = classname, LastWeeks = lastweeks, Subject = subject, ClassType = classtype, StuClasses = stuclasses, Day = date[j-1], Time = times[i], StudentListURL = listurl };
                             classtable.Add(cd);
                         }
                     }
