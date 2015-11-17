@@ -9,6 +9,6 @@
         Background="Black"
         Title="我的课程" Height="500" Width="800">
     <Grid>
-        <Button Height="40" Width="90" Content="测试" Click="Button_Click"></Button>
+        <Button Height="40" Width="90" Content="测试"></Button>
     </Grid>
 </Window>

@@ -12,9 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
-using TeacherAssistant.DataBase;
-using System.Data.OleDb;
-using System.Data;
 
 namespace TeacherAssistant.View
 {
@@ -29,28 +26,5 @@ namespace TeacherAssistant.View
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            AccessDBHelper.ConnectDB(App.Databasefilepath);
-            string sql = "select id from classtable";
-            OleDbDataReader reader = AccessDBHelper.ExecuteReader(sql, App.Databasefilepath);
-            DataTable dt = new DataTable();
-            DataRow dr;
-            for (int i = 0; i < reader.FieldCount; i++)
-            {
-                DataColumn dc;
-                dc = new DataColumn(reader.GetName(i));
-                dt.Columns.Add(dc);
-
-            }
-            while (reader.Read())
-            {
-                dr = dt.NewRow();
-                for (int i = 0; i < reader.FieldCount; i++)
-                {
-                    dr[reader.GetName(i)] = reader[reader.GetName(i)].ToString();
-                }
-            }
-        }
     }
 }
