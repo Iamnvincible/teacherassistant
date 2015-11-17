@@ -1,26 +1,13 @@
-﻿using ADOX;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using TeacherAssistant.DataBase;
 using TeacherAssistant.Model;
 using TeacherAssistant.NetWork;
 using TeacherAssistant.View;
-using MahApps.Metro.Controls;
-using System.Threading;
 
 namespace TeacherAssistant
 {
@@ -64,7 +51,7 @@ namespace TeacherAssistant
         bool get(string teachernum)
         {
             string filename = String.Format("{0}.mdb", teachernum);
-            FileInfo dbfile = new FileInfo(filename);
+            FileInfo dbfile =  new FileInfo(filename);
             string filePath = new DirectoryInfo(".").FullName + "\\" + filename;
             App.Databasefilepath = filePath;
             if (dbfile.Exists)

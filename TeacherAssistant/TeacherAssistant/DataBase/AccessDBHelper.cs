@@ -1,13 +1,10 @@
-﻿using ADOX;
+﻿
+using ADOX;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TeacherAssistant.DataBase
 {
@@ -28,6 +25,8 @@ namespace TeacherAssistant.DataBase
             catch (Exception create)
             {
                 Debug.WriteLine(create.Message);
+                Debug.WriteLine("!!!Databese can not be created.!!!");
+
             }
         }
         public static void ConnectDB(string path)
@@ -153,7 +152,7 @@ namespace TeacherAssistant.DataBase
         /// <param name="commandText">存储过程名称或者sql命令语句</param>
         /// <param name="commandParameters">执行命令所用参数的集合</param>
         /// <returns>包含结果的读取器</returns>
-        public static OleDbDataReader ExecuteReader(string sql, string filepath, params OleDbParameter[] commandParameters)
+        public static OleDbDataReader ExecuteReader(string sql, string filepath)
         {
             string connstr = String.Format("Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0}", filepath);
             connection = new OleDbConnection(connstr);
