@@ -36,7 +36,7 @@ namespace TeacherAssistant.DataBase
             string connstr = String.Format("Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0}", path);
             connection = new OleDbConnection(connstr);
             Debug.WriteLine("连接");
-            //connection.Open();
+            connection.Open();
 
             //ADODB.Connection cn = new ADODB.Connection();
             ////打开连接
@@ -66,7 +66,6 @@ namespace TeacherAssistant.DataBase
             OleDbCommand cmd = new OleDbCommand(sql, connection);
             try
             {
-
                 connection.Open();
                 int affect = cmd.ExecuteNonQuery();
                 Debug.WriteLine("受影响的行数{0}", affect);
@@ -315,7 +314,11 @@ namespace TeacherAssistant.DataBase
         /// <param name="filepath"></param>
         public static void Transaction(string[] cmdText, string filepath)
         {
-            ConnectDB(filepath);
+
+            //连接字符串
+            string connstr = String.Format("Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0}", filepath);
+            connection = new OleDbConnection(connstr);
+            connection.Open();
             OleDbCommand cmd = new OleDbCommand();
             cmd.Connection = connection;
             cmd.Transaction = connection.BeginTransaction();

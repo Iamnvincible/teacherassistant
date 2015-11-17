@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TeacherAssistant.DataBase;
 
 namespace TeacherAssistant.View
 {
@@ -22,6 +25,31 @@ namespace TeacherAssistant.View
         public ClassListWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            AccessDBHelper.ConnectDB(App.Databasefilepath);
+            string sql = "select classname from classtable";
+            OleDbDataReader reader = AccessDBHelper.ExecuteReader(sql, App.Databasefilepath);
+            DataTable dt = new DataTable();
+            DataRow dr;
+            for (int i = 0; i < reader.FieldCount; i++)
+            {
+                DataColumn dc;
+                dc = new DataColumn(reader.GetName(i));
+                dt.Columns.Add(dc);
+
+            }
+            while (reader.Read())
+            {
+                dr = dt.NewRow();
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    dr[reader.GetName(i)] = reader[reader.GetName(i)].ToString();
+                 }
+            }
+            
         }
     }
 }

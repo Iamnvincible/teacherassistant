@@ -7,6 +7,6 @@
         mc:Ignorable="d"
         Title="我的课程" Height="500" Width="800">
     <Grid>
-        
+        <Button Content="测试" Click="Button_Click" Height=" 50" Width=" 200"></Button>
     </Grid>
 </Window>
