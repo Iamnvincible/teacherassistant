@@ -5,6 +5,7 @@ teacher assistant sln
 - 这是个坑，我用C#来填吧，太惨了。
 
 *甘玲老师教学管理助手*，`Power By .Net`
+**Support .Net Framework 4.5.2**
 
 
 
