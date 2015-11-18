@@ -6,6 +6,10 @@ teacher assistant sln
 
 *甘玲老师教学管理助手*，`Power By .Net`
 
+**Support .Net Framework 4.5.2**
+
+- 数据库使用 Microsoft Access
+- WPF
 
 
 
