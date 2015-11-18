@@ -8,13 +8,14 @@ using TeacherAssistant.DataBase;
 using TeacherAssistant.Model;
 using TeacherAssistant.NetWork;
 using TeacherAssistant.View;
+using MahApps.Metro.Controls;
 
 namespace TeacherAssistant
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow
+    public partial class MainWindow:MetroWindow
     {
         public MainWindow()
         {

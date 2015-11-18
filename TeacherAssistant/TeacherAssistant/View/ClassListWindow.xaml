@@ -1,12 +1,40 @@
-﻿<Window x:Class="TeacherAssistant.View.ClassListWindow"
+﻿<Controls:MetroWindow x:Class="TeacherAssistant.View.ClassListWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TeacherAssistant.View"
+                      xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
         Title="我的课程" Height="500" Width="800">
+
     <Grid>
-        <Button Content="测试" Click="Button_Click" Height=" 50" Width=" 200"></Button>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+            
+        <Button  Grid.Row="0" Content="测试" Click="Button_Click" Height=" 50" Width=" 200"></Button>
+        <DataGrid Grid.Row="1" Name="stulist" ItemsSource="{Binding}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="操作" Width="50">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="序号" Width="20" Binding="{Binding num ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="专业" Width="120" Binding="{Binding subject ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="学号" Width="80" Binding="{Binding stunum ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="姓名" Width="50" Binding="{Binding stuname ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="性别" Width="50" Binding="{Binding sex ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="班级" Width="60" Binding="{Binding classnum ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="入学年份" Width="60" Binding="{Binding classtype ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="选课状态" Width="60" Binding="{Binding classstate ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+
+            </DataGrid.Columns>
+        </DataGrid>
+        
     </Grid>
-</Window>
+</Controls:MetroWindow>

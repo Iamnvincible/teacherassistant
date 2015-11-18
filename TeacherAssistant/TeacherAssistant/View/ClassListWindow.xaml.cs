@@ -14,21 +14,42 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TeacherAssistant.DataBase;
+using MahApps.Metro.Controls;
+using TeacherAssistant.Model;
+using System.Collections.ObjectModel;
 
 namespace TeacherAssistant.View
 {
     /// <summary>
     /// Interaction logic for ClassListWindow.xaml
     /// </summary>
-    public partial class ClassListWindow : Window
+    public partial class ClassListWindow
     {
+        ObservableCollection<TeachClassStuA> grid = new ObservableCollection<TeachClassStuA>();
         public ClassListWindow()
         {
             InitializeComponent();
+
+            grid.Add(new TeachClassStuA()
+            {
+                Num = 1,
+                Subject = "计算机科学与技术",
+                StudentNum = "2013211429",
+                Name = "林杰",
+                Sex = "男",
+                ClassNum = "0491302",
+                Year = 2013,
+                ClassState = "正常"
+
+            });
+            getdata();
+           // stulist.DataContext = grid;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+
+
             AccessDBHelper.ConnectDB(App.Databasefilepath);
             string sql = "select classname from classtable";
             OleDbDataReader reader = AccessDBHelper.ExecuteReader(sql, App.Databasefilepath);
@@ -50,6 +71,23 @@ namespace TeacherAssistant.View
                  }
             }
             
+        }
+        void getdata()
+        {
+            OleDbConnection conn = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + App.Databasefilepath);
+            OleDbDataAdapter da = new OleDbDataAdapter("Select * from A041518124736", conn);
+            DataSet ds = new DataSet();
+            DataSet quertDs = new DataSet();
+            OleDbCommandBuilder cmd = new OleDbCommandBuilder(da);
+            conn.Open();
+            da = new OleDbDataAdapter("Select * from A041518124736", conn);
+            //da.InsertCommand = cmd.GetInsertCommand();
+            //da.UpdateCommand = cmd.GetUpdateCommand();
+            //da.DeleteCommand = cmd.GetDeleteCommand();
+            da.MissingSchemaAction = MissingSchemaAction.AddWithKey;
+            da.Fill(ds);
+            conn.Close();
+            stulist.DataContext = ds.Tables[0];
         }
     }
 }
