@@ -42,35 +42,47 @@ namespace TeacherAssistant.View
                 ClassState = "正常"
 
             });
-            getdata();
+            //getdata();
            // stulist.DataContext = grid;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
-
-            AccessDBHelper.ConnectDB(App.Databasefilepath);
-            string sql = "select classname from classtable";
+            List<TeachClassStuA> studatalist = new List<TeachClassStuA>();
+            //AccessDBHelper.ConnectDB(App.Databasefilepath);
+            string sql = "select * from A041518124736";
             OleDbDataReader reader = AccessDBHelper.ExecuteReader(sql, App.Databasefilepath);
-            DataTable dt = new DataTable();
-            DataRow dr;
-            for (int i = 0; i < reader.FieldCount; i++)
-            {
-                DataColumn dc;
-                dc = new DataColumn(reader.GetName(i));
-                dt.Columns.Add(dc);
-
-            }
             while (reader.Read())
             {
-                dr = dt.NewRow();
-                for (int i = 0; i < reader.FieldCount; i++)
-                {
-                    dr[reader.GetName(i)] = reader[reader.GetName(i)].ToString();
-                 }
+                TeachClassStuA tcsa = new TeachClassStuA();
+                tcsa.Num = (int)reader["num"];
+                tcsa.Subject = reader["subject"].ToString();
+                tcsa.StudentNum = reader["stunum"].ToString();
+                tcsa.Name = reader["stuname"].ToString();
+                tcsa.Sex = reader["sex"].ToString();
+                tcsa.ClassNum = reader["classnum"].ToString();
+                tcsa.ClassState = reader["classstate"].ToString();
+                studatalist.Add(tcsa);
             }
-            
+            //DataTable dt = new DataTable();
+            //DataRow dr;
+            //for (int i = 0; i < reader.FieldCount; i++)
+            //{
+            //    DataColumn dc;
+            //    dc = new DataColumn(reader.GetName(i));
+            //    dt.Columns.Add(dc);
+
+            //}
+            //while (reader.Read())
+            //{
+            //    dr = dt.NewRow();
+            //    for (int i = 0; i < reader.FieldCount; i++)
+            //    {
+            //        dr[reader.GetName(i)] = reader[reader.GetName(i)].ToString();
+            //     }
+            //}
+
         }
         void getdata()
         {
