@@ -99,12 +99,6 @@ namespace TeacherAssistant
                             SQLTransaction[trans] = insert;
                         }
                         AccessDBHelper.Transaction(SQLTransaction, filePath);
-                        //foreach (var item in stu)
-                        //{
-                        //    string insert = String.Format("('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')", item.Num, item.Subject, item.StudentNum, item.Name, item.Sex, item.ClassNum, item.ClassState, item.ClassType);
-                        //    string sqlinsert = itempatten + insert;
-                        //    AccessDBHelper.CreateTable(sqlinsert, filePath);
-                        //}
                     }
                     //理论课学生名单获取
                     else if (disurls[i].Substring(20).StartsWith("A") || disurls[i].Substring(20).StartsWith("R"))
@@ -122,12 +116,6 @@ namespace TeacherAssistant
 
                         }
                         AccessDBHelper.Transaction(SQLTransaction, filePath);
-                        //foreach (var item in stu)
-                        //{
-                        //    string insert = String.Format("('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')", item.Num, item.Subject, item.StudentNum, item.Name, item.Sex, item.ClassNum, item.Year, item.ClassState);
-                        //    string sqlinsert = itempatten + insert;
-                        //    AccessDBHelper.CreateTable(sqlinsert, filePath);
-                        //}
                     }
                     //超出我的预料啊
                     else
