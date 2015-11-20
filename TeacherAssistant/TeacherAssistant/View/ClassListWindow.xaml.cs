@@ -17,6 +17,7 @@ using TeacherAssistant.DataBase;
 using MahApps.Metro.Controls;
 using TeacherAssistant.Model;
 using System.Collections.ObjectModel;
+using MahApps.Metro.Controls;
 
 namespace TeacherAssistant.View
 {
@@ -29,42 +30,38 @@ namespace TeacherAssistant.View
         public ClassListWindow()
         {
             InitializeComponent();
-
-            grid.Add(new TeachClassStuA()
-            {
-                Num = 1,
-                Subject = "计算机科学与技术",
-                StudentNum = "2013211429",
-                Name = "林杰",
-                Sex = "男",
-                ClassNum = "0491302",
-                Year = 2013,
-                ClassState = "正常"
-
-            });
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
             //getdata();
-           // stulist.DataContext = grid;
+            // stulist.DataContext = grid;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Loaddata.IsActive = true;
             List<TeachClassStuA> studatalist = new List<TeachClassStuA>();
             //AccessDBHelper.ConnectDB(App.Databasefilepath);
             string sql = "select * from A041518124736";
-            OleDbDataReader reader = AccessDBHelper.ExecuteReader(sql, App.Databasefilepath);
-            while (reader.Read())
+            await Task.Run(() =>
             {
-                TeachClassStuA tcsa = new TeachClassStuA();
-                tcsa.Num = (int)reader["num"];
-                tcsa.Subject = reader["subject"].ToString();
-                tcsa.StudentNum = reader["stunum"].ToString();
-                tcsa.Name = reader["stuname"].ToString();
-                tcsa.Sex = reader["sex"].ToString();
-                tcsa.ClassNum = reader["classnum"].ToString();
-                tcsa.ClassState = reader["classstate"].ToString();
-                studatalist.Add(tcsa);
-            }
+
+                OleDbDataReader reader = AccessDBHelper.ExecuteReader(sql, App.Databasefilepath);
+                while (reader.Read())
+                {
+                    TeachClassStuA tcsa = new TeachClassStuA();
+                    tcsa.Num = (int)reader["num"];
+                    tcsa.Subject = reader["subject"].ToString();
+                    tcsa.StudentNum = reader["stunum"].ToString();
+                    tcsa.Name = reader["stuname"].ToString();
+                    tcsa.Sex = reader["sex"].ToString();
+                    tcsa.ClassNum = reader["classnum"].ToString();
+                    tcsa.Year = Convert.ToInt32(reader["inrollyear"].ToString());
+                    tcsa.ClassState = reader["classstate"].ToString();
+                    studatalist.Add(tcsa);
+                }
+            });
+            await Task.Delay(1000);
+            this.stulist.DataContext = studatalist;
+            this.Loaddata.IsActive = false;
             //DataTable dt = new DataTable();
             //DataRow dr;
             //for (int i = 0; i < reader.FieldCount; i++)

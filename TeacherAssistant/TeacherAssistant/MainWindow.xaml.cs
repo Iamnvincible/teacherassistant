@@ -15,7 +15,7 @@ namespace TeacherAssistant
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow:MetroWindow
+    public partial class MainWindow : MetroWindow
     {
         public MainWindow()
         {
@@ -93,9 +93,9 @@ namespace TeacherAssistant
                         string sql = "create table " + tablename + " (num Integer,subject TEXT(100),stunum TEXT(100),stuname TEXT(100),sex TEXT(100),classnum TEXT(100),classstate TEXT(100),classtype TEXT(100))";
                         AccessDBHelper.CreateTable(sql, filePath);
                         string itempatten = "insert into " + tablename + " (num, subject, stunum, stuname, sex, classnum, classstate, classtype) values ";
-                        for (int trans = 0;  trans < SQLTransaction.Length; trans++)
-                        { 
-                            string insert = String.Format(itempatten+ "('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')", stu[trans].Num, stu[trans].Subject, stu[trans].StudentNum, stu[trans].Name, stu[trans].Sex, stu[trans].ClassNum, stu[trans].ClassState, stu[trans].ClassType);
+                        for (int trans = 0; trans < SQLTransaction.Length; trans++)
+                        {
+                            string insert = String.Format(itempatten + "('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')", stu[trans].Num, stu[trans].Subject, stu[trans].StudentNum, stu[trans].Name, stu[trans].Sex, stu[trans].ClassNum, stu[trans].ClassState, stu[trans].ClassType);
                             SQLTransaction[trans] = insert;
                         }
                         AccessDBHelper.Transaction(SQLTransaction, filePath);
@@ -106,12 +106,12 @@ namespace TeacherAssistant
                         List<TeachClassStuA> stu = TableHelp.GetJxbStuList(disurls[i]) as List<TeachClassStuA>;
                         string tablename = disurls[i].Substring(20);
                         string[] SQLTransaction = new string[stu.Count];
-                        string sql = "create table " + tablename + " (num Integer,subject TEXT(100),stunum TEXT(100),stuname TEXT(100),sex TEXT(100),classnum TEXT(100),classtype TEXT(100),classstate TEXT(100),inrollyear TEXT(4))";
+                        string sql = "create table " + tablename + " (num Integer,subject TEXT(100),stunum TEXT(100),stuname TEXT(100),sex TEXT(100),classnum TEXT(100),inrollyear TEXT(4),classstate TEXT(100))";
                         AccessDBHelper.CreateTable(sql, filePath);
-                        string itempatten = "insert into " + tablename + " (num, subject, stunum, stuname, sex, classnum, classstate, classtype,inrollyear) values ";
+                        string itempatten = "insert into " + tablename + " (num, subject, stunum, stuname, sex, classnum,inrollyear,classstate) values ";
                         for (int trans = 0; trans < SQLTransaction.Length; trans++)
                         {
-                            string insert = String.Format(itempatten+"('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}')", stu[trans].Num, stu[trans].Subject, stu[trans].StudentNum, stu[trans].Name, stu[trans].Sex, stu[trans].ClassNum, stu[trans].Year, stu[trans].ClassState);
+                            string insert = String.Format(itempatten + "('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')", stu[trans].Num, stu[trans].Subject, stu[trans].StudentNum, stu[trans].Name, stu[trans].Sex, stu[trans].ClassNum, stu[trans].Year, stu[trans].ClassState);
                             SQLTransaction[trans] = insert;
 
                         }
