@@ -17,7 +17,7 @@ using TeacherAssistant.DataBase;
 using MahApps.Metro.Controls;
 using TeacherAssistant.Model;
 using System.Collections.ObjectModel;
-using MahApps.Metro.Controls;
+
 
 namespace TeacherAssistant.View
 {
@@ -26,7 +26,7 @@ namespace TeacherAssistant.View
     /// </summary>
     public partial class ClassListWindow
     {
-        ObservableCollection<TeachClassStuA> grid = new ObservableCollection<TeachClassStuA>();
+        ObservableCollection<TeachClassStu> grid = new ObservableCollection<TeachClassStu>();
         public ClassListWindow()
         {
             InitializeComponent();
@@ -38,7 +38,7 @@ namespace TeacherAssistant.View
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Loaddata.IsActive = true;
-            List<TeachClassStuA> studatalist = new List<TeachClassStuA>();
+            List<TeachClassStu> studatalist = new List<TeachClassStu>();
             //AccessDBHelper.ConnectDB(App.Databasefilepath);
             string sql = "select * from A041518124736";
             await Task.Run(() =>
@@ -47,15 +47,15 @@ namespace TeacherAssistant.View
                 OleDbDataReader reader = AccessDBHelper.ExecuteReader(sql, App.Databasefilepath);
                 while (reader.Read())
                 {
-                    TeachClassStuA tcsa = new TeachClassStuA();
-                    tcsa.Num = (int)reader["num"];
-                    tcsa.Subject = reader["subject"].ToString();
-                    tcsa.StudentNum = reader["stunum"].ToString();
-                    tcsa.Name = reader["stuname"].ToString();
+                    TeachClassStu tcsa = new TeachClassStu();
+                    tcsa.StuNum = reader["stunum"].ToString();
+                    tcsa.StuName = reader["stuname"].ToString();
                     tcsa.Sex = reader["sex"].ToString();
+                    tcsa.Subject = reader["subject"].ToString();
                     tcsa.ClassNum = reader["classnum"].ToString();
-                    tcsa.Year = Convert.ToInt32(reader["inrollyear"].ToString());
                     tcsa.ClassState = reader["classstate"].ToString();
+                    tcsa.ClassType = reader["classtype"].ToString();
+                    tcsa.num=Convert.ToInt32(reader["classstate"].ToString());
                     studatalist.Add(tcsa);
                 }
             });

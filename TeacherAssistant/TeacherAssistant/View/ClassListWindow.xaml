@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
 
         <Button  Grid.Row="0" Content="测试" Click="Button_Click" Height=" 20" Width=" 40"></Button>
-        <DataGrid Grid.Row="1" Name="stulist" ItemsSource="{Binding}" AutoGenerateColumns="False">
+        <DataGrid Grid.Row="1" Name="stulist" ItemsSource="{Binding}" AutoGenerateColumns="False" Height="300" Width="550"  HorizontalAlignment="Left" VerticalAlignment="Top">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="序号" Width="50" Binding="{Binding Num ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="专业" Width="120" Binding="{Binding Subject ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
@@ -27,9 +27,9 @@
                 <DataGridTextColumn Header="选课状态" Width="70" Binding="{Binding ClassState ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Controls:ProgressRing x:Name="Loaddata" IsActive="False">
-            
-        </Controls:ProgressRing>
+            <Controls:ProgressRing x:Name="Loaddata" IsActive="False"  VerticalAlignment="Center"/>
+
+
 
 
     </Grid>

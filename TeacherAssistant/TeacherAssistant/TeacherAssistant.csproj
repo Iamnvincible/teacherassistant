@@ -76,8 +76,6 @@
     </ApplicationDefinition>
     <Compile Include="DataBase\AccessDBHelper.cs" />
     <Compile Include="Model\ClassDetail.cs" />
-    <Compile Include="Model\TeachClassStuA.cs" />
-    <Compile Include="Model\TeachClassStuSJ.cs" />
     <Compile Include="View\ClassListWindow.xaml.cs">
       <DependentUpon>ClassListWindow.xaml</DependentUpon>
     </Compile>
