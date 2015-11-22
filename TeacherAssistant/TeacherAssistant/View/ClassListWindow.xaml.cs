@@ -55,7 +55,7 @@ namespace TeacherAssistant.View
                     tcsa.ClassNum = reader["classnum"].ToString();
                     tcsa.ClassState = reader["classstate"].ToString();
                     tcsa.ClassType = reader["classtype"].ToString();
-                    tcsa.num=Convert.ToInt32(reader["classstate"].ToString());
+                    tcsa.Num=Convert.ToInt32(reader["classstate"].ToString());
                     studatalist.Add(tcsa);
                 }
             });

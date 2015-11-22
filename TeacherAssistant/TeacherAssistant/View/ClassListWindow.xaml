@@ -18,13 +18,13 @@
         <DataGrid Grid.Row="1" Name="stulist" ItemsSource="{Binding}" AutoGenerateColumns="False" Height="300" Width="550"  HorizontalAlignment="Left" VerticalAlignment="Top">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="序号" Width="50" Binding="{Binding Num ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="专业" Width="120" Binding="{Binding Subject ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="学号" Width="80" Binding="{Binding StudentNum ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="姓名" Width="50" Binding="{Binding Name ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="学号" Width="120" Binding="{Binding StuNum ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="姓名" Width="80" Binding="{Binding StuName ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="性别" Width="50" Binding="{Binding Sex ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="专业" Width="50" Binding="{Binding Subject ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="班级" Width="60" Binding="{Binding ClassNum ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="入学年份" Width="70" Binding="{Binding Year ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="选课状态" Width="70" Binding="{Binding ClassState ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="课程类型" Width="70" Binding="{Binding ClassType ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
             </DataGrid.Columns>
         </DataGrid>
             <Controls:ProgressRing x:Name="Loaddata" IsActive="False"  VerticalAlignment="Center"/>

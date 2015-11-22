@@ -39,6 +39,6 @@ namespace TeacherAssistant.Model
         /// <summary>
         /// 顺序编号
         /// </summary>
-        public int num { get; set; }
+        public int Num { get; set; }
     }
 }
