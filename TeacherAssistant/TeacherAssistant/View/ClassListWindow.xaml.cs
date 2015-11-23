@@ -26,13 +26,13 @@ namespace TeacherAssistant.View
     /// </summary>
     public partial class ClassListWindow
     {
-        ObservableCollection<TeachClassStu> grid = new ObservableCollection<TeachClassStu>();
+        List<ClassDetail> classtable = new List<ClassDetail>();
         public ClassListWindow()
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             //getdata();
-            // stulist.DataContext = grid;
+            getclasstable();
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
@@ -43,7 +43,6 @@ namespace TeacherAssistant.View
             string sql = "select * from A041518124736";
             await Task.Run(() =>
             {
-
                 OleDbDataReader reader = AccessDBHelper.ExecuteReader(sql, App.Databasefilepath);
                 while (reader.Read())
                 {
@@ -55,11 +54,12 @@ namespace TeacherAssistant.View
                     tcsa.ClassNum = reader["classnum"].ToString();
                     tcsa.ClassState = reader["classstate"].ToString();
                     tcsa.ClassType = reader["classtype"].ToString();
-                    tcsa.Num=Convert.ToInt32(reader["classstate"].ToString());
+                    tcsa.Num=Convert.ToInt32(reader["num"].ToString());
                     studatalist.Add(tcsa);
                 }
             });
             await Task.Delay(1000);
+            studatalist.Sort(new TeachClassStu());
             this.stulist.DataContext = studatalist;
             this.Loaddata.IsActive = false;
             //DataTable dt = new DataTable();
@@ -97,6 +97,29 @@ namespace TeacherAssistant.View
             da.Fill(ds);
             conn.Close();
             stulist.DataContext = ds.Tables[0];
+        }
+        async void getclasstable()
+        {
+            string sql = "select * from classtable";
+            await Task.Run(() =>
+            {
+                OleDbDataReader reader = AccessDBHelper.ExecuteReader(sql, App.Databasefilepath);
+                while (reader.Read())
+                {
+                    ClassDetail tcsa = new ClassDetail();
+                    tcsa.CourseNum = reader["coursenum"].ToString();
+                    tcsa.CourseName = reader["coursename"].ToString();
+                    tcsa.Classroom = reader["classroom"].ToString();
+                    tcsa.LastWeeks = Array.ConvertAll<string,int>(reader["lastweeks"].ToString().Split(','),s=>int.Parse(s));
+                    tcsa.ClassType = reader["classtype"].ToString();
+                    tcsa.Subject = reader["subject"].ToString();
+                    tcsa.StuClassNum = reader["stuclassnum"].ToString().Split(',');
+                    tcsa.CourseDay = reader["courseday"].ToString();
+                    tcsa.CourseTime = reader["coursetime"].ToString();
+                    classtable.Add(tcsa);
+                }
+            });
+            this.table.ItemsSource = classtable;
         }
     }
 }

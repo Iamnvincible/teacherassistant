@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TeacherAssistant.Model
 {
-    public class TeachClassStu
+    public class TeachClassStu:IComparer<TeachClassStu>
     {
         /// <summary>
         /// 学生学号
@@ -40,5 +40,10 @@ namespace TeacherAssistant.Model
         /// 顺序编号
         /// </summary>
         public int Num { get; set; }
+
+        public int Compare(TeachClassStu x, TeachClassStu y)
+        {
+            return x.Num - y.Num;
+        }
     }
 }

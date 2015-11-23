@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TeacherAssistant.View"
-                      xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
         Title="我的课程" Height="500" Width="800">
 
@@ -13,24 +13,38 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-
         <Button  Grid.Row="0" Content="测试" Click="Button_Click" Height=" 20" Width=" 40"></Button>
-        <DataGrid Grid.Row="1" Name="stulist" ItemsSource="{Binding}" AutoGenerateColumns="False" Height="300" Width="550"  HorizontalAlignment="Left" VerticalAlignment="Top">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="序号" Width="50" Binding="{Binding Num ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="学号" Width="120" Binding="{Binding StuNum ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="姓名" Width="80" Binding="{Binding StuName ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="性别" Width="50" Binding="{Binding Sex ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="专业" Width="50" Binding="{Binding Subject ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="班级" Width="60" Binding="{Binding ClassNum ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="选课状态" Width="70" Binding="{Binding ClassState ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="课程类型" Width="70" Binding="{Binding ClassType ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-            </DataGrid.Columns>
-        </DataGrid>
-            <Controls:ProgressRing x:Name="Loaddata" IsActive="False"  VerticalAlignment="Center"/>
-
-
-
-
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <ListView x:Name="table" Grid.Column="0"  Background="Azure">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <StackPanel Orientation="Vertical">
+                                
+                            <TextBlock Text="{Binding CourseName}"/>
+                            <TextBlock Text="{Binding Classroom}"/>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <DataGrid Grid.Column="1" Name="stulist" ItemsSource="{Binding}" AutoGenerateColumns="False" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="序号" Width="50" Binding="{Binding Num ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="学号" Width="120" Binding="{Binding StuNum ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="姓名" Width="80" Binding="{Binding StuName ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="性别" Width="50" Binding="{Binding Sex ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="专业" Width="50" Binding="{Binding Subject ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="班级" Width="60" Binding="{Binding ClassNum ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="选课状态" Width="70" Binding="{Binding ClassState ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="课程类型" Width="70" Binding="{Binding ClassType ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Controls:ProgressRing x:Name="Loaddata" IsActive="False"  VerticalAlignment="Center"/>
     </Grid>
 </Controls:MetroWindow>
