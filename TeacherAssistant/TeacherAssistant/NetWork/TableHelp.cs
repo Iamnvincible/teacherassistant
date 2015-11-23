@@ -290,7 +290,7 @@ namespace TeacherAssistant.NetWork
                     {
                         Regex rr = new Regex(@"\d{1,}");
                         MatchCollection ma = rr.Matches(item.Value);
-                        for (int i = Convert.ToInt32(ma[0].Value); i < Convert.ToInt32(ma[1].Value); i++)
+                        for (int i = Convert.ToInt32(ma[0].Value); i <=Convert.ToInt32(ma[1].Value); i++)
                         {
                             weeks.Add(i);
                         }

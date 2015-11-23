@@ -116,7 +116,7 @@ namespace TeacherAssistant
                         List<TeachClassStu> stu = TableHelp.GetJxbStuList(disurls[i]);
                         string tablename = disurls[i];
                         string[] SQLTransaction = new string[stu.Count];
-                        string sql = "create table " + tablename + " (stunum TEXT(50) primary key, stuname TEXT(100),sex TEXT(4),subject TEXT(100),classnum TEXT(100),classstate TEXT(50),classtype TEXT(50),num autoincrement,PRIMARY KEY(stunum,classnum))";
+                        string sql = "create table " + tablename + " (stunum TEXT(50) primary key, stuname TEXT(100),sex TEXT(4),subject TEXT(100),classnum TEXT(100),classstate TEXT(50),classtype TEXT(50),num autoincrement)";
                         AccessDBHelper.CreateTable(sql, filePath);
                         string itempatten = "insert into " + tablename + " (stunum, stuname, sex, subject, classnum, classstate, classtype) values ";
                         for (int trans = 0; trans < SQLTransaction.Length; trans++)
