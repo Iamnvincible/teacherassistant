@@ -17,7 +17,7 @@ using TeacherAssistant.DataBase;
 using MahApps.Metro.Controls;
 using TeacherAssistant.Model;
 using System.Collections.ObjectModel;
-
+using System.Diagnostics;
 
 namespace TeacherAssistant.View
 {
@@ -54,7 +54,7 @@ namespace TeacherAssistant.View
                     tcsa.ClassNum = reader["classnum"].ToString();
                     tcsa.ClassState = reader["classstate"].ToString();
                     tcsa.ClassType = reader["classtype"].ToString();
-                    tcsa.Num=Convert.ToInt32(reader["num"].ToString());
+                    tcsa.Num = Convert.ToInt32(reader["num"].ToString());
                     studatalist.Add(tcsa);
                 }
             });
@@ -110,16 +110,56 @@ namespace TeacherAssistant.View
                     tcsa.CourseNum = reader["coursenum"].ToString();
                     tcsa.CourseName = reader["coursename"].ToString();
                     tcsa.Classroom = reader["classroom"].ToString();
-                    tcsa.LastWeeks = Array.ConvertAll<string,int>(reader["lastweeks"].ToString().Split(','),s=>int.Parse(s));
+                    tcsa.LastWeeks = Array.ConvertAll<string, int>(reader["lastweeks"].ToString().Split(','), s => int.Parse(s));
                     tcsa.ClassType = reader["classtype"].ToString();
                     tcsa.Subject = reader["subject"].ToString();
                     tcsa.StuClassNum = reader["stuclassnum"].ToString().Split(',');
                     tcsa.CourseDay = reader["courseday"].ToString();
                     tcsa.CourseTime = reader["coursetime"].ToString();
+                    tcsa.StudentListUrl = reader["stulisturl"].ToString();
                     classtable.Add(tcsa);
                 }
             });
             this.table.ItemsSource = classtable;
+        }
+
+        private void table_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ClassDetail selecteditem = table.SelectedItem as ClassDetail;
+            if (selecteditem != null)
+            {
+                Debug.WriteLine(selecteditem.CourseName);
+                getstulist(selecteditem.StudentListUrl);
+            }
+        }
+        async void getstulist(string strurl)
+        {
+            this.Loaddata.IsActive = true;
+            this.stulist.DataContext = null;
+            List<TeachClassStu> studatalist = new List<TeachClassStu>();
+            //AccessDBHelper.ConnectDB(App.Databasefilepath);
+            string sql = String.Format("select * from {0}", strurl);
+            await Task.Run(() =>
+            {
+                OleDbDataReader reader = AccessDBHelper.ExecuteReader(sql, App.Databasefilepath);
+                while (reader.Read())
+                {
+                    TeachClassStu tcsa = new TeachClassStu();
+                    tcsa.StuNum = reader["stunum"].ToString();
+                    tcsa.StuName = reader["stuname"].ToString();
+                    tcsa.Sex = reader["sex"].ToString();
+                    tcsa.Subject = reader["subject"].ToString();
+                    tcsa.ClassNum = reader["classnum"].ToString();
+                    tcsa.ClassState = reader["classstate"].ToString();
+                    tcsa.ClassType = reader["classtype"].ToString();
+                    tcsa.Num = Convert.ToInt32(reader["num"].ToString());
+                    studatalist.Add(tcsa);
+                }
+            });
+            await Task.Delay(1000);
+            studatalist.Sort(new TeachClassStu());
+            this.stulist.DataContext = studatalist;
+            this.Loaddata.IsActive = false;
         }
     }
 }
