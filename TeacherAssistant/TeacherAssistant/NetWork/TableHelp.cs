@@ -100,9 +100,10 @@ namespace TeacherAssistant.NetWork
             {
                 var item = list[i].SelectNodes("td");//获取行
                 times[i] = item[0].InnerText.Trim();//时间段
+                int  timeclasscout = 0;
                 for (int j = 1; j < item.Count; j++)//从星期一到星期天
                 {
-                    var iii = item[j].InnerHtml.Trim().LastIndexOf('&');
+                    //var iii = item[j].InnerHtml.Trim().LastIndexOf('&');
                     if (item[j].InnerHtml.Trim().Length != 6)
                     {
                         string innerhtml = item[j].InnerHtml.Replace("&nbsp;", "");
@@ -120,9 +121,10 @@ namespace TeacherAssistant.NetWork
                             var classtype = item[j].SelectNodes("./font")[l * 2].InnerText.Trim();
                             string subject = inner[4 + offset].InnerText.Trim();
                             string[] stuclasses = TransClasslist(inner[5 + offset].InnerText.Trim());
-                            string listurl = item[j].SelectNodes("..//a[@href]")[l].Attributes["href"].Value.Trim().Substring(20);
+                            string listurl = item[j].SelectNodes("..//a[@href]")[timeclasscout].Attributes["href"].Value.Trim().Substring(20);
                             ClassDetail cd = new ClassDetail { CourseNum = coursenum, CourseName = coursename, Classroom = classroom, LastWeeks = lastweeks, ClassType = classtype, Subject = subject, StuClassNum = stuclasses, StudentListUrl = listurl, CourseDay = date[j - 1], CourseTime = times[i] };
                             classtable.Add(cd);
+                            timeclasscout++;
                         }
                     }
                 }
@@ -311,6 +313,11 @@ namespace TeacherAssistant.NetWork
         /// <returns>班级编号数组</returns>
         private static string[] TransClasslist(string rawclasses)
         {
+            if (rawclasses == "班级：全校通选")
+            {
+                string[] all = new string[1] { "全校通选" };
+                return all;
+            }
             List<string> classlist = new List<string>();
             Regex r = new Regex(@"\d{1,}");
             MatchCollection mc = r.Matches(rawclasses);

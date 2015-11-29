@@ -51,7 +51,7 @@ namespace TeacherAssistant
         }
         bool get(string teachernum)
         {
-            string filename = String.Format("{0}.mdb", teachernum);
+            string filename = String.Format("{0}.mdb", teachernum);//以教师号命名数据库文件
             FileInfo dbfile = new FileInfo(filename);
             string filePath = new DirectoryInfo(".").FullName + "\\" + filename;
             App.Databasefilepath = filePath;
@@ -77,16 +77,16 @@ namespace TeacherAssistant
                     string StuClassNum = "";
                     for (int i = 0; i < item.LastWeeks.Length; i++)
                     {
-                        if (item.LastWeeks[i] == -1)
-                        {
-                            LastWeeks = "单周";
-                            break;
-                        }
-                        if (item.LastWeeks[i] == -2)
-                        {
-                            LastWeeks = "双周";
-                            break;
-                        }
+                        //if (item.LastWeeks[i] == -1)
+                        //{
+                        //    LastWeeks = "单周";
+                        //    break;
+                        //}
+                        //if (item.LastWeeks[i] == -2)
+                        //{
+                        //    LastWeeks = "双周";
+                        //    break;
+                        //}
                         if (i != 0)
                             LastWeeks += ",";
                         LastWeeks += item.LastWeeks[i];

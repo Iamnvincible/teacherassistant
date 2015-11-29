@@ -27,6 +27,7 @@ namespace TeacherAssistant.View
     public partial class ClassListWindow
     {
         List<ClassDetail> classtable = new List<ClassDetail>();
+        List<TeachClassStu> studatalist = new List<TeachClassStu>();
         public ClassListWindow()
         {
             InitializeComponent();
@@ -136,7 +137,8 @@ namespace TeacherAssistant.View
         {
             this.Loaddata.IsActive = true;
             this.stulist.DataContext = null;
-            List<TeachClassStu> studatalist = new List<TeachClassStu>();
+            studatalist.Clear();
+            //List<TeachClassStu> studatalist = new List<TeachClassStu>();
             //AccessDBHelper.ConnectDB(App.Databasefilepath);
             string sql = String.Format("select * from {0}", strurl);
             await Task.Run(() =>

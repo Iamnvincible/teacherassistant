@@ -8,6 +8,7 @@
         xmlns:Converters="clr-namespace:TeacherAssistant.Converter"
         mc:Ignorable="d"
         Title="我的课程" Height="500" Width="800">
+    
     <Window.Resources>
         <Converters:ArraryToStringValueConverter x:Key="arrarytostr"/>
     </Window.Resources>
@@ -34,6 +35,7 @@
                                     <TextBlock Text="{Binding CourseNum}"/>
                                     <TextBlock Text="{Binding LastWeeks,Converter={StaticResource arrarytostr}}"/>
                                     <TextBlock Text="{Binding ClassType}"/>
+                                    <TextBlock Text="{Binding StudentListUrl}"/>
                                     <TextBlock Text="{Binding Subject}"/>
                                     <TextBlock Text="{Binding StuClassNum,Converter={StaticResource arrarytostr}}"/>
                                     <TextBlock Text="{Binding CourseDay}"/>
@@ -47,7 +49,7 @@
             <DataGrid Grid.Column="1" Name="stulist" ItemsSource="{Binding}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="序号" Width="50" Binding="{Binding Num ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                    <DataGridTextColumn Header="学号" Width="120" Binding="{Binding StuNum ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="学号" Width="100" Binding="{Binding StuNum ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                     <DataGridTextColumn Header="姓名" Width="80" Binding="{Binding StuName ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                     <DataGridTextColumn Header="性别" Width="50" Binding="{Binding Sex ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                     <DataGridTextColumn Header="专业" Width="50" Binding="{Binding Subject ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
