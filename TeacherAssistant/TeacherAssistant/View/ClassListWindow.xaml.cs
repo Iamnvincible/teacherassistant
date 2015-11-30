@@ -167,6 +167,7 @@ namespace TeacherAssistant.View
                     }
                 }
             }
+            classtable.Sort(new ClassDetail());
             this.table.ItemsSource = classtable;
             //List<ClassDetail> cd2 = new List<ClassDetail>();
             //var group = classtable.GroupBy(p => p.CourseNum);

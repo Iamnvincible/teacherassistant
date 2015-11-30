@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace TeacherAssistant.Model
 {
-    public class ClassDetail
+
+    public enum week : byte
+    {
+        星期一,
+        星期二,
+        星期三,
+        星期四,
+        星期五,
+        星期六,
+        星期日,
+    }
+    public class ClassDetail : IComparer<ClassDetail>
     {
         /// <summary>
         /// 课表中的id，顺序
@@ -55,10 +66,55 @@ namespace TeacherAssistant.Model
 
         public bool Compare(ClassDetail other)
         {
-            return this.id == other.id && this.StudentListUrl == other.StudentListUrl && this.CourseDay == other.CourseDay&&this.CourseTime==other.CourseTime;
-        
-        
+            return this.id == other.id && this.StudentListUrl == other.StudentListUrl && this.CourseDay == other.CourseDay && this.CourseTime == other.CourseTime;
+        }
 
+        public int Compare(ClassDetail x, ClassDetail y)
+        {
+            int xd = strweektoint(x.CourseDay);
+            int yd = strweektoint(y.CourseDay);
+            int xt = strtimetoint(x.CourseTime);
+            int yt = strtimetoint(y.CourseTime);
+            if (xd != yd)
+                return xd - yd;
+            else
+                return xt - yt;
+        }
+        private int strweektoint(string w)
+        {
+            if (w == "星期一")
+                return 1;
+            if (w == "星期二")
+                return 2;
+            if (w == "星期三")
+                return 3;
+            if (w == "星期四")
+                return 4;
+            if (w == "星期五")
+                return 5;
+            if (w == "星期六")
+                return 6;
+            if (w == "星期日" || w == "星期天")
+                return 7;
+            else
+                return 0;
+        }
+        private int strtimetoint(string t)
+        {
+            if (t == "一二节")
+                return 1;
+            if (t == "三四节")
+                return 2;
+            if (t == "五六节")
+                return 3;
+            if (t == "七八节")
+                return 4;
+            if (t == "九十节")
+                return 5;
+            if (t == "十一二节")
+                return 6;
+            else
+                return 0;
         }
     }
 }
