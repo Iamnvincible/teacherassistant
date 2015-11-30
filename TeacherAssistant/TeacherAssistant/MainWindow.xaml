@@ -10,7 +10,8 @@
        ShowIconOnTitleBar="True"
        ShowTitleBar="True" 
        ShowMaxRestoreButton="False"
-        Title="重邮教师助手" Height="330" Width="430" ResizeMode="CanMinimize" Icon="logo.ico">
+       FontFamily="Microsoft Yahei UI"
+       Title="重邮教师助手" Height="330" Width="430" ResizeMode="CanMinimize" Icon="logo.ico">
     <Window.Resources>
         <!--圆角button-->
         <!--<Style x:Key="RoundButton" TargetType="Button">

@@ -7,8 +7,9 @@
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:Converters="clr-namespace:TeacherAssistant.Converter"
         mc:Ignorable="d"
+        FontFamily="Microsoft Yahei UI"
         Title="我的课程" Height="500" Width="800">
-    
+
     <Window.Resources>
         <Converters:ArraryToStringValueConverter x:Key="arrarytostr"/>
     </Window.Resources>
@@ -46,7 +47,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <DataGrid Grid.Column="1" Name="stulist" ItemsSource="{Binding}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
+            <DataGrid Grid.Column="1" Name="stulist" ItemsSource="{Binding}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"  >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="序号" Width="50" Binding="{Binding Num ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                     <DataGridTextColumn Header="学号" Width="100" Binding="{Binding StuNum ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
