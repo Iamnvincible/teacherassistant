@@ -121,7 +121,37 @@ namespace TeacherAssistant.View
                     classtable.Add(tcsa);
                 }
             });
+            for (int i = 0; i < classtable.Count - 1; i++)
+            {
+                for (int j = i + 1; j < classtable.Count; j++)
+                {
+                    if (classtable[i].Compare(classtable[j]))
+                    {
+                        int[] int1 = classtable[i].LastWeeks;
+                        int[] int2 = classtable[j].LastWeeks;
+                        int[] all = new int[int1.Length + int2.Length];
+                        int1.CopyTo(all, 0);
+                        int2.CopyTo(all, int1.Length);
+                        Array.Sort(all);
+                        classtable[i].LastWeeks = all;
+                        classtable.Remove(classtable[j]);
+                    }
+                }
+            }
             this.table.ItemsSource = classtable;
+            //List<ClassDetail> cd2 = new List<ClassDetail>();
+            //var group = classtable.GroupBy(p => p.CourseNum);
+            //foreach (var item in group)
+            //{
+            //    ClassDetail c=new  ClassDetail
+            //}
+
+            //classtable.ForEach(c =>
+            //{
+            //    var group = classtable.Where(a => a.CourseDay == c.CourseDay && a.CourseTime == c.CourseDay && a.CourseNum == c.CourseNum);
+            //    var weeks = group.Select(t => t.LastWeeks).ToArray();
+
+            //});
         }
 
         private void table_MouseDoubleClick(object sender, MouseButtonEventArgs e)

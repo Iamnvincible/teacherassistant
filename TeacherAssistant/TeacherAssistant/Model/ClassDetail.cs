@@ -52,5 +52,13 @@ namespace TeacherAssistant.Model
         /// 上课时段
         /// </summary>
         public string CourseTime { get; set; }
+
+        public bool Compare(ClassDetail other)
+        {
+            return this.id == other.id && this.StudentListUrl == other.StudentListUrl && this.CourseDay == other.CourseDay&&this.CourseTime==other.CourseTime;
+        
+        
+
+        }
     }
 }
