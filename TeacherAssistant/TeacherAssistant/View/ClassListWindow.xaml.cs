@@ -138,6 +138,35 @@ namespace TeacherAssistant.View
                     }
                 }
             }
+            for (int i = 0; i < classtable.Count; i++)
+            {
+                if (classtable[i].LastWeeks[0] == -1)
+                {
+                    var v = from n in classtable where n.StudentListUrl == classtable[i].StudentListUrl select n.LastWeeks;
+                    var all = v.ToArray();
+                    for (int k = 0; k < all.GetLength(0); k++)
+                    {
+                        if (all[k].Length > 1)
+                        {
+                            var odd = from n in all[k] where n % 2 != 0 select n;
+                            classtable[i].LastWeeks = odd.ToArray();
+                        }
+                    }
+                }
+                if (classtable[i].LastWeeks[0] == -2)
+                {
+                    var v = from n in classtable where n.StudentListUrl == classtable[i].StudentListUrl select n.LastWeeks;
+                    var all = v.ToArray();
+                    for (int k = 0; k < all.GetLength(0); k++)
+                    {
+                        if (all[k].Length > 1)
+                        {
+                            var even = from n in all[k] where n % 2 == 0 select n;
+                            classtable[i].LastWeeks = even.ToArray();
+                        }
+                    }
+                }
+            }
             this.table.ItemsSource = classtable;
             //List<ClassDetail> cd2 = new List<ClassDetail>();
             //var group = classtable.GroupBy(p => p.CourseNum);
