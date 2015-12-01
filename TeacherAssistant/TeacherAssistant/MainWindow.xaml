@@ -13,6 +13,7 @@
        FontFamily="Microsoft Yahei UI"
        Title="重邮教师助手" Height="330" Width="430" ResizeMode="CanMinimize" Icon="logo.ico">
     <Window.Resources>
+        <!--来自Visual Studio 2015 Update 1-->
         <!--圆角button-->
         <!--<Style x:Key="RoundButton" TargetType="Button">
             <Setter Property="FontSize" Value="15"/>
