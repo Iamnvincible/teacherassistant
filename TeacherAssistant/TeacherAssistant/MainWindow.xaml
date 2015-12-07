@@ -11,7 +11,7 @@
        ShowTitleBar="True" 
        ShowMaxRestoreButton="False"
        FontFamily="Microsoft Yahei UI"
-       Title="重邮教师助手" Height="330" Width="430" ResizeMode="CanMinimize" Icon="logo.ico">
+       Title="重邮教师助手" Height="800" Width="500" ResizeMode="CanMinimize">
     <Window.Resources>
         <!--来自Visual Studio 2015 Update 1-->
         <!--圆角button-->
@@ -129,13 +129,13 @@
             <RowDefinition Height="6*"/>
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
-        <Grid x:Name="TopBar" Grid.Row="0" Background="#006FA9">
+        <Grid x:Name="TopBar" Grid.Row="0" Background="#7cccfe">
             <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                <Image Name="logoimage" Source="/Image/logo.png" Width="100" Height="100"/>
+                <Image Name="logoimage" Source="/Image/logo.png" Width="189" Height="150"/>
                 <TextBlock x:Name="message" Text="欢迎使用" FontSize="16" HorizontalAlignment="Center"  Foreground="Wheat"/>
             </StackPanel>
         </Grid>
-        <Grid x:Name="LoginGrid" Grid.Row="1" Background="#EBF2F9">
+        <Grid x:Name="LoginGrid" Grid.Row="1" Background="#7cccfe">
             <Grid  HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -146,6 +146,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
                         <TextBox Grid.Row="0" x:Name="TeacherNumberBox"  Width="200" Height="30" Margin="0,0,0,20"  SnapsToDevicePixels="True"  FontSize="16" Style="{StaticResource Test_TextBox}" MaxLength="10" MaxLines="1"  Text="040317">
                             <TextBox.Effect>
@@ -153,13 +154,21 @@
                             </TextBox.Effect>
                         </TextBox>
 
-                        <Button Grid.Row="1" x:Name="Loginbutton"  Width="200" Height="30" Click="Loginbutton_Click" FontFamily="Microsoft Yahei Light" Content="登 录" Style="{StaticResource RoundButtonMouse}"/>
+                        <TextBox Grid.Row="1" x:Name="TeacherPasswordBox"  Width="200" Height="30" Margin="0,0,0,20"  SnapsToDevicePixels="True"  FontSize="16" Style="{StaticResource Test_TextBox}" MaxLength="10" MaxLines="1"  Text="040317">
+                                <TextBox.Effect>
+                                    <DropShadowEffect ShadowDepth="0" Direction="270" BlurRadius="2" RenderingBias="Quality"/>
+                                </TextBox.Effect>
+                            </TextBox>
+
+                        <Button Grid.Row="2" x:Name="Loginbutton"  Width="200" Height="30" Click="Loginbutton_Click" FontFamily="Microsoft Yahei Light" Content="登 录" Style="{StaticResource RoundButtonMouse}"/>
                     </Grid>
                 </Grid>
-                <TextBlock Grid.Column="1"  x:Name="openfile"  Text="打开文件" FontSize="13" Foreground="#006FA9"  Margin="10,10,-78,10"/>
+                <TextBlock Grid.Column="2"  x:Name="openfile"  Text="打开文件" FontSize="13" Foreground="#006FA9"  Margin="10,10,-78,10"/>
             </Grid>
         </Grid>
         <Controls:ProgressRing x:Name="Downloading" Width="70" Height="70" Visibility="Collapsed" IsActive="True"  Foreground="AliceBlue" FontFamily="Microsoft YaHei"/>
+
+        
     </Grid>
 
 </Controls:MetroWindow>
