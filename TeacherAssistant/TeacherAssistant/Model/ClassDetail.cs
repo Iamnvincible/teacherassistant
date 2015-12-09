@@ -56,7 +56,7 @@ namespace TeacherAssistant.Model
 
         public bool Compare(ClassDetail other)
         {
-            return this.id == other.id && this.StudentListUrl == other.StudentListUrl && this.CourseDay == other.CourseDay && this.CourseTime == other.CourseTime;
+            return this.id == other.id && this.StudentListUrl == other.StudentListUrl && this.CourseDay == other.CourseDay && this.CourseTime == other.CourseTime&&this.Subject==other.Subject&&this.LastWeeks!=other.LastWeeks;
         }
 
         public int Compare(ClassDetail x, ClassDetail y)

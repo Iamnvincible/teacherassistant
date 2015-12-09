@@ -82,23 +82,23 @@ namespace TeacherAssistant.View
             //}
 
         }
-        void getdata()
-        {
-            OleDbConnection conn = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + App.Databasefilepath);
-            OleDbDataAdapter da = new OleDbDataAdapter("Select * from A041518124736", conn);
-            DataSet ds = new DataSet();
-            DataSet quertDs = new DataSet();
-            OleDbCommandBuilder cmd = new OleDbCommandBuilder(da);
-            conn.Open();
-            da = new OleDbDataAdapter("Select * from A041518124736", conn);
-            //da.InsertCommand = cmd.GetInsertCommand();
-            //da.UpdateCommand = cmd.GetUpdateCommand();
-            //da.DeleteCommand = cmd.GetDeleteCommand();
-            da.MissingSchemaAction = MissingSchemaAction.AddWithKey;
-            da.Fill(ds);
-            conn.Close();
-            stulist.DataContext = ds.Tables[0];
-        }
+        //void getdata()
+        //{
+        //    OleDbConnection conn = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + App.Databasefilepath);
+        //    OleDbDataAdapter da = new OleDbDataAdapter("Select * from A041518124736", conn);
+        //    DataSet ds = new DataSet();
+        //    DataSet quertDs = new DataSet();
+        //    OleDbCommandBuilder cmd = new OleDbCommandBuilder(da);
+        //    conn.Open();
+        //    da = new OleDbDataAdapter("Select * from A041518124736", conn);
+        //    //da.InsertCommand = cmd.GetInsertCommand();
+        //    //da.UpdateCommand = cmd.GetUpdateCommand();
+        //    //da.DeleteCommand = cmd.GetDeleteCommand();
+        //    da.MissingSchemaAction = MissingSchemaAction.AddWithKey;
+        //    da.Fill(ds);
+        //    conn.Close();
+        //    stulist.DataContext = ds.Tables[0];
+        //}
         async void getclasstable()
         {
             string sql = "select * from classtable";
@@ -121,6 +121,7 @@ namespace TeacherAssistant.View
                     classtable.Add(tcsa);
                 }
             });
+            //比较是否是同一节课，只是周数不同
             for (int i = 0; i < classtable.Count - 1; i++)
             {
                 for (int j = i + 1; j < classtable.Count; j++)

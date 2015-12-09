@@ -61,15 +61,16 @@ namespace TeacherAssistant
             }
             else
             {
+                List<ClassDetail> classtable = TableHelp.GetClassTable(teachernum);
+                if (classtable == null)
+                {
+                    File.Delete(App.Databasefilepath);
+                    return false;
+                }
                 //创建数据库
                 AccessDBHelper.CreateDB(filePath);
                 //AccessDBHelper.ConnectDB(filePath);
                 AccessDBHelper.CreateTable("create table classtable (id autoincrement primary key, coursenum TEXT(10), coursename TEXT(100), classroom TEXT(100), lastweeks TEXT(100), classtype text(50) ,subject TEXT(80), stuclassnum TEXT(100), stulisturl TEXT(50),courseday TEXT(10),coursetime TEXT(10))", filePath);
-                List<ClassDetail> classtable = TableHelp.GetClassTable(teachernum);
-                if (classtable == null)
-                {
-                    return false;
-                }
                 string itempattentb = "insert into classtable (coursenum, coursename, classroom, lastweeks , classtype ,subject, stuclassnum, stulisturl,courseday,coursetime) values";
                 foreach (var item in classtable)
                 {
