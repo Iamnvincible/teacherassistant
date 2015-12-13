@@ -5,11 +5,15 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TeacherAssistant.View"
       mc:Ignorable="d" 
+      xmlns:converters="clr-namespace:TeacherAssistant.Converter"
       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
       FontSize="16"
       d:DesignHeight="300" d:DesignWidth="650"
+      ShowsNavigationUI="False"
       Title="IndexPage">
-
+    <Page.Resources>
+        <converters:WeekValueConverter x:Key="WeekValueConverter"/>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -22,7 +26,7 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Name="weekcount" Text="第2周"/>
+                <TextBlock Name="weekcount" Text="{Binding Now,Converter={StaticResource WeekValueConverter}}"/>
             </Grid>
             <Grid Grid.Column="1">
                 <StackPanel Orientation="Vertical" VerticalAlignment="Center">
@@ -49,7 +53,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0" Orientation="Horizontal">
-                            <TextBlock Text="当前课程 ："/>
+                            <TextBlock Text="下次课程 ："/>
                             <TextBlock Name="nextcourse" Text="数据机构与算法"/>
                         </StackPanel>
                         <StackPanel Grid.Column="1" Orientation="Horizontal" >

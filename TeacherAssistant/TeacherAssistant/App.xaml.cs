@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using TeacherAssistant.Model;
 
 namespace TeacherAssistant
 {
@@ -13,6 +14,7 @@ namespace TeacherAssistant
     /// </summary>
     public partial class App : Application
     {
-        public static string Databasefilepath=null;
+        public static List<ClassDetail> classtable = null;
+        public static string Databasefilepath = null;
     }
 }

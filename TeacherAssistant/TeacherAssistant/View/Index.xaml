@@ -8,18 +8,16 @@
         mc:Ignorable="d"
         FontFamily="Microsoft Yahei UI"
         WindowStartupLocation="CenterScreen"
-                      GlowBrush="Black"
-                      BorderThickness="0"
+        GlowBrush="Black"
+        BorderThickness="0"
         Title="重邮教师助手1.0" Height="550" Width="800" Background="DarkGray">
-
-
     <Grid Background="#7CCCFE">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
         <!--<Grid Grid.Row="0" Background="White" Margin="40,20,40,20">-->
-        <Frame x:Name="naviFrame" Grid.Row="0" Margin="40,20,40,20">
+        <Frame x:Name="naviFrame" Grid.Row="0" Margin="40,20,40,20" NavigationUIVisibility="Hidden">
 
         </Frame>
 
@@ -33,6 +31,7 @@
             <Grid Grid.Row="2" Background="CornflowerBlue"></Grid>-->
         <!--</Grid>-->
         <Grid Grid.Row="1" Margin="40,0,40,30">
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -40,7 +39,10 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center">
-                <Ellipse  Width="60" Height="60" Cursor="Hand">
+                <Ellipse Name="index" Width="60" Height="60" Cursor="Hand" MouseLeftButtonDown="MouseLeftButtonDown">
+                    <Ellipse.Effect>
+                        <DropShadowEffect ShadowDepth="1" Color="White"/>
+                    </Ellipse.Effect>
                     <Ellipse.Fill>
                         <ImageBrush ImageSource="/Image/index.png" ></ImageBrush>
                     </Ellipse.Fill>
@@ -48,7 +50,10 @@
                 <TextBlock Text="首页" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="16"></TextBlock>
             </StackPanel>
             <StackPanel Grid.Column="1">
-                <Ellipse  Width="60" Height="60" Cursor="Hand">
+                <Ellipse Name="course"  Width="60" Height="60" Cursor="Hand" MouseLeftButtonDown="MouseLeftButtonDown">
+                    <Ellipse.Effect>
+                        <DropShadowEffect ShadowDepth="1" Color="White"/>
+                    </Ellipse.Effect>
                     <Ellipse.Fill>
                         <ImageBrush ImageSource="/Image/class.png" ></ImageBrush>
                     </Ellipse.Fill>
@@ -56,7 +61,10 @@
                 <TextBlock Text="课堂" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="16"></TextBlock>
             </StackPanel>
             <StackPanel Grid.Column="2">
-                <Ellipse  Width="60" Height="60" Cursor="Hand" >
+                <Ellipse Name="statistics" Width="60" Height="60"   Cursor="Hand" MouseLeftButtonDown="MouseLeftButtonDown">
+                    <Ellipse.Effect>
+                        <DropShadowEffect ShadowDepth="1" Color="White" BlurRadius="5"/>
+                    </Ellipse.Effect>
                     <Ellipse.Fill>
                         <ImageBrush ImageSource="/Image/statistics.png" ></ImageBrush>
                     </Ellipse.Fill>
@@ -64,9 +72,12 @@
                 <TextBlock Text="统计" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="16"></TextBlock>
             </StackPanel>
             <StackPanel Grid.Column="3">
-                <Ellipse  Width="60" Height="60"  Cursor="Hand">
+                <Ellipse Name="other"  Width="60" Height="60"  Cursor="Hand" MouseLeftButtonDown="MouseLeftButtonDown">
+                    <Ellipse.Effect>
+                        <DropShadowEffect ShadowDepth="1" Color="White" BlurRadius="5"/>
+                    </Ellipse.Effect>
                     <Ellipse.Fill>
-                        <ImageBrush ImageSource="/Image/other.png" ></ImageBrush>
+                        <ImageBrush ImageSource="/Image/other.png" Stretch="Uniform" />
                     </Ellipse.Fill>
                 </Ellipse>
                 <TextBlock Text="其他" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="16"></TextBlock>

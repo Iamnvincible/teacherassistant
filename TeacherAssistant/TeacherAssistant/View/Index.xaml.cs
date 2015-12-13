@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
+using System.Diagnostics;
 
 namespace TeacherAssistant.View
 {
@@ -25,6 +26,23 @@ namespace TeacherAssistant.View
             InitializeComponent();
             IndexPage page1 = new IndexPage();
             naviFrame.NavigationService.Navigate(page1);
+        }
+
+        private new void MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var n = e.Source as Ellipse;
+            Debug.WriteLine(n);
+            Page p = new Page();
+            p = new IndexPage();
+            switch (n.Name)
+            {
+                case "index": p = new IndexPage(); break;
+                case "course": p = new CoursePage(); break;
+                case "statistics": p = new StatisticsPage(); break;
+                case "other": p = new MorePage(); break;
+                default: break;
+            }
+            naviFrame.NavigationService.Navigate(p);
         }
     }
 }
