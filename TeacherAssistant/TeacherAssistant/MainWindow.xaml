@@ -11,6 +11,9 @@
        ShowTitleBar="True" 
        ShowMaxRestoreButton="False"
        FontFamily="Microsoft Yahei UI"
+       WindowStartupLocation="CenterScreen"
+       GlowBrush="Black"
+       BorderThickness="0"
        Title="重邮教师助手" Height="550" Width="400" ResizeMode="CanMinimize">
     <Window.Resources>
         <!--来自Visual Studio 2015 Update 1-->
@@ -150,21 +153,25 @@
                         </Grid.RowDefinitions>
                         <StackPanel Grid.Row="0" Orientation="Horizontal">
                             <TextBlock x:Name="hint" Text="教师编号" FontSize="16" Margin="0,5,10,0" Foreground="White"/>
-                            <TextBox  x:Name="TeacherNumberBox"  Width="120" Height="30" Margin="0,0,0,20"  SnapsToDevicePixels="True"  FontSize="16" Style="{StaticResource Test_TextBox}" MaxLength="10" MaxLines="1"  Text="040317">
+                            <TextBox  x:Name="TeacherNumberBox"  Width="120" Height="30" Margin="0,0,0,20"  SnapsToDevicePixels="True"  FontSize="16" Style="{StaticResource Test_TextBox}" MaxLength="6" MaxLines="1"  Text="040317">
                                 <TextBox.Effect>
                                     <DropShadowEffect ShadowDepth="0" Direction="270" BlurRadius="2" RenderingBias="Quality"/>
                                 </TextBox.Effect>
                             </TextBox>
                         </StackPanel>
-                        <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <!--<StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock x:Name="pwdpassword" Text="登录密码" FontSize="16" Margin="0,5,10,0" Foreground="White"/>
-                            <TextBox  x:Name="TeacherPasswordBox"  Width="120" Height="30" Margin="0,0,0,20"  SnapsToDevicePixels="True"  FontSize="16" Style="{StaticResource Test_TextBox}" MaxLength="10" MaxLines="1"  Text="040317">
-                                <TextBox.Effect>
+                            <PasswordBox  x:Name="TeacherPasswordBox"  Width="120" Height="30" Margin="0,0,0,20"  SnapsToDevicePixels="True"  FontSize="16"  MaxLength="10" >
+                                --><!--<TextBox.Effect>
                                     <DropShadowEffect ShadowDepth="0" Direction="270" BlurRadius="2" RenderingBias="Quality"/>
-                                </TextBox.Effect>
-                            </TextBox>
-                        </StackPanel>
-                            <Button Grid.Row="2"  x:Name="Loginbutton" HorizontalAlignment="Center"  Height="30" Click="Loginbutton_Click" FontFamily="Microsoft Yahei Light" Content="登 录" Style="{StaticResource RoundButtonMouse}" BorderBrush="#FF91FDFD"/>
+                                </TextBox.Effect>--><!--
+                                <PasswordBox.Effect>
+                                    <DropShadowEffect ShadowDepth="0" Direction="270" BlurRadius="2" RenderingBias="Quality"/>
+                                </PasswordBox.Effect>
+                            </PasswordBox>
+                        </StackPanel>-->
+                        
+                            <Button Grid.Row="2"  x:Name="Loginbutton" HorizontalAlignment="Center" Margin="20"  Height="30" Click="Loginbutton_Click" FontFamily="Microsoft Yahei Light" Content="登 录" Style="{StaticResource RoundButtonMouse}" BorderBrush="#FF91FDFD"/>
                     </Grid>
                 </Grid>
                 <!--<TextBlock Grid.Column="2"  x:Name="openfile"  Text="打开文件" FontSize="13" Foreground="#006FA9"  Margin="10,10,-78,10"/>-->

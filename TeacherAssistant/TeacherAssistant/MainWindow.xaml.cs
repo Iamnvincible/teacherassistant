@@ -28,6 +28,7 @@ namespace TeacherAssistant
             logoimage.Visibility = Visibility.Collapsed;
             message.Text = "登录中";
             Downloading.Visibility = Visibility.Visible;
+            Loginbutton.Cursor = System.Windows.Input.Cursors.No;
             string teachernum = TeacherNumberBox.Text.Trim();
             bool a = await Task.Run(() =>
             {
@@ -37,8 +38,10 @@ namespace TeacherAssistant
             {
                 await Task.Delay(100);
                 Downloading.Visibility = Visibility.Collapsed;
-                Window clw = new ClassListWindow();
-                clw.Show();
+                //Window clw = new ClassListWindow();
+                //clw.Show();
+                Window clw2 = new Index();
+                clw2.Show();
                 this.Close();
             }
             else
@@ -46,6 +49,8 @@ namespace TeacherAssistant
                 Downloading.Visibility = Visibility.Collapsed;
                 logoimage.Visibility = Visibility.Visible;
                 message.Text = "出现错误!";
+                Loginbutton.Cursor = System.Windows.Input.Cursors.Arrow;
+
             }
 
         }
