@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:TeacherAssistant.View"
       mc:Ignorable="d" 
       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-      d:DesignHeight="300" d:DesignWidth="300"
+      FontSize="16"
+      d:DesignHeight="300" d:DesignWidth="650"
       Title="IndexPage">
 
     <Grid>
@@ -15,8 +16,68 @@
             <RowDefinition Height="2*"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0"  Background="Aquamarine"></Grid>
-        <Grid Grid.Row="1" Background="Bisque"></Grid>
-        <Grid Grid.Row="2" Background="CornflowerBlue"></Grid>
+        <Grid Grid.Row="0"  Background="Aquamarine">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Name="weekcount" Text="第2周"/>
+            </Grid>
+            <Grid Grid.Column="1">
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <Grid Margin=" 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" >
+                            <TextBlock Text="当前课程 ："/>
+                            <TextBlock Name="currentcourse" Text="面向对象程序设计"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" >
+                            <TextBlock Text="教室："/>
+                            <TextBlock Name="classroom" Text="2207"/>
+                        </StackPanel>
+                            <TextBlock Name="classtime" Grid.Column="2" Text="周三5.6节"/>
+                    </Grid>
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Orientation="Horizontal">
+                            <TextBlock Text="当前课程 ："/>
+                            <TextBlock Name="nextcourse" Text="数据机构与算法"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" >
+                            <TextBlock Text="教室："/>
+                            <TextBlock Name="nextclassroom" Text="2207"/>
+                        </StackPanel>
+                            <TextBlock Name="nextclasstime" Grid.Column="2" Text="周三5.6节" />
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1" Background="Bisque">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <TextBlock Text="授课计划" HorizontalAlignment="Center" Margin=" 0,20,0,0"/>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2" Background="CornflowerBlue">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <TextBlock Text="备忘录" HorizontalAlignment="Center" Margin=" 0,20,0,0"/>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>
