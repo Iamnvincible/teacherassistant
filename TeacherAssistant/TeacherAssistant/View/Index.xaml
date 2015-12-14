@@ -10,7 +10,7 @@
         WindowStartupLocation="CenterScreen"
         GlowBrush="Black"
         BorderThickness="0"
-        Title="重邮教师助手1.0" Height="550" Width="800" Background="DarkGray">
+        Title="重邮教师助手1.0" Height="550" Width="800" Background="DarkGray" MinWidth="800" MinHeight="550">
     <Grid Background="#7CCCFE">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>

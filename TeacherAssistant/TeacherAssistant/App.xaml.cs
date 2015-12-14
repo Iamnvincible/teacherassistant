@@ -16,5 +16,7 @@ namespace TeacherAssistant
     {
         public static List<ClassDetail> classtable = null;
         public static string Databasefilepath = null;
+        public static int WeekCount = 0;
+        //public static DateTime Now;
     }
 }

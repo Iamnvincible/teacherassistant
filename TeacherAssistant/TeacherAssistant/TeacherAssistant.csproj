@@ -76,6 +76,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\ArraryToStringValueConverter.cs" />
+    <Compile Include="Converter\DaynameValueConverter.cs" />
     <Compile Include="Converter\WeekValueConverter.cs" />
     <Compile Include="DataBase\AccessDBHelper.cs" />
     <Compile Include="Model\ClassDetail.cs" />

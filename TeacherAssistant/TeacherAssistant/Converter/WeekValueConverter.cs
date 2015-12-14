@@ -16,7 +16,7 @@ namespace TeacherAssistant.Converter
             DateTime firstday = new DateTime(2015, 9, 7,0,0,0);
             DateTime dt = (DateTime)value;
             int week = (int)((dt - firstday).TotalDays / 7) + 1;
-            
+            App.WeekCount = week;
             return "第"+week.ToString()+"周";
 
         }

@@ -13,6 +13,7 @@
       Title="IndexPage">
     <Page.Resources>
         <converters:WeekValueConverter x:Key="WeekValueConverter"/>
+        <converters:DaynameValueConverter x:Key="DaynameValueConverter"/>
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -26,7 +27,11 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Name="weekcount" Text="{Binding Now,Converter={StaticResource WeekValueConverter}}"/>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Name="date" Text="{Binding Date}" HorizontalAlignment="Center"/>
+                    <TextBlock Name="weekcount" Text="{Binding Now,Converter={StaticResource WeekValueConverter}}" HorizontalAlignment="Center"/>
+                    <TextBlock Name="week" Text="{Binding Week,Converter={StaticResource DaynameValueConverter}}" HorizontalAlignment="Center"/>
+                </StackPanel>
             </Grid>
             <Grid Grid.Column="1">
                 <StackPanel Orientation="Vertical" VerticalAlignment="Center">
@@ -34,33 +39,37 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0" Orientation="Horizontal" >
                             <TextBlock Text="当前课程 ："/>
-                            <TextBlock Name="currentcourse" Text="面向对象程序设计"/>
+                            <TextBlock Name="currentcourse" Text="{Binding currentcourse.CourseName}"/>
                         </StackPanel>
                         <StackPanel Grid.Column="1" Orientation="Horizontal" >
                             <TextBlock Text="教室："/>
-                            <TextBlock Name="classroom" Text="2207"/>
+                            <TextBlock Name="classroom" Text="{Binding currentcourse.Classroom}"/>
                         </StackPanel>
-                            <TextBlock Name="classtime" Grid.Column="2" Text="周三5.6节"/>
+                        <TextBlock Name="classday" Grid.Column="2" Text="{Binding currentcourse.CourseDay}"/>
+                        <TextBlock Name="classtime" Grid.Column="3" Text="{Binding currentcourse.CourseTime}"/>
                     </Grid>
                     <Grid Margin="10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0" Orientation="Horizontal">
                             <TextBlock Text="下次课程 ："/>
-                            <TextBlock Name="nextcourse" Text="数据机构与算法"/>
+                            <TextBlock Name="nextcourse" Text="{Binding nextcourse.CourseName}"/>
                         </StackPanel>
                         <StackPanel Grid.Column="1" Orientation="Horizontal" >
                             <TextBlock Text="教室："/>
-                            <TextBlock Name="nextclassroom" Text="2207"/>
+                            <TextBlock Name="nextclassroom" Text="{Binding nextcourse.Classroom}"/>
                         </StackPanel>
-                            <TextBlock Name="nextclasstime" Grid.Column="2" Text="周三5.6节" />
+                        <TextBlock Name="nextclassday" Grid.Column="2" Text="{Binding nextcourse.CourseDay}" />
+                        <TextBlock Name="nextclasstime" Grid.Column="3" Text="{Binding nextcourse.CourseTime}" />
                     </Grid>
                 </StackPanel>
             </Grid>
