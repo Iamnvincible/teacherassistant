@@ -9,7 +9,41 @@
       ShowsNavigationUI="False"
       Title="CoursePage">
 
-    <Grid Background="Wheat">
-        <Button Height="40" Content="2"></Button>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="8*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.Column="0" VerticalAlignment="Center">
+                <TextBlock Text="本节课程："/>
+                <TextBlock Text="面向对象编程"/>
+                <ComboBox Height="10" Width="100" VerticalAlignment="Top" >
+                    <ComboBoxItem Content="哈哈哈"/>
+                    <ComboBoxItem Content="嘻嘻嘻"/>
+                </ComboBox>
+            </StackPanel>
+            <Button   Content="上课" Grid.Column="2"></Button>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="-2,0,0,0">
+                    <Button Content="　欢迎　" Background="#7ecef4" BorderThickness="0"/>
+                    <Button Content="一键操作" Background="#7ecef4" BorderThickness="0"/>
+                    <Button Content="经典分享" Background="#7ecef4" BorderThickness="0"/>
+                    <Button Content="课堂点名" Background="#7ecef4" BorderThickness="0"/>
+                    <Button Content="作业发布" Background="#7ecef4" BorderThickness="0"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>

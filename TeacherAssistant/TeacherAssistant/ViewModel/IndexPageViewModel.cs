@@ -146,7 +146,7 @@ namespace TeacherAssistant.ViewModel
                         nextcourse = temp[i];
                         break;
                     }
-                    else if (week == transzhweektous(temp[i].CourseDay) && n > timespan[transzhtimetoint(temp[i].CourseTime) - 1] && n < timespan[transzhtimetoint(temp[i].CourseTime)])
+                    else if (week == transzhweektous(temp[i].CourseDay) && n >= timespan[transzhtimetoint(temp[i].CourseTime) - 1] && n <= timespan[transzhtimetoint(temp[i].CourseTime)])
                     {
                         currentcourse = temp[i];
                         if (i + 1 < temp.Count)
@@ -155,17 +155,17 @@ namespace TeacherAssistant.ViewModel
                         }
                         break;
                     }
-                    else
+                    else if (week == transzhweektous(temp[i].CourseDay) && n < timespan[transzhtimetoint(temp[i].CourseTime) - 1])
                     {
                         nextcourse = temp[i];
                         break;
                     }
-
+                    else
+                    {
+                        continue;
+                    }
                 }
-
             }
-
-
             //listclass
         }
         void settimespan()
