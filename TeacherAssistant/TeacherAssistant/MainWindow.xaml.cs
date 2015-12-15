@@ -25,6 +25,7 @@ namespace TeacherAssistant
 
         private async void Loginbutton_Click(object sender, RoutedEventArgs e)
         {
+            //todo 判断输入时数字
             logoimage.Visibility = Visibility.Collapsed;
             message.Text = "登录中";
             Downloading.Visibility = Visibility.Visible;

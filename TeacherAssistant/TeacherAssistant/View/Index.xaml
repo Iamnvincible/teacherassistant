@@ -17,10 +17,7 @@
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
         <!--<Grid Grid.Row="0" Background="White" Margin="40,20,40,20">-->
-        <Frame x:Name="naviFrame" Grid.Row="0" Margin="40,20,40,20" NavigationUIVisibility="Hidden">
-
-        </Frame>
-
+        <Frame x:Name="naviFrame" Grid.Row="0" Margin="40,20,40,20" NavigationUIVisibility="Hidden"/>
         <!--<Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="2*"/>
@@ -31,7 +28,6 @@
             <Grid Grid.Row="2" Background="CornflowerBlue"></Grid>-->
         <!--</Grid>-->
         <Grid Grid.Row="1" Margin="40,0,40,30">
-
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -39,7 +35,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center">
-                <Ellipse Name="index" Width="60" Height="60" Cursor="Hand" MouseLeftButtonDown="MouseLeftButtonDown">
+                <Ellipse Name="index" Width="60" Height="60" Cursor="Hand" MouseLeftButtonDown="MouseLeftButtonDown" Opacity="1">
                     <Ellipse.Effect>
                         <DropShadowEffect ShadowDepth="1" Color="White"/>
                     </Ellipse.Effect>
@@ -50,7 +46,7 @@
                 <TextBlock Text="首页" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="16"></TextBlock>
             </StackPanel>
             <StackPanel Grid.Column="1">
-                <Ellipse Name="course"  Width="60" Height="60" Cursor="Hand" MouseLeftButtonDown="MouseLeftButtonDown">
+                <Ellipse Name="course"  Width="60" Height="60" Cursor="Hand" MouseLeftButtonDown="MouseLeftButtonDown" Opacity="0.5">
                     <Ellipse.Effect>
                         <DropShadowEffect ShadowDepth="1" Color="White"/>
                     </Ellipse.Effect>
@@ -61,7 +57,7 @@
                 <TextBlock Text="课堂" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="16"></TextBlock>
             </StackPanel>
             <StackPanel Grid.Column="2">
-                <Ellipse Name="statistics" Width="60" Height="60"   Cursor="Hand" MouseLeftButtonDown="MouseLeftButtonDown">
+                <Ellipse Name="statistics" Width="60" Height="60"   Cursor="Hand" MouseLeftButtonDown="MouseLeftButtonDown" Opacity="0.5">
                     <Ellipse.Effect>
                         <DropShadowEffect ShadowDepth="1" Color="White" BlurRadius="5"/>
                     </Ellipse.Effect>
@@ -72,7 +68,7 @@
                 <TextBlock Text="统计" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="16"></TextBlock>
             </StackPanel>
             <StackPanel Grid.Column="3">
-                <Ellipse Name="other"  Width="60" Height="60"  Cursor="Hand" MouseLeftButtonDown="MouseLeftButtonDown">
+                <Ellipse Name="other"  Width="60" Height="60"  Cursor="Hand" MouseLeftButtonDown="MouseLeftButtonDown" Opacity="0.5">
                     <Ellipse.Effect>
                         <DropShadowEffect ShadowDepth="1" Color="White" BlurRadius="5"/>
                     </Ellipse.Effect>
@@ -83,5 +79,6 @@
                 <TextBlock Text="其他" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="16"></TextBlock>
             </StackPanel>
         </Grid>
+        <Button Height=" 30" Width=" 50" Content="退出登录" VerticalAlignment="Bottom" Click="Button_Click" Margin="742,0,0,368"/>
     </Grid>
 </Controls:MetroWindow>

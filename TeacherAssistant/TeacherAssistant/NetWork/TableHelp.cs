@@ -100,7 +100,7 @@ namespace TeacherAssistant.NetWork
             {
                 var item = list[i].SelectNodes("td");//获取行
                 times[i] = item[0].InnerText.Trim();//时间段
-                int  timeclasscout = 0;
+                int timeclasscout = 0;
                 for (int j = 1; j < item.Count; j++)//从星期一到星期天
                 {
                     //var iii = item[j].InnerHtml.Trim().LastIndexOf('&');
@@ -148,7 +148,7 @@ namespace TeacherAssistant.NetWork
             if (downloadbytes.Length > 1 && downloadbytes[0] != 0)
             {
                 ms = new MemoryStream(downloadbytes);
-                if (url[59]==('S'))
+                if (url[59] == ('S') || url[59] == ('T'))
                 {
                     doc.Load(ms, Encoding.GetEncoding("gbk"));
                     table = doc.DocumentNode.SelectSingleNode("/html/body/table[1]").InnerHtml;
@@ -188,8 +188,14 @@ namespace TeacherAssistant.NetWork
                 var sex = dd[4].InnerText.Trim();
                 var subject = dd[1].InnerText.Trim();
                 var classnum = dd[5].InnerText.Trim();
-                var classtype = dd[7].InnerText.Trim();
-                var state = dd[6].InnerText.Trim();
+                string classtype = "";
+                string state = "";
+                try
+                {
+                    classtype = dd[7].InnerText.Trim();
+                    state = dd[6].InnerText.Trim();
+                }
+                catch { }
                 Debug.WriteLine("{0},{1},{2},{3},{4},{5},{6}", stunum, name, sex, subject, classnum, classtype, state);
                 TeachClassStu t = new TeachClassStu { StuNum = stunum, Subject = subject, StuName = name, Sex = sex, ClassNum = classnum, ClassType = classtype, ClassState = state };
                 stulist.Add(t);
@@ -270,12 +276,12 @@ namespace TeacherAssistant.NetWork
         /// <returns>上课周int 数组</returns>
         private static int[] TransLastWeeks(string rawweeks)
         {
-            if (rawweeks == "单周" || rawweeks == "双周")
+            if (rawweeks == "单周")
             {
                 int[] singleweeks = { -1 };
                 return singleweeks;
             }
-            if (rawweeks == "双周")
+            else if (rawweeks == "双周")
             {
                 int[] doubleweeks = { -2 };
                 return doubleweeks;
@@ -292,7 +298,7 @@ namespace TeacherAssistant.NetWork
                     {
                         Regex rr = new Regex(@"\d{1,}");
                         MatchCollection ma = rr.Matches(item.Value);
-                        for (int i = Convert.ToInt32(ma[0].Value); i <=Convert.ToInt32(ma[1].Value); i++)
+                        for (int i = Convert.ToInt32(ma[0].Value); i <= Convert.ToInt32(ma[1].Value); i++)
                         {
                             weeks.Add(i);
                         }

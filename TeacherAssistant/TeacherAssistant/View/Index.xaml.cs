@@ -36,13 +36,44 @@ namespace TeacherAssistant.View
             p = new IndexPage();
             switch (n.Name)
             {
-                case "index": p = new IndexPage(); break;
-                case "course": p = new CoursePage(); break;
-                case "statistics": p = new StatisticsPage(); break;
-                case "other": p = new MorePage(); break;
+                case "index":
+                    p = new IndexPage();
+                    n.Opacity = 1;
+                    this.course.Opacity = 0.5;
+                    this.statistics.Opacity = 0.5;
+                    this.other.Opacity = 0.5;
+                    break;
+                case "course":
+                    p = new CoursePage();
+                    n.Opacity = 1;
+                    this.index.Opacity = 0.5;
+                    this.statistics.Opacity = 0.5;
+                    this.other.Opacity = 0.5;
+                    break;
+                case "statistics":
+                    p = new StatisticsPage();
+                    n.Opacity = 1;
+                    this.index.Opacity = 0.5;
+                    this.course.Opacity=0.5;
+                    this.other.Opacity = 0.5;
+                    break;
+                case "other":
+                    p = new MorePage();
+                    n.Opacity = 1;
+                    this.index.Opacity = 0.5;
+                    this.course.Opacity = 0.5;
+                    this.statistics.Opacity = 0.5;
+                    break;
                 default: break;
             }
             naviFrame.NavigationService.Navigate(p);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow m = new MainWindow();
+            m.Show();
+            this.Close();
         }
     }
 }

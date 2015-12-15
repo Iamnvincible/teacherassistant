@@ -21,6 +21,7 @@ namespace TeacherAssistant.ViewModel
         List<TimeSpan> timespan { get; set; }
         public IndexPageViewModel()
         {
+            settimespan();
             setdate();
             getclasstable();
             setcourse();
@@ -112,6 +113,8 @@ namespace TeacherAssistant.ViewModel
                 App.classtable = classtable;
                 listclass = classtable;
             }
+            reader.Close();
+            AccessDBHelper.CloseConnectDB();
         }
         void setcourse()
         {
@@ -138,7 +141,12 @@ namespace TeacherAssistant.ViewModel
                 week = (int)week == 0 ? 7 : week;
                 for (int i = 0; i < temp.Count; i++)
                 {
-                    if (week == transzhweektous(temp[i].CourseDay) && n < timespan[transzhtimetoint(temp[i].CourseTime) + 1])
+                    if (week < transzhweektous(temp[i].CourseDay))
+                    {
+                        nextcourse = temp[i];
+                        break;
+                    }
+                    else if (week == transzhweektous(temp[i].CourseDay) && n > timespan[transzhtimetoint(temp[i].CourseTime) - 1] && n < timespan[transzhtimetoint(temp[i].CourseTime)])
                     {
                         currentcourse = temp[i];
                         if (i + 1 < temp.Count)
@@ -147,7 +155,7 @@ namespace TeacherAssistant.ViewModel
                         }
                         break;
                     }
-                    else if (week < transzhweektous(temp[i].CourseDay))
+                    else
                     {
                         nextcourse = temp[i];
                         break;
@@ -162,6 +170,7 @@ namespace TeacherAssistant.ViewModel
         }
         void settimespan()
         {
+            timespan = new List<TimeSpan>();
             TimeSpan tp1 = DateTime.Parse("8:00").TimeOfDay;
             TimeSpan tp2 = DateTime.Parse("9:40").TimeOfDay;
             TimeSpan tp3 = DateTime.Parse("10:05").TimeOfDay;
@@ -214,12 +223,12 @@ namespace TeacherAssistant.ViewModel
             int r = 0;
             switch (zhtime)
             {
-                case "一二节": r = 0; break;
-                case "三四节": r = 2; break;
-                case "五六节": r = 4; break;
-                case "七八节": r = 6; break;
-                case "九十节": r = 8; break;
-                default: r = 10; break;
+                case "一二节": r = 1; break;
+                case "三四节": r = 3; break;
+                case "五六节": r = 5; break;
+                case "七八节": r = 7; break;
+                case "九十节": r = 9; break;
+                default: r = 11; break;
             }
             return r;
         }
