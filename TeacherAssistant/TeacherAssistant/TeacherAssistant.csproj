@@ -80,6 +80,7 @@
     <Compile Include="Converter\WeekValueConverter.cs" />
     <Compile Include="DataBase\AccessDBHelper.cs" />
     <Compile Include="Model\ClassDetail.cs" />
+    <Compile Include="ViewModel\CoursePageViewModel.cs" />
     <Compile Include="ViewModel\IndexPageViewModel.cs" />
     <Compile Include="View\ClassListWindow.xaml.cs">
       <DependentUpon>ClassListWindow.xaml</DependentUpon>
