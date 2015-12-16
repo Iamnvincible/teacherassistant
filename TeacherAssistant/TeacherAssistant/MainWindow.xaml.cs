@@ -9,6 +9,8 @@ using TeacherAssistant.Model;
 using TeacherAssistant.NetWork;
 using TeacherAssistant.View;
 using MahApps.Metro.Controls;
+using System.Windows.Input;
+using System.Diagnostics;
 
 namespace TeacherAssistant
 {
@@ -17,10 +19,12 @@ namespace TeacherAssistant
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        List<string> teachfile;
         public MainWindow()
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            getfiles();
         }
 
         private async void Loginbutton_Click(object sender, RoutedEventArgs e)
@@ -160,5 +164,41 @@ namespace TeacherAssistant
             }
         }
 
+        private void TeacherNumberBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Loginbutton_Click(sender, e);
+            }
+        }
+        void getfiles()
+        {
+            teachfile = new List<string>();
+            var d = Directory.GetCurrentDirectory();
+            var files = new DirectoryInfo(d).GetFiles("*.mdb");
+            foreach (var item in files)
+            {
+                string name = item.Name;
+                name = name.Substring(0, name.LastIndexOf('.'));
+                teachfile.Add(name);
+                this.TeacherNumberBox.ItemsSource = teachfile;
+                Debug.WriteLine(name);
+            }
+        }
+
+        private void ImageButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TextBlock_MouseLeave(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void StackPanel_MouseEnter(object sender, MouseEventArgs e)
+        {
+
+        }
     }
 }

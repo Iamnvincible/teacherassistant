@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TeacherAssistant.DataBase;
+using TeacherAssistant.Helper;
 using TeacherAssistant.Model;
 
 namespace TeacherAssistant.ViewModel
@@ -17,11 +18,10 @@ namespace TeacherAssistant.ViewModel
         public DayOfWeek Week { get; set; }
         public ClassDetail currentcourse { get; private set; }
         public ClassDetail nextcourse { get; private set; }
-        private List<ClassDetail> listclass { get; set; }
-        List<TimeSpan> timespan { get; set; }
+        public List<ClassDetail> listclass { get; set; }
+        //private List<ClassDetail> listclass { get; set; }
         public IndexPageViewModel()
         {
-            settimespan();
             setdate();
             getclasstable();
             setcourse();
@@ -135,27 +135,37 @@ namespace TeacherAssistant.ViewModel
             }
             if (temp.Count > 0)
             {
+                CourseHelper.settimespan();
                 //按周找课表
                 int week = (int)Now.DayOfWeek;
                 var n = Now.TimeOfDay;
                 week = (int)week == 0 ? 7 : week;
                 for (int i = 0; i < temp.Count; i++)
                 {
-                    if (week < transzhweektous(temp[i].CourseDay))
+                    int courseday = CourseHelper.transzhweektous(temp[i].CourseDay);
+                    var aaaa = CourseHelper.transzhtimetoint(temp[i].CourseTime) - 1;
+                    TimeSpan coursetime0 = CourseHelper.timespan[CourseHelper.transzhtimetoint(temp[i].CourseTime) - 1];
+                    TimeSpan coursetime1 = CourseHelper.timespan[CourseHelper.transzhtimetoint(temp[i].CourseTime)];
+
+                    if (week < courseday)
                     {
                         nextcourse = temp[i];
+                        App.nextcourse = nextcourse;
                         break;
                     }
-                    else if (week == transzhweektous(temp[i].CourseDay) && n >= timespan[transzhtimetoint(temp[i].CourseTime) - 1] && n <= timespan[transzhtimetoint(temp[i].CourseTime)])
+                    else if (week == courseday && n >= coursetime0 && n <= coursetime1)
                     {
                         currentcourse = temp[i];
                         if (i + 1 < temp.Count)
                         {
                             nextcourse = temp[i + 1];
+                            App.nextcourse = nextcourse;
                         }
+                        App.currentcourse = currentcourse;
+                        
                         break;
                     }
-                    else if (week == transzhweektous(temp[i].CourseDay) && n < timespan[transzhtimetoint(temp[i].CourseTime) - 1])
+                    else if (week == CourseHelper.transzhweektous(temp[i].CourseDay) && n < CourseHelper.timespan[CourseHelper.transzhtimetoint(temp[i].CourseTime) - 1])
                     {
                         nextcourse = temp[i];
                         break;
@@ -168,70 +178,37 @@ namespace TeacherAssistant.ViewModel
             }
             //listclass
         }
-        void settimespan()
-        {
-            timespan = new List<TimeSpan>();
-            TimeSpan tp1 = DateTime.Parse("8:00").TimeOfDay;
-            TimeSpan tp2 = DateTime.Parse("9:40").TimeOfDay;
-            TimeSpan tp3 = DateTime.Parse("10:05").TimeOfDay;
-            TimeSpan tp4 = DateTime.Parse("11:45").TimeOfDay;
-            TimeSpan tp5 = DateTime.Parse("14:00").TimeOfDay;
-            TimeSpan tp6 = DateTime.Parse("15:40").TimeOfDay;
-            TimeSpan tp7 = DateTime.Parse("16:05").TimeOfDay;
-            TimeSpan tp8 = DateTime.Parse("17:45").TimeOfDay;
-            TimeSpan tp9 = DateTime.Parse("19:00").TimeOfDay;
-            TimeSpan tp10 = DateTime.Parse("20:40").TimeOfDay;
-            TimeSpan tp11 = DateTime.Parse("20:50").TimeOfDay;
-            TimeSpan tp12 = DateTime.Parse("22:20").TimeOfDay;
-            timespan.Add(tp1);
-            timespan.Add(tp2);
-            timespan.Add(tp3);
-            timespan.Add(tp4);
-            timespan.Add(tp5);
-            timespan.Add(tp6);
-            timespan.Add(tp7);
-            timespan.Add(tp8);
-            timespan.Add(tp9);
-            timespan.Add(tp10);
-            timespan.Add(tp11);
-            timespan.Add(tp12);
-        }
-        //8:00-9:40
-        //10:05-11:45
-        //14:00-15:40
-        //16:05-17:45
-        //19:00-20:40
-        //20:50-10:20
 
-        int transzhweektous(string zhweek)
-        {
-            int r = 0;
-            switch (zhweek)
-            {
-                case "星期一": r = 1; break;
-                case "星期二": r = 2; break;
-                case "星期三": r = 3; break;
-                case "星期四": r = 4; break;
-                case "星期五": r = 5; break;
-                case "星期六": r = 6; break;
-                case "星期日": r = 7; break;
-            }
-            return r;
-        }
-        int transzhtimetoint(string zhtime)
-        {
-            int r = 0;
-            switch (zhtime)
-            {
-                case "一二节": r = 1; break;
-                case "三四节": r = 3; break;
-                case "五六节": r = 5; break;
-                case "七八节": r = 7; break;
-                case "九十节": r = 9; break;
-                default: r = 11; break;
-            }
-            return r;
-        }
 
+        /* int transzhweektous(string zhweek)
+          {
+              int r = 0;
+              switch (zhweek)
+              {
+                  case "星期一": r = 1; break;
+                  case "星期二": r = 2; break;
+                  case "星期三": r = 3; break;
+                  case "星期四": r = 4; break;
+                  case "星期五": r = 5; break;
+                  case "星期六": r = 6; break;
+                  case "星期日": r = 7; break;
+              }
+              return r;
+          }
+          //int transzhtimetoint(string zhtime)
+          {
+              int r = 0;
+              switch (zhtime)
+              {
+                  case "一二节": r = 1; break;
+                  case "三四节": r = 3; break;
+                  case "五六节": r = 5; break;
+                  case "七八节": r = 7; break;
+                  case "九十节": r = 9; break;
+                  default: r = 11; break;
+              }
+              return r;
+          }
+          */
     }
 }

@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TeacherAssistant.Model;
+using TeacherAssistant.ViewModel;
 
 namespace TeacherAssistant.View
 {
@@ -20,9 +22,18 @@ namespace TeacherAssistant.View
     /// </summary>
     public partial class CoursePage : Page
     {
+        public CoursePageViewModel vm;
         public CoursePage()
         {
             InitializeComponent();
+            vm = new CoursePageViewModel();
+            this.DataContext = vm;
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ClassListWindow clw = new ClassListWindow();
+            clw.Show();
+
         }
     }
 }

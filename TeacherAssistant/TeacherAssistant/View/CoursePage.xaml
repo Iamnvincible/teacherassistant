@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TeacherAssistant.View"
+      xmlns:converter="clr-namespace:TeacherAssistant.Converter"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="650"
       FontFamily="Microsoft Yahei UI"
@@ -11,6 +12,7 @@
       ShowsNavigationUI="False"
       Title="CoursePage">
     <Page.Resources>
+        <converter:CurrentcourseValueConverter x:Key="CurrentcourseValueConverter"/>
         <Style x:Key="buttonstyle" TargetType="Button">
             <Setter Property="Background" Value="#7ecef4"/>
             <Setter Property="BorderThickness" Value=" 0"/>
@@ -85,13 +87,11 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Column="0" VerticalAlignment="Center">
                 <TextBlock Text="本节课程："/>
-                <TextBlock Text="面向对象编程"/>
-                <ComboBox Height="10" Width="100" VerticalAlignment="Top" >
-                    <ComboBoxItem Content="哈哈哈"/>
-                    <ComboBoxItem Content="嘻嘻嘻"/>
-                </ComboBox>
+                <TextBlock Text="{Binding currentcourse.CourseName,Converter={StaticResource CurrentcourseValueConverter}}" />
+                <ComboBox Name="combo" Height="10" Width="100" VerticalAlignment="Top" ItemsSource="{Binding coursename}" IsEditable="True"/>
+
             </StackPanel>
-            <Button   Content="上课" Grid.Column="2"></Button>
+            <Button   Content="上课" Grid.Column="2" Click="Button_Click"></Button>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -105,6 +105,13 @@
                     <Button Content="经典分享" Style="{StaticResource buttonstyle}"/>
                     <Button Content="课堂点名" Style="{StaticResource buttonstyle}"/>
                     <Button Content="作业发布" Style="{StaticResource buttonstyle}"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Column="1">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <!--<Image Source="/Image/progress.png" Height="180"/>
+                    <Image Source="/Image/homework.png" Height="180" Margin=" 10,30,0,0"/>
+                    <Image Source="/Image/arrive.png" Height="170" Margin="20,10,0,0"/>-->
                 </StackPanel>
             </Grid>
         </Grid>

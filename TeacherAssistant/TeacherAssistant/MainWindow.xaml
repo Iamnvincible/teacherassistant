@@ -126,6 +126,15 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <DataTemplate x:Key="LoginComboBoxData">
+            <Grid x:Name="sp1" MouseEnter="StackPanel_MouseEnter"  MouseLeave="TextBlock_MouseLeave" HorizontalAlignment="Stretch">
+                <TextBlock Text="{Binding}" VerticalAlignment="Center"/>
+                <Button Click="ImageButton_Click" BorderThickness="0" HorizontalAlignment="Right">
+                        <Image Source="/Image/Delete.png" Width="14"/>
+                </Button>
+            </Grid>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -153,11 +162,11 @@
                         </Grid.RowDefinitions>
                         <StackPanel Grid.Row="0" Orientation="Horizontal">
                             <TextBlock x:Name="hint" Text="教师编号" FontSize="16" Margin="0,5,10,0" Foreground="White"/>
-                            <TextBox  x:Name="TeacherNumberBox"  Width="120" Height="30" Margin="0,0,0,20"  SnapsToDevicePixels="True"  FontSize="16" Style="{StaticResource Test_TextBox}" MaxLength="6" MaxLines="1"  Text="040317">
-                                <TextBox.Effect>
+                            <ComboBox  x:Name="TeacherNumberBox"  Width="120" Height="30" Margin="0,0,0,20"  PreviewKeyDown="TeacherNumberBox_PreviewKeyDown" IsEditable="True" ItemTemplate="{StaticResource LoginComboBoxData}">
+                                <!--<TextBox.Effect>
                                     <DropShadowEffect ShadowDepth="0" Direction="270" BlurRadius="2" RenderingBias="Quality"/>
-                                </TextBox.Effect>
-                            </TextBox>
+                                </TextBox.Effect>-->
+                            </ComboBox>
                         </StackPanel>
                         <!--<StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock x:Name="pwdpassword" Text="登录密码" FontSize="16" Margin="0,5,10,0" Foreground="White"/>
