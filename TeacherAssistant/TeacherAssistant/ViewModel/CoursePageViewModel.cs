@@ -15,9 +15,15 @@ namespace TeacherAssistant.ViewModel
 
         public CoursePageViewModel()
         {
-            currentcourse = App.currentcourse;
+            currentcourse = new ClassDetail();
+            currentcourse = App.currentcourse??currentcourse;
+            if (currentcourse.CourseName == null)
+            {
+                currentcourse.CourseName = "";
+            }
             nextcourse = App.nextcourse;
-            coursename = (from n in App.classtable.Distinct().ToList() where n.CourseNum != null select n.CourseName).ToList();
+            coursename = (from n in App.classtable.ToList() where n.CourseNum != null select n.CourseName).ToList();
+            coursename = coursename.Distinct().ToList();
         }
     }
 }

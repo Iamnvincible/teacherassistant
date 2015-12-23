@@ -28,12 +28,12 @@ namespace TeacherAssistant.View
             InitializeComponent();
             vm = new CoursePageViewModel();
             this.DataContext = vm;
+            this.combo.ItemsSource = vm.coursename;
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             ClassListWindow clw = new ClassListWindow();
             clw.Show();
-
         }
     }
 }

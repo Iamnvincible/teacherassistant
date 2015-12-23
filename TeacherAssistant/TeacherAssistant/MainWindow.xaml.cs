@@ -182,6 +182,7 @@ namespace TeacherAssistant
                 name = name.Substring(0, name.LastIndexOf('.'));
                 teachfile.Add(name);
                 this.TeacherNumberBox.ItemsSource = teachfile;
+                this.TeacherNumberBox.SelectedIndex = 0;
                 Debug.WriteLine(name);
             }
         }

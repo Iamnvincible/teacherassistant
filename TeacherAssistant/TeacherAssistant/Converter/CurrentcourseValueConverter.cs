@@ -13,7 +13,7 @@ namespace TeacherAssistant.Converter
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             string v = (string)value;
-            if (v!=null)
+            if (v!="")
             {
                 return v;
             }

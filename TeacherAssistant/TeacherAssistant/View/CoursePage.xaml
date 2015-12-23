@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TeacherAssistant.View"
       xmlns:converter="clr-namespace:TeacherAssistant.Converter"
+      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="650"
       FontFamily="Microsoft Yahei UI"
@@ -85,12 +86,17 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Orientation="Horizontal" Grid.Column="0" VerticalAlignment="Center">
-                <TextBlock Text="本节课程："/>
-                <TextBlock Text="{Binding currentcourse.CourseName,Converter={StaticResource CurrentcourseValueConverter}}" />
-                <ComboBox Name="combo" Height="10" Width="100" VerticalAlignment="Top" ItemsSource="{Binding coursename}" IsEditable="True"/>
+            <Grid Grid.Column="0" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="本节课程："/>
+                <TextBlock Grid.Column="1" Text="{Binding currentcourse.CourseName,Converter={StaticResource CurrentcourseValueConverter}}" />
+                <ComboBox Grid.Column="2" Name="combo" Height="10" Width="100" VerticalAlignment="Top" ItemsSource="{Binding coursename}" IsEditable="True"/>
 
-            </StackPanel>
+            </Grid>
             <Button   Content="上课" Grid.Column="2" Click="Button_Click"></Button>
         </Grid>
         <Grid Grid.Row="1">

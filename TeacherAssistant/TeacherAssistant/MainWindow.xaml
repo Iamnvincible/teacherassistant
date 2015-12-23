@@ -129,8 +129,8 @@
 
         <DataTemplate x:Key="LoginComboBoxData">
             <Grid x:Name="sp1" MouseEnter="StackPanel_MouseEnter"  MouseLeave="TextBlock_MouseLeave" HorizontalAlignment="Stretch">
-                <TextBlock Text="{Binding}" VerticalAlignment="Center"/>
-                <Button Click="ImageButton_Click" BorderThickness="0" HorizontalAlignment="Right">
+                <TextBlock Text="{Binding}" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Microsoft Yahei UI" FontSize="14"/>
+                <Button Click="ImageButton_Click" BorderThickness="0" HorizontalAlignment="Right"  Margin=" 65,0,0,0">
                         <Image Source="/Image/Delete.png" Width="14"/>
                 </Button>
             </Grid>
@@ -162,7 +162,7 @@
                         </Grid.RowDefinitions>
                         <StackPanel Grid.Row="0" Orientation="Horizontal">
                             <TextBlock x:Name="hint" Text="教师编号" FontSize="16" Margin="0,5,10,0" Foreground="White"/>
-                            <ComboBox  x:Name="TeacherNumberBox"  Width="120" Height="30" Margin="0,0,0,20"  PreviewKeyDown="TeacherNumberBox_PreviewKeyDown" IsEditable="True" ItemTemplate="{StaticResource LoginComboBoxData}">
+                            <ComboBox  x:Name="TeacherNumberBox"  Width="100" Height="30" Margin="0,0,0,20"  PreviewKeyDown="TeacherNumberBox_PreviewKeyDown" IsEditable="True" ItemTemplate="{StaticResource LoginComboBoxData}" FontSize="14">
                                 <!--<TextBox.Effect>
                                     <DropShadowEffect ShadowDepth="0" Direction="270" BlurRadius="2" RenderingBias="Quality"/>
                                 </TextBox.Effect>-->
