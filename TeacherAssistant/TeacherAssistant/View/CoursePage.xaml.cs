@@ -29,7 +29,14 @@ namespace TeacherAssistant.View
             vm = new CoursePageViewModel();
             this.DataContext = vm;
             this.combo.ItemsSource = vm.coursename;
+            this.combo.SelectionChanged += Combo_SelectionChanged;
         }
+
+        private void Combo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.current.Text = this.combo.SelectedItem as string;
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             ClassListWindow clw = new ClassListWindow();

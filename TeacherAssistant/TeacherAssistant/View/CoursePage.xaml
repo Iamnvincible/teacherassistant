@@ -82,22 +82,27 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0" VerticalAlignment="Center">
+            <Grid Grid.Column="0" VerticalAlignment="Center" Margin="20,0,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="本节课程："/>
-                <TextBlock Grid.Column="1" Text="{Binding currentcourse.CourseName,Converter={StaticResource CurrentcourseValueConverter}}" />
-                <ComboBox Grid.Column="2" Name="combo" Height="10" Width="100" VerticalAlignment="Top" ItemsSource="{Binding coursename}" IsEditable="True"/>
+                <TextBlock Grid.Column="1" Name="current" Text="{Binding currentcourse.CourseName,Converter={StaticResource CurrentcourseValueConverter}}" />
+                <TextBlock Grid.Column="2" Text="手动更改课程:" FontSize="10" Margin="10,0,0,0" TextAlignment="Center" VerticalAlignment="Center"/>
+                <ComboBox Grid.Column="3" Name="combo" Margin="10,0,0,0" Height="10" Width="100" VerticalAlignment="Top"  IsEditable="False"/>
+                <TextBlock Grid.Column="4" Text="课程时间:" Margin="10,0,0,0" FontSize="10" TextAlignment="Right" VerticalAlignment="Center"/>
+                <ComboBox Grid.Column="5" Name="combot" Margin="10,0,0,0" Height="10" Width="50" VerticalAlignment="Top"  IsEditable="False"/>
 
             </Grid>
-            <Button   Content="上课" Grid.Column="2" Click="Button_Click"></Button>
+            <Button   Content="上课" Grid.Column="1" Click="Button_Click"></Button>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -107,18 +112,48 @@
             <Grid Grid.Column="0">
                 <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                     <Button Content="　欢迎　" Style="{StaticResource buttonstyle}"/>
-                    <Button Content="一键操作" Style="{StaticResource buttonstyle}"/>
-                    <Button Content="经典分享" Style="{StaticResource buttonstyle}"/>
                     <Button Content="课堂点名" Style="{StaticResource buttonstyle}"/>
                     <Button Content="作业发布" Style="{StaticResource buttonstyle}"/>
                 </StackPanel>
             </Grid>
             <Grid Grid.Column="1">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <!--<Image Source="/Image/progress.png" Height="180"/>
-                    <Image Source="/Image/homework.png" Height="180" Margin=" 10,30,0,0"/>
-                    <Image Source="/Image/arrive.png" Height="170" Margin="20,10,0,0"/>-->
-                </StackPanel>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Name="welcome">
+
+                    <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Image Source="/Image/homework.png" Height="180" Margin=" 10,30,0,0"/>
+                    </StackPanel>-->
+                </Grid>
+                <Grid Name="calltheroll">
+                    <!--<Image Source="/Image/progress.png" Height="180"/>-->
+                    <ListView>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel Orientation="Vertical" Margin="3" DataContext="{Binding}">
+                                    <Button Content="{Binding}"></Button>
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <!--<GridView.ColumnCollection>
+                        
+                    </GridView.ColumnCollection>-->
+                </Grid>
+                <Grid Name="homework" Visibility="Hidden">
+                    <Image Source="/Image/arrive.png" Height="170" Margin="20,10,0,0"/>
+
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Button Content="kkkkkkk"/>
+                </Grid>
             </Grid>
         </Grid>
     </Grid>
