@@ -42,6 +42,10 @@
       <HintPath>..\packages\CenterCLR.SgmlReader.2014.12.7.3\lib\portable-net403+sl50+win+WindowsPhoneApp81+wp80\CenterCLR.SgmlReader.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DotNetSpeech">
+      <HintPath>C:\Users\amvincible\Downloads\Compressed\WpfSpeechDemo\DotNetSpeech.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.4.9.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
       <Private>True</Private>
@@ -78,6 +82,7 @@
     <Compile Include="Converter\ArraryToStringValueConverter.cs" />
     <Compile Include="Converter\CurrentcourseValueConverter.cs" />
     <Compile Include="Converter\DaynameValueConverter.cs" />
+    <Compile Include="Converter\SexImageValueConverter.cs" />
     <Compile Include="Converter\WeekValueConverter.cs" />
     <Compile Include="DataBase\AccessDBHelper.cs" />
     <Compile Include="Helper\CourseHelper.cs" />
@@ -216,6 +221,13 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Image\Delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Boy-100.png" />
+    <Resource Include="Image\Girl-100.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Genderqueer-100.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
