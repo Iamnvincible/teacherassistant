@@ -100,7 +100,7 @@
                 <ComboBox Grid.Column="3" Name="combo" Margin="10,0,0,0" Height="10" Width="100" VerticalAlignment="Top"  IsEditable="False"/>
                 <StackPanel Orientation="Horizontal" Grid.Column="4">
                     <TextBlock Text="课程时间:" Margin="10,0,0,0" FontSize="10" TextAlignment="Right" VerticalAlignment="Center"/>
-                    <ComboBox Name="combot" Margin="10,0,0,0" Height="10" IsEditable="False" Width="110" />
+                    <ComboBox Name="combot" Margin="10,0,0,0" Height="10" IsEditable="False" Width="110" SelectionChanged="combot_SelectionChanged"  />
                 </StackPanel>
             </Grid>
             <!--<Button   Content="上课" Grid.Column="1" Click="Button_Click"></Button>-->
@@ -112,24 +112,24 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                    <Button Content="　欢迎　" Style="{StaticResource buttonstyle}"/>
-                    <Button Content="课堂点名" Style="{StaticResource buttonstyle}" Click="Button_Click_1"/>
-                    <Button Content="作业发布" Style="{StaticResource buttonstyle}"/>
+                    <Button Name="welcomebtn" Content="　欢迎　" Style="{StaticResource buttonstyle}" Click="welcomebtn_Click"/>
+                    <Button  Name="callbtn" Content="课堂点名" Style="{StaticResource buttonstyle}" Click="callbtn_Click_1"/>
+                    <Button Name="homeworkbtn" Content="作业发布" Style="{StaticResource buttonstyle}" Click="homeworkbtn_Click"/>
                 </StackPanel>
             </Grid>
             <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="4*"/>
-                    <RowDefinition Height="2*"/>
-                </Grid.RowDefinitions>
-                <Grid Name="welcome">
+                <Grid Name="welcome" Visibility="Visible">
 
-                    <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Image Source="/Image/homework.png" Height="180" Margin=" 10,30,0,0"/>
-                    </StackPanel>-->
+                    </StackPanel>
                 </Grid>
-                <Grid Name="calltheroll" Grid.Row="0">
-                    <ListView Name="namelist" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+                <Grid Name="calltheroll" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="4*"></RowDefinition>
+                        <RowDefinition Height=" 2*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <ListView Name="namelist" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="0" >
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel/>
@@ -143,10 +143,10 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
+                    <TextBlock Name="pleaseselect" Grid.Row="0" Visibility="Collapsed"  Text="请手动选择课程和时间" FontSize="33" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="BlueViolet"/>
                     <!--<GridView.ColumnCollection>
                     </GridView.ColumnCollection>-->
-                </Grid>
-                <Grid Name="onestudent" Grid.Row="1" DataContext="{Binding}">
+                <Grid Name="onestudent" Grid.Row="1" DataContext="{Binding}" Visibility="Collapsed">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -185,14 +185,15 @@
                             <RowDefinition></RowDefinition>
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
-                        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Button Content="上一个" Click="Button_Click_2"></Button>
                             <Button Content="下一个" Click="Button_Click_3"></Button>
                         </StackPanel>
                         <Button Grid.Row="1" Content="智能点名" Height="20"/>
                     </Grid>
                 </Grid>
-                <Grid Name="homework" Visibility="Hidden">
+                </Grid>
+                <Grid Name="homework" Visibility="Collapsed">
                     <Image Source="/Image/arrive.png" Height="170" Margin="20,10,0,0"/>
 
                 </Grid>

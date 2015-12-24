@@ -33,6 +33,7 @@ namespace TeacherAssistant.View
         {
             InitializeComponent();
             vm = new CoursePageViewModel();
+            studatalist = new List<TeachClassStu>();
             this.DataContext = vm;
             this.combo.ItemsSource = vm.coursename;
             this.combo.SelectionChanged += Combo_SelectionChanged;
@@ -61,12 +62,75 @@ namespace TeacherAssistant.View
             clw.Show();
         }
 
-        private async void Button_Click_1(object sender, RoutedEventArgs e)
+       
+        /// <summary>
+        /// 上一个
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_Click_2(object sender, RoutedEventArgs e)
         {
+            selected = selected <= 0 ? studatalist.Count - 1 : selected - 1;
+            this.onestudent.DataContext = studatalist[selected];
+            speech.Speak(" ", SpeechVoiceSpeakFlags.SVSFlagsAsync);
+            speech.Speak(stuname.Text, SpeechVoiceSpeakFlags.SVSFlagsAsync);
+        }
+        /// <summary>
+        /// 下一个
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            selected = selected >= studatalist.Count - 1 ? 0 : selected + 1;
+            this.onestudent.DataContext = studatalist[selected];
+            speech.Speak(" ", SpeechVoiceSpeakFlags.SVSFlagsAsync);
+            speech.Speak(stuname.Text, SpeechVoiceSpeakFlags.SVSFlagsAsync);
+        }
+
+        private void combot_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            var a = App.classtable;
+            if (this.combot.SelectedItem != null)
+            {
+                string daytime = this.combot.SelectedItem as string;
+                string day = daytime.Substring(0, 3);
+                string time = daytime.Substring(3);
+                var c = from n in a where n.CourseName == this.current.Text && n.CourseDay == day && n.CourseTime == time select n;
+                var selected = c.ToList();
+                studatalist = AccessDBHelper.GetStuList(selected[0].StudentListUrl);
+                onestudent.Visibility = Visibility.Visible;
+                if (studatalist != null)
+                    studatalist.Sort(new TeachClassStu());
+                this.namelist.ItemsSource = studatalist;
+                this.onestudent.DataContext = studatalist;
+                this.pleaseselect.Visibility = Visibility.Collapsed;
+            }
+
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private async void callbtn_Click_1(object sender, RoutedEventArgs e)
+        {
+            this.homework.Visibility = Visibility.Collapsed;
+            this.welcome.Visibility = Visibility.Collapsed;
+            this.calltheroll.Visibility = Visibility.Visible;
             if (this.current.Text != "现在没有课" && this.combot.Text == "")
             {
-                studatalist = new List<TeachClassStu>();
                 studatalist = AccessDBHelper.GetStuList(vm.currentcourse.StudentListUrl);
+                onestudent.Visibility = Visibility.Visible;
+                if (studatalist != null)
+                    studatalist.Sort(new TeachClassStu());
+                this.namelist.ItemsSource = studatalist;
+                this.onestudent.DataContext = studatalist;
+            }
+            else if (this.current.Text == "现在没有课")
+            {
+                this.pleaseselect.Visibility = Visibility.Visible;
             }
 
 
@@ -93,25 +157,19 @@ namespace TeacherAssistant.View
             //    AccessDBHelper.CloseConnectDB();
             //});
             //await Task.Delay(1000);
-            studatalist.Sort(new TeachClassStu());
-            this.namelist.ItemsSource = studatalist;
-            this.onestudent.DataContext = studatalist;
+        }
+        private void homeworkbtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.welcome.Visibility = Visibility.Collapsed;
+            this.calltheroll.Visibility = Visibility.Collapsed;
+            this.homework.Visibility = Visibility.Visible;
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void welcomebtn_Click(object sender, RoutedEventArgs e)
         {
-            selected = selected <= 0 ? studatalist.Count - 1 : selected - 1;
-            this.onestudent.DataContext = studatalist[selected];
-            speech.Speak(" ", SpeechVoiceSpeakFlags.SVSFlagsAsync);
-            speech.Speak(stuname.Text, SpeechVoiceSpeakFlags.SVSFlagsAsync);
-        }
-
-        private void Button_Click_3(object sender, RoutedEventArgs e)
-        {
-            selected = selected >= studatalist.Count - 1 ? 0 : selected + 1;
-            this.onestudent.DataContext = studatalist[selected];
-            speech.Speak(" ", SpeechVoiceSpeakFlags.SVSFlagsAsync);
-            speech.Speak(stuname.Text, SpeechVoiceSpeakFlags.SVSFlagsAsync);
+            this.welcome.Visibility = Visibility.Visible;
+            this.calltheroll.Visibility = Visibility.Collapsed;
+            this.homework.Visibility = Visibility.Collapsed;
         }
     }
 
