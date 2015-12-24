@@ -26,8 +26,6 @@ namespace TeacherAssistant.View
     public partial class CoursePage : Page
     {
         SpVoice speech = new SpVoice();
-        int speechrate = 0;
-        int volume = 100;
         public CoursePageViewModel vm;
         List<TeachClassStu> studatalist;
         int selected = 0;
@@ -43,6 +41,18 @@ namespace TeacherAssistant.View
         private void Combo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.current.Text = this.combo.SelectedItem as string;
+            //课程选定，更改combox时间
+            //combot.ItemsSource
+            var a = App.classtable;
+            var b = from n in a where n.CourseName == this.current.Text select n;
+            var c = b.ToList();
+            List<string> d = new List<string>();
+            foreach (var item in c)
+            {
+                d.Add(item.CourseDay + item.CourseTime);
+            }
+            this.combot.ItemsSource = d;
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -53,28 +63,35 @@ namespace TeacherAssistant.View
 
         private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            studatalist = new List<TeachClassStu>();
-            //AccessDBHelper.ConnectDB(App.Databasefilepath);
-            string sql = "select * from A041518124736";
-            await Task.Run(() =>
+            if (this.current.Text != "现在没有课" && this.combot.Text == "")
             {
-                OleDbDataReader reader = AccessDBHelper.ExecuteReader(sql, App.Databasefilepath);
-                while (reader.Read())
-                {
-                    TeachClassStu tcsa = new TeachClassStu();
-                    tcsa.StuNum = reader["stunum"].ToString();
-                    tcsa.StuName = reader["stuname"].ToString();
-                    tcsa.Sex = reader["sex"].ToString();
-                    tcsa.Subject = reader["subject"].ToString();
-                    tcsa.ClassNum = reader["classnum"].ToString();
-                    tcsa.ClassState = reader["classstate"].ToString();
-                    tcsa.ClassType = reader["classtype"].ToString();
-                    tcsa.Num = Convert.ToInt32(reader["num"].ToString());
-                    studatalist.Add(tcsa);
-                }
-                reader.Close();
-                AccessDBHelper.CloseConnectDB();
-            });
+                studatalist = new List<TeachClassStu>();
+                studatalist = AccessDBHelper.GetStuList(vm.currentcourse.StudentListUrl);
+            }
+
+
+
+            //AccessDBHelper.ConnectDB(App.Databasefilepath);
+            //string sql = "select * from A041518124736";
+            //await Task.Run(() =>
+            //{
+            //    OleDbDataReader reader = AccessDBHelper.ExecuteReader(sql, App.Databasefilepath);
+            //    while (reader.Read())
+            //    {
+            //        TeachClassStu tcsa = new TeachClassStu();
+            //        tcsa.StuNum = reader["stunum"].ToString();
+            //        tcsa.StuName = reader["stuname"].ToString();
+            //        tcsa.Sex = reader["sex"].ToString();
+            //        tcsa.Subject = reader["subject"].ToString();
+            //        tcsa.ClassNum = reader["classnum"].ToString();
+            //        tcsa.ClassState = reader["classstate"].ToString();
+            //        tcsa.ClassType = reader["classtype"].ToString();
+            //        tcsa.Num = Convert.ToInt32(reader["num"].ToString());
+            //        studatalist.Add(tcsa);
+            //    }
+            //    reader.Close();
+            //    AccessDBHelper.CloseConnectDB();
+            //});
             //await Task.Delay(1000);
             studatalist.Sort(new TeachClassStu());
             this.namelist.ItemsSource = studatalist;

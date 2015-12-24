@@ -92,7 +92,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="180"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="本节课程："/>
                 <TextBlock Grid.Column="1" Name="current" Text="{Binding currentcourse.CourseName,Converter={StaticResource CurrentcourseValueConverter}}" />
@@ -100,9 +100,8 @@
                 <ComboBox Grid.Column="3" Name="combo" Margin="10,0,0,0" Height="10" Width="100" VerticalAlignment="Top"  IsEditable="False"/>
                 <StackPanel Orientation="Horizontal" Grid.Column="4">
                     <TextBlock Text="课程时间:" Margin="10,0,0,0" FontSize="10" TextAlignment="Right" VerticalAlignment="Center"/>
-                    <ComboBox Name="combot" Margin="10,0,0,0" Height="10" Width="50" VerticalAlignment="Top"  IsEditable="False" />
+                    <ComboBox Name="combot" Margin="10,0,0,0" Height="10" IsEditable="False" Width="110" />
                 </StackPanel>
-
             </Grid>
             <!--<Button   Content="上课" Grid.Column="1" Click="Button_Click"></Button>-->
         </Grid>

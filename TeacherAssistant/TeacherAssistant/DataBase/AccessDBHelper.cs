@@ -2,9 +2,12 @@
 using ADOX;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using TeacherAssistant.Model;
 
 namespace TeacherAssistant.DataBase
 {
@@ -348,6 +351,31 @@ namespace TeacherAssistant.DataBase
             {
                 connection.Close();
             }
+        }
+
+
+        public static List<TeachClassStu> GetStuList(string courseclassnum)
+        {
+            //AccessDBHelper.ConnectDB(App.Databasefilepath);
+            List<TeachClassStu> studatalist = new List<TeachClassStu>();
+            string sql = "select * from " + courseclassnum;
+            OleDbDataReader reader = AccessDBHelper.ExecuteReader(sql, App.Databasefilepath);
+            while (reader.Read())
+            {
+                TeachClassStu tcsa = new TeachClassStu();
+                tcsa.StuNum = reader["stunum"].ToString();
+                tcsa.StuName = reader["stuname"].ToString();
+                tcsa.Sex = reader["sex"].ToString();
+                tcsa.Subject = reader["subject"].ToString();
+                tcsa.ClassNum = reader["classnum"].ToString();
+                tcsa.ClassState = reader["classstate"].ToString();
+                tcsa.ClassType = reader["classtype"].ToString();
+                tcsa.Num = Convert.ToInt32(reader["num"].ToString());
+                studatalist.Add(tcsa);
+            }
+            reader.Close();
+            AccessDBHelper.CloseConnectDB();
+            return studatalist;
         }
     }
 }
