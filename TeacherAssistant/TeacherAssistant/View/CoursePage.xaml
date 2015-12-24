@@ -146,55 +146,63 @@
                     <TextBlock Name="pleaseselect" Grid.Row="0" Visibility="Collapsed"  Text="请手动选择课程和时间" FontSize="33" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="BlueViolet"/>
                     <!--<GridView.ColumnCollection>
                     </GridView.ColumnCollection>-->
-                <Grid Name="onestudent" Grid.Row="1" DataContext="{Binding}" Visibility="Collapsed">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="3*"></ColumnDefinition>
-                        <ColumnDefinition Width="2*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <Rectangle RadiusX="35" RadiusY="35" Stroke="#314443" StrokeThickness="2" Width="70" Height=" 70">
-                            <Rectangle.Fill>
-                                <ImageBrush ImageSource="{Binding Sex,Converter={StaticResource SexImageValueConverter}}" Stretch="Uniform"/>
-                            </Rectangle.Fill>
-                        </Rectangle>
+                    <Grid Name="onestudent" Grid.Row="1" DataContext="{Binding}" Visibility="Collapsed">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="3*"></ColumnDefinition>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Rectangle RadiusX="35" RadiusY="35" Stroke="#314443" StrokeThickness="2" Width="70" Height=" 70">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="{Binding Sex,Converter={StaticResource SexImageValueConverter}}" Stretch="Uniform"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Grid>
+                        <Grid Grid.Column="1" Margin="0,5,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" >
+                                <Button Content="到课" Width="50" Height="20"  Margin="0,0,0,0"  Background="#32b16c"/>
+                                <Button Content="缺课" Width="50" Height="20"  Margin="10,0,0,0"  Background="#e5004f"/>
+                                <Button Content="请假" Width="50" Height="20" Margin="10,0,0,0"  Background="#fff100"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" VerticalAlignment="Center">
+                                <TextBlock Name="stuname" Text="{Binding StuName}"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                <TextBlock Text="学号: "/>
+                                <TextBlock Text="{Binding StuNum}"/>
+                                <TextBlock Text="班级: " Margin="10,0,0,0"/>
+                                <TextBlock Text="{Binding ClassNum}"/>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Grid.Column="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Button Content="上一个" Click="Button_Click_2"></Button>
+                                <Button Content="下一个" Click="Button_Click_3"></Button>
+                            </StackPanel>
+                            <Button Grid.Row="1" Content="智能点名" Height="20"/>
+                        </Grid>
                     </Grid>
-                    <Grid Grid.Column="1" Margin="0,5,0,0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" >
-                            <Button Content="到课" Width="50" Height="20"  Margin="0,0,0,0"  Background="#32b16c"/>
-                            <Button Content="缺课" Width="50" Height="20"  Margin="10,0,0,0"  Background="#e5004f"/>
-                            <Button Content="请假" Width="50" Height="20" Margin="10,0,0,0"  Background="#fff100"/>
-                        </StackPanel>
-                        <StackPanel Grid.Row="1" VerticalAlignment="Center">
-                            <TextBlock Name="stuname" Text="{Binding StuName}"/>
-                        </StackPanel>
-                        <StackPanel Grid.Row="2" Orientation="Horizontal">
-                            <TextBlock Text="学号: "/>
-                            <TextBlock Text="{Binding StuNum}"/>
-                            <TextBlock Text="班级: " Margin="10,0,0,0"/>
-                            <TextBlock Text="{Binding ClassNum}"/>
-                        </StackPanel>
-                    </Grid>
-                    <Grid Grid.Column="2">
-                        <Grid.RowDefinitions>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Button Content="上一个" Click="Button_Click_2"></Button>
-                            <Button Content="下一个" Click="Button_Click_3"></Button>
-                        </StackPanel>
-                        <Button Grid.Row="1" Content="智能点名" Height="20"/>
-                    </Grid>
-                </Grid>
                 </Grid>
                 <Grid Name="homework" Visibility="Collapsed">
-                    <Image Source="/Image/arrive.png" Height="170" Margin="20,10,0,0"/>
+                    <!--<Image Source="/Image/arrive.png" Height="170" Margin="20,10,0,0"/>-->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="作业内容" Margin="10,10,0,0"/>
+                    <TextBox  Grid.Row="1" Height="200" TextWrapping="Wrap" Margin="10,0,10,0" FontSize="14"></TextBox>
+                    <Button Grid.Row="2" Content="发布" HorizontalAlignment="Right" Width="80" Margin="0,20,20,10"></Button>
 
                 </Grid>
 
