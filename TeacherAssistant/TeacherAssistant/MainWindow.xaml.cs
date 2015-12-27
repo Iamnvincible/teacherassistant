@@ -67,6 +67,8 @@ namespace TeacherAssistant
             App.Databasefilepath = filePath;
             if (dbfile.Exists)
             {
+                //AccessDBHelper.CreateTable("create table Attendance (id autoincrement primary key, stunum text(20),coursenum text(10),coursetime text(50), arrivestate text(1))", filePath);
+
                 return true;
             }
             else
@@ -80,6 +82,7 @@ namespace TeacherAssistant
                 //创建数据库
                 AccessDBHelper.CreateDB(filePath);
                 //AccessDBHelper.ConnectDB(filePath);
+                //创建数据表
                 AccessDBHelper.CreateTable("create table classtable (id autoincrement primary key, coursenum TEXT(10), coursename TEXT(100), classroom TEXT(100), lastweeks TEXT(100), classtype text(50) ,subject TEXT(80), stuclassnum TEXT(100), stulisturl TEXT(50),courseday TEXT(10),coursetime TEXT(10))", filePath);
                 string itempattentb = "insert into classtable (coursenum, coursename, classroom, lastweeks , classtype ,subject, stuclassnum, stulisturl,courseday,coursetime) values";
                 foreach (var item in classtable)
@@ -128,6 +131,7 @@ namespace TeacherAssistant
                         string tablename = disurls[i];
                         string[] SQLTransaction = new string[stu.Count];
                         string sql = "create table " + tablename + " (stunum TEXT(50) primary key, stuname TEXT(100),sex TEXT(4),subject TEXT(100),classnum TEXT(100),classstate TEXT(50),classtype TEXT(50),num autoincrement)";
+                        //创建教学班表
                         AccessDBHelper.CreateTable(sql, filePath);
                         string itempatten = "insert into " + tablename + " (stunum, stuname, sex, subject, classnum, classstate, classtype) values ";
                         for (int trans = 0; trans < SQLTransaction.Length; trans++)
@@ -150,7 +154,6 @@ namespace TeacherAssistant
                     //    {
                     //        string insert = String.Format(itempatten + "('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')", stu[trans].Num, stu[trans].Subject, stu[trans].StudentNum, stu[trans].Name, stu[trans].Sex, stu[trans].ClassNum, stu[trans].Year, stu[trans].ClassState);
                     //        SQLTransaction[trans] = insert;
-
                     //    }
                     //    AccessDBHelper.Transaction(SQLTransaction, filePath);
                     //}
@@ -160,6 +163,8 @@ namespace TeacherAssistant
                         return false;
                     }
                 }
+                //建表
+                AccessDBHelper.CreateTable("create table Attendance (id autoincrement primary key, stunum text(20),coursenum text(10),coursetime text(50), arrivestate text(1))", filePath);
                 return true;
             }
         }

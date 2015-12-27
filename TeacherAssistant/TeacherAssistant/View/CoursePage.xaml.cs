@@ -184,19 +184,33 @@ namespace TeacherAssistant.View
             this.calltheroll.Visibility = Visibility.Collapsed;
             this.homework.Visibility = Visibility.Visible;
         }
-
+        /// <summary>
+        /// 欢迎
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void welcomebtn_Click(object sender, RoutedEventArgs e)
         {
             this.welcome.Visibility = Visibility.Visible;
             this.calltheroll.Visibility = Visibility.Collapsed;
             this.homework.Visibility = Visibility.Collapsed;
         }
-        //点到按钮三个
+        /// <summary>
+        ///点到按钮三个
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Arrived_Click(object sender, RoutedEventArgs e)
         {
             Button colorbtn = sender as Button;
             SetOne(colorbtn.Background);
         }
+        /// <summary>
+        /// 可视化树的查找
+        /// </summary>
+        /// <param name="relate"></param>
+        /// <param name="type"></param>
+        /// <param name="resElement"></param>
         private void FindChildByType(DependencyObject relate, Type type, ref FrameworkElement resElement)
         {
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(relate); i++)
@@ -213,7 +227,10 @@ namespace TeacherAssistant.View
                 }
             }
         }
-
+        /// <summary>
+        /// 设置一个按钮的颜色什么的
+        /// </summary>
+        /// <param name="scb"></param>
         private void SetOne(Brush scb)
         {
             string nu = this.stunumber.Text;
@@ -233,6 +250,10 @@ namespace TeacherAssistant.View
             theone.BorderBrush = new SolidColorBrush(Color.FromArgb(255, 204, 204, 204));
             SetBorder(new SolidColorBrush(Color.FromArgb(255, 250, 0, 0)));
         }
+        /// <summary>
+        /// 设置按钮边框
+        /// </summary>
+        /// <param name="scb"></param>
         private void SetBorder(SolidColorBrush scb)
         {
             var btitemn = this.namelist.ItemContainerGenerator.ContainerFromItem(studatalist[selected]) as ListViewItem;
@@ -241,7 +262,11 @@ namespace TeacherAssistant.View
             Button theone = bn as Button;
             theone.BorderBrush = scb;// new SolidColorBrush(Color.FromArgb(255, 250, 0, 0));
         }
-
+        /// <summary>
+        /// 个人姓名按钮点击
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void stuname_Click(object sender, RoutedEventArgs e)
         {
             SetBorder(new SolidColorBrush(Color.FromArgb(255, 204, 204, 204)));
@@ -255,9 +280,70 @@ namespace TeacherAssistant.View
             }
             SetBorder(new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)));
         }
+        /// <summary>
+        /// 语音
+        /// </summary>
+        /// <param name="text">要说的文本</param>
         private void speek(string text)
         {
             speech.Speak(text, SpeechVoiceSpeakFlags.SVSFlagsAsync);
+        }
+        /// <summary>
+        /// 将点名结果保存到数据库
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveToDB(object sender, RoutedEventArgs e)
+        {
+
+            List<Arrive> alist = new List<Arrive>();
+            int arrivestate = 0;
+            //课程
+            string coursename = this.current.Text;
+            ClassDetail course = App.classtable.Find(x => x.CourseName == coursename);
+            string coursenum = course.CourseNum;
+            string coursetime = "第" + App.WeekCount.ToString() + "周" + course.CourseDay + course.CourseTime;
+            //学生
+            //学生学号
+            //到课状态，按钮背景色
+            FrameworkElement b = default(FrameworkElement);
+            for (int i = 0; i < studatalist.Count; i++)
+            {
+                ListViewItem btitem = this.namelist.ItemContainerGenerator.ContainerFromItem(studatalist[i]) as ListViewItem;
+                FindChildByType(btitem, typeof(Button), ref b);
+                Button theone = b as Button;
+                if (theone.Background == this.Arrived.Background)
+                {
+                    arrivestate = 1;
+                }
+                else if (theone.Background == this.Out.Background)
+                {
+                    arrivestate = 2;
+                }
+                else if (theone.Background == this.Unknown.Background)
+                {
+                    arrivestate = 3;
+                }
+                else if (theone.Background == this.Late.Background)
+                {
+                    arrivestate = 4;
+                }
+                else
+                {
+                    arrivestate = 0;
+                }
+                alist.Add(new Arrive() { StuNum = studatalist[i].StuNum, CourseNum = coursenum, CourseTime = coursetime, ArriveState = arrivestate });
+            }
+
+
+            string[] SQLTransaction = new string[alist.Count];
+            string itempatten = "insert into " + "Attendance" + " (stunum,coursenum,coursetime,arrivestate) values ";
+            for (int trans = 0; trans < SQLTransaction.Length; trans++)
+            {
+                string insert = String.Format(itempatten + "('{0}','{1}','{2}','{3}')", alist[trans].StuNum, alist[trans].CourseNum, alist[trans].CourseTime, alist[trans].ArriveState);
+                SQLTransaction[trans] = insert;
+            }
+            AccessDBHelper.Transaction(SQLTransaction, App.Databasefilepath);
         }
     }
 

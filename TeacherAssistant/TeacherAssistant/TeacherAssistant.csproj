@@ -86,6 +86,7 @@
     <Compile Include="Converter\WeekValueConverter.cs" />
     <Compile Include="DataBase\AccessDBHelper.cs" />
     <Compile Include="Helper\CourseHelper.cs" />
+    <Compile Include="Model\Arrive.cs" />
     <Compile Include="Model\ClassDetail.cs" />
     <Compile Include="ViewModel\CoursePageViewModel.cs" />
     <Compile Include="ViewModel\IndexPageViewModel.cs" />

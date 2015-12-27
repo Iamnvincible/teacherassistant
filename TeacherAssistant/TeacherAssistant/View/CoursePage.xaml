@@ -152,11 +152,13 @@
                         <Image Source="/Image/homework.png" Height="180" Margin=" 10,30,0,0"/>
                     </StackPanel>
                 </Grid>
+                <!--点名模块-->
                 <Grid Name="calltheroll" Visibility="Visible" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="4*"></RowDefinition>
                         <RowDefinition Height=" 2*"></RowDefinition>
                     </Grid.RowDefinitions>
+                    <!--姓名列表-->
                     <ListView Name="namelist" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="0">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -174,12 +176,14 @@
                     <TextBlock Name="pleaseselect" Grid.Row="0" Visibility="Collapsed"  Text="请手动选择课程和时间" FontSize="33" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="BlueViolet"/>
                     <!--<GridView.ColumnCollection>
                     </GridView.ColumnCollection>-->
+                    <!--个人详细-->
                     <Grid Name="onestudent" Grid.Row="1" DataContext="{Binding}" Visibility="Collapsed">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="3*"></ColumnDefinition>
                             <ColumnDefinition Width="2*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
+                        <!--性别图片-->
                         <Grid Grid.Column="0">
                             <Rectangle RadiusX="35" RadiusY="35" Stroke="#314443" StrokeThickness="2" Width="70" Height=" 70">
                                 <Rectangle.Fill>
@@ -187,6 +191,7 @@
                                 </Rectangle.Fill>
                             </Rectangle>
                         </Grid>
+                        <!--点名按钮-->
                         <Grid Grid.Column="1" Margin="0,5,0,0">
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
@@ -315,6 +320,7 @@
                                 <TextBlock Text="{Binding ClassNum}"/>
                             </StackPanel>
                         </Grid>
+                        <!--功能按钮-->
                         <Grid Grid.Column="2">
                             <Grid.RowDefinitions>
                                 <RowDefinition></RowDefinition>
@@ -323,12 +329,13 @@
                             <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Button  Content="&lt;" Click="Button_Click_2" Width="28" Margin="0,0,0,0" FontSize="15" FontFamily="Microsoft Yahei UI"></Button>
                                 <Button Content="&gt;" Click="Button_Click_3" Width="28" Margin="10,0,0,0" FontSize="15" FontFamily="Microsoft Yahei UI"></Button>
-                                <Button x:Name="Sava"  Content="保存" Click="Button_Click_3" Width="80" Margin="10,0,0,0" FontSize="15" FontFamily="Microsoft Yahei UI"></Button>
+                                <Button x:Name="Sava"  Content="保存" Click="SaveToDB" Width="80" Margin="10,0,0,0" FontSize="15" FontFamily="Microsoft Yahei UI"></Button>
                             </StackPanel>
                             <Button  Grid.Row="1" Content="智能点名" FontSize="18" FontFamily="Microsoft Yahei UI" Margin=" 5"/>
                         </Grid>
                     </Grid>
                 </Grid>
+                <!--作业模块-->
                 <Grid Name="homework" Visibility="Collapsed">
                     <!--<Image Source="/Image/arrive.png" Height="170" Margin="20,10,0,0"/>-->
                     <Grid.RowDefinitions>
