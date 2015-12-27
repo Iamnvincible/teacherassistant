@@ -60,7 +60,9 @@ namespace TeacherAssistant.View
                 d.Add(item.CourseDay + item.CourseTime);
             }
             this.combot.ItemsSource = d;
-
+            this.namelist.Visibility = Visibility.Collapsed;
+            this.pleaseselect.Visibility = Visibility.Visible;
+            this.onestudent.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
@@ -70,13 +72,14 @@ namespace TeacherAssistant.View
         /// <param name="e"></param>
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            speech.Speak(" ", SpeechVoiceSpeakFlags.SVSFlagsAsync);
+            SetBorder(new SolidColorBrush(Color.FromArgb(255, 204, 204, 204)));
             selected = selected <= 0 ? studatalist.Count - 1 : selected - 1;
             this.onestudent.DataContext = studatalist[selected];
             if (selected != 0 && voice.IsChecked == true)
             {
                 speek(stuname.Text);
             }
+            SetBorder(new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)));
         }
         /// <summary>
         /// 下一个
@@ -85,12 +88,14 @@ namespace TeacherAssistant.View
         /// <param name="e"></param>
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
+            SetBorder(new SolidColorBrush(Color.FromArgb(255, 204, 204, 204)));
             selected = selected >= studatalist.Count - 1 ? 0 : selected + 1;
             this.onestudent.DataContext = studatalist[selected];
             if (selected != 0 && voice.IsChecked == true)
             {
                 speek(stuname.Text);
             }
+            SetBorder(new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)));
         }
         /// <summary>
         /// 时间段改变
@@ -115,6 +120,7 @@ namespace TeacherAssistant.View
                 this.namelist.ItemsSource = studatalist;
                 this.onestudent.DataContext = studatalist;
                 this.pleaseselect.Visibility = Visibility.Collapsed;
+                this.namelist.Visibility = Visibility.Visible;
             }
 
         }
@@ -238,9 +244,6 @@ namespace TeacherAssistant.View
 
         private void stuname_Click(object sender, RoutedEventArgs e)
         {
-            //出现信息、
-            //当前位置
-            //先获取文本？
             SetBorder(new SolidColorBrush(Color.FromArgb(255, 204, 204, 204)));
             TeachClassStu c = ((Button)sender).DataContext as TeachClassStu;
             var d = studatalist.Find(x => x.StuNum == c.StuNum);

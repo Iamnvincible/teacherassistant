@@ -61,8 +61,7 @@
                     <ControlTemplate TargetType="{x:Type TextBox}">
                         <Grid>
                             <Rectangle RadiusX="5" RadiusY="5" Fill="{TemplateBinding Background}" Stroke="#FF898989"  StrokeThickness="1"/>
-                            <ScrollViewer x:Name="PART_ContentHost" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Padding="{TemplateBinding Padding}">
-                            </ScrollViewer>
+                            <ScrollViewer x:Name="PART_ContentHost" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Padding="{TemplateBinding Padding}"/>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>

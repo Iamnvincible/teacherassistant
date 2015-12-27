@@ -16,23 +16,21 @@
         <converter:CurrentcourseValueConverter x:Key="CurrentcourseValueConverter"/>
         <converter:SexImageValueConverter x:Key="SexImageValueConverter"/>
         <Style x:Key="buttonstyle" TargetType="Button">
-            <Setter Property="Background" Value="#7ecef4"/>
             <Setter Property="BorderThickness" Value=" 0"/>
             <Setter Property="Margin" Value="0,5,0,0"/>
             <Setter Property="Height" Value="28"/>
             <Setter Property="FontWeight" Value="Black"/>
             <Setter Property="Foreground" Value="WhiteSmoke"/>
             <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Background" Value="#FFFF4300"/>
             <Setter Property="Width" Value="100"/>
             <Setter Property="Height" Value="35"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="0" CornerRadius="5" Name="PART_Background">
+                        <Border BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="0" CornerRadius="0" Name="PART_Background">
                             <Border.Background>
-                                <LinearGradientBrush EndPoint="0,0" StartPoint="0,0">
-                                    <GradientStop Color="#3CC3F5" Offset="0.5" />
+                                <LinearGradientBrush>
+                                    <GradientStop Color="#3CC3F5" />
                                 </LinearGradientBrush>
                             </Border.Background>
                             <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -75,6 +73,37 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <!--<Style x:Key="FeatureButton" TargetType="Button">
+            <Setter Property="FontFamily" Value="Microsoft Yahei UI"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="Red"/>
+            -->
+        <!--<Setter Property="Background" Value="Red"/>-->
+        <!--
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    -->
+        <!--<Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border BorderBrush="Red"  BorderThickness="1" CornerRadius="5" Name="PART_Background">
+                                    <Border.Background>
+                                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                            <GradientStop Color="{TemplateBinding Button.Background}" Offset="0.5" />
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>-->
+        <!--
+                    <Setter Property="Background" Value="Yellow"/>
+
+                </Trigger>
+            </Style.Triggers>
+        </Style>-->
     </Page.Resources>
     <Grid Background="White">
         <Grid.RowDefinitions>
@@ -123,7 +152,7 @@
                         <Image Source="/Image/homework.png" Height="180" Margin=" 10,30,0,0"/>
                     </StackPanel>
                 </Grid>
-                <Grid Name="calltheroll" Visibility="Visible">
+                <Grid Name="calltheroll" Visibility="Visible" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="4*"></RowDefinition>
                         <RowDefinition Height=" 2*"></RowDefinition>
@@ -145,7 +174,7 @@
                     <TextBlock Name="pleaseselect" Grid.Row="0" Visibility="Collapsed"  Text="请手动选择课程和时间" FontSize="33" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="BlueViolet"/>
                     <!--<GridView.ColumnCollection>
                     </GridView.ColumnCollection>-->
-                    <Grid Name="onestudent" Grid.Row="1" DataContext="{Binding}" Visibility="Visible">
+                    <Grid Name="onestudent" Grid.Row="1" DataContext="{Binding}" Visibility="Collapsed">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -165,14 +194,120 @@
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
                             <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" >
-                                <Button Name="Arrived" Click="Arrived_Click" Content="到课" Width="50" Height="20"  Margin="0,0,0,0"  Background="#32b16c"/>
-                                <Button Name="Out" Click="Arrived_Click" Content="缺课" Width="50" Height="20"  Margin="10,0,0,0"  Background="#e5004f"/>
-                                <Button Name="Unknown" Click="Arrived_Click" Content="请假" Width="50" Height="20" Margin="10,0,0,0"  Background="#fff100"/>
-                                <CheckBox Name="voice" Content="语音" FontSize="16" IsChecked="True" Margin="50,0,0,0"></CheckBox>
+                                <Button Name="Arrived" Click="Arrived_Click" Content="到课"  Width="45" Height="25" Margin="0,0,0,0" Cursor="Hand">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Setter Property="Background" Value="#32b16c"/>
+                                            <Setter Property="BorderThickness" Value="0"/>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="true">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                                <Border BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="0" CornerRadius="5" Name="PART_Background">
+                                                                    <Border.Background>
+                                                                        <LinearGradientBrush EndPoint="0,0" StartPoint="0,0">
+                                                                            <GradientStop Color="#32b16c" Offset="0.5" />
+                                                                        </LinearGradientBrush>
+                                                                    </Border.Background>
+                                                                    <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                                <Button Name="Out" Click="Arrived_Click" Content="缺课"  Width="45"  Height="25" Margin="10,0,0,0" Cursor="Hand">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Setter Property="Background" Value="#e5004f"/>
+                                            <Setter Property="BorderThickness" Value="0"/>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="true">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                                <Border BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="0" CornerRadius="5" Name="PART_Background">
+                                                                    <Border.Background>
+                                                                        <LinearGradientBrush EndPoint="0,0" StartPoint="0,0">
+                                                                            <GradientStop Color="#e5004f" Offset="0.5" />
+                                                                        </LinearGradientBrush>
+                                                                    </Border.Background>
+                                                                    <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                                <Button Name="Unknown" Click="Arrived_Click" Content="请假" Width="45"  Height="25" Margin="10,0,0,0" Cursor="Hand">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Setter Property="Background" Value="#fff100"/>
+                                            <Setter Property="BorderThickness" Value="0"/>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="true">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                                <Border BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="0" CornerRadius="5" Name="PART_Background">
+                                                                    <Border.Background>
+                                                                        <LinearGradientBrush EndPoint="0,0" StartPoint="0,0">
+                                                                            <GradientStop Color="#fff100" Offset="0.5" />
+                                                                        </LinearGradientBrush>
+                                                                    </Border.Background>
+                                                                    <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                                <Button Name="Late" Click="Arrived_Click" Content="迟到" Width="45"  Height="25" Margin="10,0,0,0" Cursor="Hand">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Setter Property="Background" Value="#FFE06726"/>
+                                            <Setter Property="BorderThickness" Value="0"/>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="true">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                                <Border BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="0" CornerRadius="5" Name="PART_Background">
+                                                                    <Border.Background>
+                                                                        <LinearGradientBrush EndPoint="0,0" StartPoint="0,0">
+                                                                            <GradientStop Color="#FFE06726" Offset="0.5" />
+                                                                        </LinearGradientBrush>
+                                                                    </Border.Background>
+                                                                    <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                                <CheckBox Name="voice" Content="语音" FontSize="16" IsChecked="False" Margin="10,0,0,0"></CheckBox>
                             </StackPanel>
-                            <StackPanel Grid.Row="1" VerticalAlignment="Center">
-                                <TextBlock Name="stuname" Text="{Binding StuName}"/>
-                            </StackPanel>
+                            <Grid Grid.Row="1" VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Name="stuname" Grid.Column="0" Text="{Binding StuName}"/>
+                                <TextBlock Name="subject"  Grid.Column="1" Text="{Binding Subject}"/>
+                            </Grid>
                             <StackPanel Grid.Row="2" Orientation="Horizontal">
                                 <TextBlock Text="学号: "/>
                                 <TextBlock Name="stunumber" Text="{Binding StuNum}"/>
@@ -186,10 +321,11 @@
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
                             <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Button Content="上一个" Click="Button_Click_2"></Button>
-                                <Button Content="下一个" Click="Button_Click_3"></Button>
+                                <Button  Content="&lt;" Click="Button_Click_2" Width="28" Margin="0,0,0,0" FontSize="15" FontFamily="Microsoft Yahei UI"></Button>
+                                <Button Content="&gt;" Click="Button_Click_3" Width="28" Margin="10,0,0,0" FontSize="15" FontFamily="Microsoft Yahei UI"></Button>
+                                <Button x:Name="Sava"  Content="保存" Click="Button_Click_3" Width="80" Margin="10,0,0,0" FontSize="15" FontFamily="Microsoft Yahei UI"></Button>
                             </StackPanel>
-                            <Button Grid.Row="1" Content="智能点名" Height="20"/>
+                            <Button  Grid.Row="1" Content="智能点名" FontSize="18" FontFamily="Microsoft Yahei UI" Margin=" 5"/>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -200,12 +336,10 @@
                         <RowDefinition></RowDefinition>
                         <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Text="作业内容" Margin="10,10,0,0"/>
-                    <TextBox  Grid.Row="1" Height="200" TextWrapping="Wrap" Margin="10,0,10,0" FontSize="14"></TextBox>
+                    <TextBlock Grid.Row="0" Text="作业内容" Margin="10,10,0,10" VerticalAlignment="Bottom"/>
+                    <TextBox  Grid.Row="1"  TextWrapping="Wrap" Margin="10,0,10,0" FontSize="14" VerticalScrollBarVisibility="Auto"></TextBox>
                     <Button Grid.Row="2" Content="发布" HorizontalAlignment="Right" Width="80" Margin="0,20,20,10"></Button>
-
                 </Grid>
-
             </Grid>
         </Grid>
     </Grid>
