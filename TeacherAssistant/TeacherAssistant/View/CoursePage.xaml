@@ -118,13 +118,12 @@
                 </StackPanel>
             </Grid>
             <Grid Grid.Column="1">
-                <Grid Name="welcome" Visibility="Visible">
-
+                <Grid Name="welcome" Visibility="Collapsed">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Image Source="/Image/homework.png" Height="180" Margin=" 10,30,0,0"/>
                     </StackPanel>
                 </Grid>
-                <Grid Name="calltheroll" Visibility="Collapsed">
+                <Grid Name="calltheroll" Visibility="Visible">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="4*"></RowDefinition>
                         <RowDefinition Height=" 2*"></RowDefinition>
@@ -166,16 +165,16 @@
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
                             <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" >
-                                <Button Content="到课" Width="50" Height="20"  Margin="0,0,0,0"  Background="#32b16c"/>
-                                <Button Content="缺课" Width="50" Height="20"  Margin="10,0,0,0"  Background="#e5004f"/>
-                                <Button Content="请假" Width="50" Height="20" Margin="10,0,0,0"  Background="#fff100"/>
+                                <Button Name="Arrived" Click="Arrived_Click" Content="到课" Width="50" Height="20"  Margin="0,0,0,0"  Background="#32b16c"/>
+                                <Button Name="Out" Click="Out_Click" Content="缺课" Width="50" Height="20"  Margin="10,0,0,0"  Background="#e5004f"/>
+                                <Button Name="Unknown" Click="Unknown_Click" Content="请假" Width="50" Height="20" Margin="10,0,0,0"  Background="#fff100"/>
                             </StackPanel>
                             <StackPanel Grid.Row="1" VerticalAlignment="Center">
                                 <TextBlock Name="stuname" Text="{Binding StuName}"/>
                             </StackPanel>
                             <StackPanel Grid.Row="2" Orientation="Horizontal">
                                 <TextBlock Text="学号: "/>
-                                <TextBlock Text="{Binding StuNum}"/>
+                                <TextBlock Name="stunumber" Text="{Binding StuNum}"/>
                                 <TextBlock Text="班级: " Margin="10,0,0,0"/>
                                 <TextBlock Text="{Binding ClassNum}"/>
                             </StackPanel>

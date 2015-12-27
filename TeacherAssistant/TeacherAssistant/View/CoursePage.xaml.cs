@@ -62,7 +62,7 @@ namespace TeacherAssistant.View
             clw.Show();
         }
 
-       
+
         /// <summary>
         /// 上一个
         /// </summary>
@@ -110,11 +110,7 @@ namespace TeacherAssistant.View
 
         }
 
-        private void Button_Click_4(object sender, RoutedEventArgs e)
-        {
-
-        }
-        private async void callbtn_Click_1(object sender, RoutedEventArgs e)
+        private void callbtn_Click_1(object sender, RoutedEventArgs e)
         {
             this.homework.Visibility = Visibility.Collapsed;
             this.welcome.Visibility = Visibility.Collapsed;
@@ -170,6 +166,71 @@ namespace TeacherAssistant.View
             this.welcome.Visibility = Visibility.Visible;
             this.calltheroll.Visibility = Visibility.Collapsed;
             this.homework.Visibility = Visibility.Collapsed;
+        }
+
+        private void Arrived_Click(object sender, RoutedEventArgs e)
+        {
+            //Button stuname=(Button)this.namelist.Items.GetItemAt(0);
+            //Button stuname=(Button)VisualTreeHelper.GetChild(this.namelist, 0);
+            string nu = this.stunumber.Text;
+            var t = from n in studatalist where n.StuNum == nu select n;
+            var btitem = this.namelist.ItemContainerGenerator.ContainerFromItem(t.First()) as ListViewItem;
+            FrameworkElement b = default(FrameworkElement);
+            FindChildByType(btitem, typeof(Button), ref b);
+            Button theone = b as Button;
+            theone.Background = new SolidColorBrush(Color.FromArgb(255, 50, 177, 108));
+            selected = selected >= studatalist.Count - 1 ? 0 : selected + 1;
+            this.onestudent.DataContext = studatalist[selected];
+            if (selected != 0)
+            {
+
+                speech.Speak(" ", SpeechVoiceSpeakFlags.SVSFlagsAsync);
+                speech.Speak(stuname.Text, SpeechVoiceSpeakFlags.SVSFlagsAsync);
+            }
+
+            //foreach (var item in this.namelist.Items)
+            //{
+            //    var el = this.namelist.ItemContainerGenerator.ContainerFromItem(item) as FrameworkElement;
+            //    if (el != null && el is ListViewItem)
+            //    {
+            //        ListViewItem lbItem = el as ListViewItem;
+            //        FrameworkElement efind = default(FrameworkElement);
+            //        FindChildByType(lbItem, typeof(Button), ref efind);
+            //        if (efind is Button)
+            //        {
+            //            Button btn = efind as Button;
+
+            //            btn.Background = new SolidColorBrush(Colors.Red);
+            //        }
+            //    }
+            //}
+        }
+
+        private void Out_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Unknown_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void FindChildByType(DependencyObject relate, Type type, ref FrameworkElement resElement)
+        {
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(relate); i++)
+            {
+                var el = VisualTreeHelper.GetChild(relate, i) as FrameworkElement;
+                if (el.GetType() == type)
+                {
+                    resElement = el;
+                    return;
+                }
+                else
+                {
+                    FindChildByType(el, type, ref resElement);
+                }
+            }
         }
     }
 
