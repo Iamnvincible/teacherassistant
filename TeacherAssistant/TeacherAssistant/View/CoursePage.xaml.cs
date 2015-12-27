@@ -29,6 +29,9 @@ namespace TeacherAssistant.View
         public CoursePageViewModel vm;
         List<TeachClassStu> studatalist;
         int selected = 0;
+        /// <summary>
+        /// 构造函数，数据绑定VM
+        /// </summary>
         public CoursePage()
         {
             InitializeComponent();
@@ -38,7 +41,11 @@ namespace TeacherAssistant.View
             this.combo.ItemsSource = vm.coursename;
             this.combo.SelectionChanged += Combo_SelectionChanged;
         }
-
+        /// <summary>
+        /// 课程下拉列表改变
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Combo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.current.Text = this.combo.SelectedItem as string;
@@ -56,13 +63,6 @@ namespace TeacherAssistant.View
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            ClassListWindow clw = new ClassListWindow();
-            clw.Show();
-        }
-
-
         /// <summary>
         /// 上一个
         /// </summary>
@@ -70,10 +70,13 @@ namespace TeacherAssistant.View
         /// <param name="e"></param>
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
+            speech.Speak(" ", SpeechVoiceSpeakFlags.SVSFlagsAsync);
             selected = selected <= 0 ? studatalist.Count - 1 : selected - 1;
             this.onestudent.DataContext = studatalist[selected];
-            speech.Speak(" ", SpeechVoiceSpeakFlags.SVSFlagsAsync);
-            speech.Speak(stuname.Text, SpeechVoiceSpeakFlags.SVSFlagsAsync);
+            if (selected != 0 && voice.IsChecked == true)
+            {
+                speek(stuname.Text);
+            }
         }
         /// <summary>
         /// 下一个
@@ -84,10 +87,16 @@ namespace TeacherAssistant.View
         {
             selected = selected >= studatalist.Count - 1 ? 0 : selected + 1;
             this.onestudent.DataContext = studatalist[selected];
-            speech.Speak(" ", SpeechVoiceSpeakFlags.SVSFlagsAsync);
-            speech.Speak(stuname.Text, SpeechVoiceSpeakFlags.SVSFlagsAsync);
+            if (selected != 0 && voice.IsChecked == true)
+            {
+                speek(stuname.Text);
+            }
         }
-
+        /// <summary>
+        /// 时间段改变
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void combot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
@@ -109,7 +118,11 @@ namespace TeacherAssistant.View
             }
 
         }
-
+        /// <summary>
+        /// 点名按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void callbtn_Click_1(object sender, RoutedEventArgs e)
         {
             this.homework.Visibility = Visibility.Collapsed;
@@ -154,6 +167,11 @@ namespace TeacherAssistant.View
             //});
             //await Task.Delay(1000);
         }
+        /// <summary>
+        /// 作业按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void homeworkbtn_Click(object sender, RoutedEventArgs e)
         {
             this.welcome.Visibility = Visibility.Collapsed;
@@ -167,55 +185,12 @@ namespace TeacherAssistant.View
             this.calltheroll.Visibility = Visibility.Collapsed;
             this.homework.Visibility = Visibility.Collapsed;
         }
-
+        //点到按钮三个
         private void Arrived_Click(object sender, RoutedEventArgs e)
         {
-            //Button stuname=(Button)this.namelist.Items.GetItemAt(0);
-            //Button stuname=(Button)VisualTreeHelper.GetChild(this.namelist, 0);
-            string nu = this.stunumber.Text;
-            var t = from n in studatalist where n.StuNum == nu select n;
-            var btitem = this.namelist.ItemContainerGenerator.ContainerFromItem(t.First()) as ListViewItem;
-            FrameworkElement b = default(FrameworkElement);
-            FindChildByType(btitem, typeof(Button), ref b);
-            Button theone = b as Button;
-            theone.Background = new SolidColorBrush(Color.FromArgb(255, 50, 177, 108));
-            selected = selected >= studatalist.Count - 1 ? 0 : selected + 1;
-            this.onestudent.DataContext = studatalist[selected];
-            if (selected != 0)
-            {
-
-                speech.Speak(" ", SpeechVoiceSpeakFlags.SVSFlagsAsync);
-                speech.Speak(stuname.Text, SpeechVoiceSpeakFlags.SVSFlagsAsync);
-            }
-
-            //foreach (var item in this.namelist.Items)
-            //{
-            //    var el = this.namelist.ItemContainerGenerator.ContainerFromItem(item) as FrameworkElement;
-            //    if (el != null && el is ListViewItem)
-            //    {
-            //        ListViewItem lbItem = el as ListViewItem;
-            //        FrameworkElement efind = default(FrameworkElement);
-            //        FindChildByType(lbItem, typeof(Button), ref efind);
-            //        if (efind is Button)
-            //        {
-            //            Button btn = efind as Button;
-
-            //            btn.Background = new SolidColorBrush(Colors.Red);
-            //        }
-            //    }
-            //}
+            Button colorbtn = sender as Button;
+            SetOne(colorbtn.Background);
         }
-
-        private void Out_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Unknown_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void FindChildByType(DependencyObject relate, Type type, ref FrameworkElement resElement)
         {
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(relate); i++)
@@ -231,6 +206,55 @@ namespace TeacherAssistant.View
                     FindChildByType(el, type, ref resElement);
                 }
             }
+        }
+
+        private void SetOne(Brush scb)
+        {
+            string nu = this.stunumber.Text;
+            var t = from n in studatalist where n.StuNum == nu select n;
+            var btitem = this.namelist.ItemContainerGenerator.ContainerFromItem(t.First()) as ListViewItem;
+            FrameworkElement b = default(FrameworkElement);
+            FindChildByType(btitem, typeof(Button), ref b);
+            Button theone = b as Button;
+            theone.Background = scb;//new SolidColorBrush(Color.FromArgb(255, 50, 177, 108));
+            selected = selected >= studatalist.Count - 1 ? 0 : selected + 1;
+            this.onestudent.DataContext = studatalist[selected];
+            if (selected != 0 && voice.IsChecked == true)
+            {
+                speech.Speak(" ", SpeechVoiceSpeakFlags.SVSFlagsAsync);
+                speech.Speak(stuname.Text, SpeechVoiceSpeakFlags.SVSFlagsAsync);
+            }
+            theone.BorderBrush = new SolidColorBrush(Color.FromArgb(255, 204, 204, 204));
+            SetBorder(new SolidColorBrush(Color.FromArgb(255, 250, 0, 0)));
+        }
+        private void SetBorder(SolidColorBrush scb)
+        {
+            var btitemn = this.namelist.ItemContainerGenerator.ContainerFromItem(studatalist[selected]) as ListViewItem;
+            FrameworkElement bn = default(FrameworkElement);
+            FindChildByType(btitemn, typeof(Button), ref bn);
+            Button theone = bn as Button;
+            theone.BorderBrush = scb;// new SolidColorBrush(Color.FromArgb(255, 250, 0, 0));
+        }
+
+        private void stuname_Click(object sender, RoutedEventArgs e)
+        {
+            //出现信息、
+            //当前位置
+            //先获取文本？
+            SetBorder(new SolidColorBrush(Color.FromArgb(255, 204, 204, 204)));
+            TeachClassStu c = ((Button)sender).DataContext as TeachClassStu;
+            var d = studatalist.Find(x => x.StuNum == c.StuNum);
+            selected = c.Num - 1;
+            this.onestudent.DataContext = studatalist[selected];
+            if (voice.IsChecked == true)
+            {
+                speek(stuname.Text);
+            }
+            SetBorder(new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)));
+        }
+        private void speek(string text)
+        {
+            speech.Speak(text, SpeechVoiceSpeakFlags.SVSFlagsAsync);
         }
     }
 

@@ -128,7 +128,7 @@
                         <RowDefinition Height="4*"></RowDefinition>
                         <RowDefinition Height=" 2*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <ListView Name="namelist" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="0" >
+                    <ListView Name="namelist" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="0">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel/>
@@ -137,7 +137,7 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <WrapPanel Orientation="Vertical" Margin="3" DataContext="{Binding}">
-                                    <Button Content="{Binding StuName}" FontFamily="Microsoft Yahei UI Light" FontSize="14" Width="80"/>
+                                    <Button Name="stuname" Click="stuname_Click" Content="{Binding StuName}" FontFamily="Microsoft Yahei UI Light" FontSize="14" Width="80"/>
                                 </WrapPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -145,7 +145,7 @@
                     <TextBlock Name="pleaseselect" Grid.Row="0" Visibility="Collapsed"  Text="请手动选择课程和时间" FontSize="33" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="BlueViolet"/>
                     <!--<GridView.ColumnCollection>
                     </GridView.ColumnCollection>-->
-                    <Grid Name="onestudent" Grid.Row="1" DataContext="{Binding}" Visibility="Collapsed">
+                    <Grid Name="onestudent" Grid.Row="1" DataContext="{Binding}" Visibility="Visible">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -166,8 +166,9 @@
                             </Grid.RowDefinitions>
                             <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" >
                                 <Button Name="Arrived" Click="Arrived_Click" Content="到课" Width="50" Height="20"  Margin="0,0,0,0"  Background="#32b16c"/>
-                                <Button Name="Out" Click="Out_Click" Content="缺课" Width="50" Height="20"  Margin="10,0,0,0"  Background="#e5004f"/>
-                                <Button Name="Unknown" Click="Unknown_Click" Content="请假" Width="50" Height="20" Margin="10,0,0,0"  Background="#fff100"/>
+                                <Button Name="Out" Click="Arrived_Click" Content="缺课" Width="50" Height="20"  Margin="10,0,0,0"  Background="#e5004f"/>
+                                <Button Name="Unknown" Click="Arrived_Click" Content="请假" Width="50" Height="20" Margin="10,0,0,0"  Background="#fff100"/>
+                                <CheckBox Name="voice" Content="语音" FontSize="16" IsChecked="True" Margin="50,0,0,0"></CheckBox>
                             </StackPanel>
                             <StackPanel Grid.Row="1" VerticalAlignment="Center">
                                 <TextBlock Name="stuname" Text="{Binding StuName}"/>
