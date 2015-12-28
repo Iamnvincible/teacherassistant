@@ -17,6 +17,7 @@ using TeacherAssistant.DataBase;
 using TeacherAssistant.Model;
 using TeacherAssistant.ViewModel;
 using DotNetSpeech;
+using System.Diagnostics;
 
 namespace TeacherAssistant.View
 {
@@ -28,6 +29,7 @@ namespace TeacherAssistant.View
         SpVoice speech = new SpVoice();
         public CoursePageViewModel vm;
         List<TeachClassStu> studatalist;
+        Brush brush = default(Brush);
         int selected = 0;
         /// <summary>
         /// 构造函数，数据绑定VM
@@ -248,6 +250,7 @@ namespace TeacherAssistant.View
                 speech.Speak(stuname.Text, SpeechVoiceSpeakFlags.SVSFlagsAsync);
             }
             theone.BorderBrush = new SolidColorBrush(Color.FromArgb(255, 204, 204, 204));
+            theone.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
             SetBorder(new SolidColorBrush(Color.FromArgb(255, 250, 0, 0)));
         }
         /// <summary>
@@ -344,6 +347,28 @@ namespace TeacherAssistant.View
                 SQLTransaction[trans] = insert;
             }
             AccessDBHelper.Transaction(SQLTransaction, App.Databasefilepath);
+        }
+
+        private void stuname_MouseEnter(object sender, MouseEventArgs e)
+        {
+            Button b = (Button)sender;
+            if (b != null)
+            {
+                brush = b.Foreground;
+                Debug.WriteLine(brush.ToString());
+                b.Foreground = b.Background;
+                Debug.WriteLine(b.Foreground);
+            }
+
+        }
+
+        private void stuname_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Button b = (Button)sender;
+            if (b != null)
+            {
+                b.Foreground = brush;
+            }
         }
     }
 

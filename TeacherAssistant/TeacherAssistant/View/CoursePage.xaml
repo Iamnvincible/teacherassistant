@@ -148,9 +148,12 @@
             </Grid>
             <Grid Grid.Column="1">
                 <Grid Name="welcome" Visibility="Collapsed">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Image Source="/Image/homework.png" Height="180" Margin=" 10,30,0,0"/>
-                    </StackPanel>
+
+                        <!--<Image Source="/Image/homework.png" Height="180" Margin=" 10,30,0,0"/>-->
+                    <WebBrowser x:Name="webBrowser" Source="file://C:/Users/amvincible/Documents/Tencent Files/664940100/FileRecv/pie.html" Margin="10" />
+                    <!--file://C:/Users/amvincible/Documents/Tencent Files/664940100/FileRecv/pie.html
+                    http://useragentstring.com/
+                    -->
                 </Grid>
                 <!--点名模块-->
                 <Grid Name="calltheroll" Visibility="Visible" >
@@ -168,7 +171,8 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <WrapPanel Orientation="Vertical" Margin="3" DataContext="{Binding}">
-                                    <Button Name="stuname" Click="stuname_Click" Content="{Binding StuName}" FontFamily="Microsoft Yahei UI Light" FontSize="14" Width="80"/>
+                                    <Button Name="stuname" Click="stuname_Click" Content="{Binding StuName}" FontFamily="Microsoft Yahei UI Light" FontSize="14" Width="80" Cursor="Hand" MouseEnter="stuname_MouseEnter" MouseLeave="stuname_MouseLeave">
+                                    </Button>
                                 </WrapPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -177,7 +181,7 @@
                     <!--<GridView.ColumnCollection>
                     </GridView.ColumnCollection>-->
                     <!--个人详细-->
-                    <Grid Name="onestudent" Grid.Row="1" DataContext="{Binding}" Visibility="Collapsed">
+                    <Grid Name="onestudent" Grid.Row="1" DataContext="{Binding}" Visibility="Visible">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -199,22 +203,42 @@
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
                             <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" >
-                                <Button Name="Arrived" Click="Arrived_Click" Content="到课"  Width="45" Height="25" Margin="0,0,0,0" Cursor="Hand">
+                                <Button Name="Arrived" Click="Arrived_Click" Content="到课"  Width="45" Height="25" Margin="0,0,0,0" Cursor="Hand" Foreground="White">
                                     <Button.Style>
                                         <Style TargetType="Button">
-                                            <Setter Property="Background" Value="#32b16c"/>
+                                            <Setter Property="Background" Value="#FF7BBA48"/>
                                             <Setter Property="BorderThickness" Value="0"/>
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="true">
                                                     <Setter Property="Template">
                                                         <Setter.Value>
                                                             <ControlTemplate TargetType="{x:Type Button}">
-                                                                <Border BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="0" CornerRadius="5" Name="PART_Background">
+                                                                <Border BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="0" CornerRadius="10" Name="PART_Background">
                                                                     <Border.Background>
                                                                         <LinearGradientBrush EndPoint="0,0" StartPoint="0,0">
-                                                                            <GradientStop Color="#32b16c" Offset="0.5" />
+                                                                    <GradientStop Color="#FF7BBA48" Offset="0.5" />
                                                                         </LinearGradientBrush>
                                                                     </Border.Background>
+                                                                    <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                            <Style.Triggers>
+                                                <!--<Trigger Property="IsMouseOver" Value="true">
+                                                </Trigger>-->
+                                                <Trigger Property="IsPressed" Value="true">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                                <Border BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="0" CornerRadius="10" Name="PART_Background">
+                                                                    <Border.Background>
+                                                                        <LinearGradientBrush EndPoint="0,0" StartPoint="0,0">
+                                                                            <GradientStop Color="#FF7BBA48" Offset="0.5" />
+                                                                        </LinearGradientBrush>
+                                                                        
+                                                                    </Border.Background>
+                                                                    <Border.Effect>
+                                                                        <DropShadowEffect ShadowDepth="1" BlurRadius="0"/>
+                                                                    </Border.Effect>
                                                                     <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                                 </Border>
                                                             </ControlTemplate>
@@ -225,7 +249,7 @@
                                         </Style>
                                     </Button.Style>
                                 </Button>
-                                <Button Name="Out" Click="Arrived_Click" Content="缺课"  Width="45"  Height="25" Margin="10,0,0,0" Cursor="Hand">
+                                <Button Name="Out" Click="Arrived_Click" Content="缺课"  Width="45"  Height="25" Margin="10,0,0,0" Cursor="Hand" Foreground="White">
                                     <Button.Style>
                                         <Style TargetType="Button">
                                             <Setter Property="Background" Value="#e5004f"/>
@@ -251,10 +275,10 @@
                                         </Style>
                                     </Button.Style>
                                 </Button>
-                                <Button Name="Unknown" Click="Arrived_Click" Content="请假" Width="45"  Height="25" Margin="10,0,0,0" Cursor="Hand">
+                                <Button Name="Unknown" Click="Arrived_Click" Content="请假" Width="45"  Height="25" Margin="10,0,0,0" Cursor="Hand" Foreground="White">
                                     <Button.Style>
                                         <Style TargetType="Button">
-                                            <Setter Property="Background" Value="#fff100"/>
+                                            <Setter Property="Background" Value="#FF4C8BF5"/>
                                             <Setter Property="BorderThickness" Value="0"/>
                                             <Style.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="true">
@@ -264,7 +288,7 @@
                                                                 <Border BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="0" CornerRadius="5" Name="PART_Background">
                                                                     <Border.Background>
                                                                         <LinearGradientBrush EndPoint="0,0" StartPoint="0,0">
-                                                                            <GradientStop Color="#fff100" Offset="0.5" />
+                                                                            <GradientStop Color="#FF4C8BF5" Offset="0.5" />
                                                                         </LinearGradientBrush>
                                                                     </Border.Background>
                                                                     <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -277,7 +301,7 @@
                                         </Style>
                                     </Button.Style>
                                 </Button>
-                                <Button Name="Late" Click="Arrived_Click" Content="迟到" Width="45"  Height="25" Margin="10,0,0,0" Cursor="Hand">
+                                <Button Name="Late" Click="Arrived_Click" Content="迟到" Width="45"  Height="25" Margin="10,0,0,0" Cursor="Hand" Foreground="White">
                                     <Button.Style>
                                         <Style TargetType="Button">
                                             <Setter Property="Background" Value="#FFE06726"/>
