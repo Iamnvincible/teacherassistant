@@ -11,6 +11,47 @@
         GlowBrush="Black"
         BorderThickness="0"
         Title="重邮教师助手1.0" Height="550" Width="800" Background="DarkGray" MinWidth="800" MinHeight="550">
+    <Window.Resources>
+        <LinearGradientBrush x:Key="GrayBlueGradientBrush" 
+    StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="DarkGray" Offset="0" />
+            <GradientStop Color="#CCCCFF" Offset="0.5" />
+            <GradientStop Color="DarkGray" Offset="1" />
+        </LinearGradientBrush>
+        <GradientStopCollection x:Key="MyGlassGradientStopsResource">
+            <GradientStop Color="WhiteSmoke" Offset="0.2" />
+            <GradientStop Color="Transparent" Offset="0.4" />
+            <GradientStop Color="WhiteSmoke" Offset="0.5" />
+            <GradientStop Color="Transparent" Offset="0.75" />
+            <GradientStop Color="WhiteSmoke" Offset="0.9" />
+            <GradientStop Color="Transparent" Offset="1" />
+        </GradientStopCollection>
+
+        <LinearGradientBrush x:Key="MyGlassBrushResource" 
+   StartPoint="0,0" EndPoint="1,1" Opacity="0.75" 
+   GradientStops="{StaticResource MyGlassGradientStopsResource}" />
+        <Style x:Key="btn" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource GrayBlueGradientBrush}"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Width="{TemplateBinding Width}">
+                            <Rectangle Name="myrec" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Opacity="0">
+                            </Rectangle>
+                            <Image Name="img" Source="/Image/Shutdown-52b.png"></Image>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Cursor" Value="Hand"></Setter>
+                                <Setter Property="Rectangle.Fill" Value="{StaticResource MyGlassBrushResource}" TargetName="myrec"></Setter>
+                                <Setter Property="Image.Source" Value="/Image/Shutdown-52.png" TargetName="img"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid Background="#7CCCFE">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -79,6 +120,7 @@
                 <TextBlock Text="其他" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="16"></TextBlock>
             </StackPanel>
         </Grid>
-        <Button Height=" 30" Width=" 50" Content="退出登录" VerticalAlignment="Bottom" Click="Button_Click" Margin="742,0,0,368"/>
+        <Button Height=" 26" Width=" 26" VerticalAlignment="Top" Click="Button_Click" HorizontalAlignment="Right" BorderThickness="0" Margin="5" Style="{StaticResource btn}">
+        </Button>
     </Grid>
 </Controls:MetroWindow>

@@ -90,6 +90,8 @@
     <Compile Include="Model\ClassDetail.cs" />
     <Compile Include="ViewModel\CoursePageViewModel.cs" />
     <Compile Include="ViewModel\IndexPageViewModel.cs" />
+    <Compile Include="Converter\ListCountValueConverter.cs" />
+    <Compile Include="ViewModel\StatisticsPageViewModel.cs" />
     <Compile Include="View\ClassListWindow.xaml.cs">
       <DependentUpon>ClassListWindow.xaml</DependentUpon>
     </Compile>
@@ -229,6 +231,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Image\Genderqueer-100.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Shutdown-52.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Shutdown-52b.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

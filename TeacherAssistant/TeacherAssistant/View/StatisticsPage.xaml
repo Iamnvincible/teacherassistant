@@ -8,9 +8,53 @@
      d:DesignHeight="300" d:DesignWidth="650"
       FontFamily="Microsoft Yahei UI"
       ShowsNavigationUI="False"
-      Title="StatisticsPage">
+      xmlns:converter="clr-namespace:TeacherAssistant.Converter"
+      Title="StatisticsPage"
+      >
+    <Page.Resources>
+        <converter:ListCountValueConverter x:Key="ListCountValueConverter"/>
+    </Page.Resources>
 
-    <Grid Background="DarkGreen">
-        <Button Content="3" Height="40"></Button>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="10">
+            <TextBlock Text="课程总数："></TextBlock>
+        </Grid>
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                
+                <TextBlock Text="课程" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock Text="时间" HorizontalAlignment="Center"></TextBlock>
+                <TextBlock Text="人数" HorizontalAlignment="Right"></TextBlock>
+            </Grid>
+            <Grid Grid.Row="1">
+                <ListView Name="courselist" ItemsSource="{Binding cd}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="{Binding CourseName}"></TextBlock>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                    <TextBlock Text="{Binding CourseDay}"></TextBlock>
+                                    <TextBlock Text="{Binding CourseTime}"></TextBlock>
+                                </StackPanel>
+                                <TextBlock Grid.Column="2" Name="sumstudents" Text="{Binding cd ,Converter={StaticResource ListCountValueConverter}}"></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>

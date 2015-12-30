@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TeacherAssistant.ViewModel;
 
 namespace TeacherAssistant.View
 {
@@ -20,9 +21,13 @@ namespace TeacherAssistant.View
     /// </summary>
     public partial class StatisticsPage : Page
     {
+        StatisticsPageViewModel spvm;
         public StatisticsPage()
         {
             InitializeComponent();
+            spvm = new StatisticsPageViewModel();
+            this.DataContext = spvm;
+            //courselist.ItemsSource = spvm.cd;
         }
     }
 }
