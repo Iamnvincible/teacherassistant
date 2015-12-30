@@ -59,7 +59,16 @@ namespace TeacherAssistant.View
             List<string> d = new List<string>();
             foreach (var item in c)
             {
-                d.Add(item.CourseDay + item.CourseTime);
+                string isoddweek = String.Empty;
+                if (item.LastWeeks.All(i => i % 2 == 0) && item.LastWeeks.Length > 4)
+                {
+                    isoddweek = "双周";
+                }
+                else if (item.LastWeeks.All(i => i % 2 != 0) && item.LastWeeks.Length > 4)
+                {
+                    isoddweek = "单周";
+                }
+                d.Add(item.CourseDay + item.CourseTime + isoddweek);
             }
             this.combot.ItemsSource = d;
             this.namelist.Visibility = Visibility.Collapsed;
@@ -112,10 +121,31 @@ namespace TeacherAssistant.View
             {
                 string daytime = this.combot.SelectedItem as string;
                 string day = daytime.Substring(0, 3);
-                string time = daytime.Substring(3);
+                string time = daytime.Substring(3, 3);
                 var c = from n in a where n.CourseName == this.current.Text && n.CourseDay == day && n.CourseTime == time select n;
                 var selected = c.ToList();
-                studatalist = AccessDBHelper.GetStuList(selected[0].StudentListUrl);
+                if (selected.Count > 1 && daytime.Contains("周"))
+                {
+                    if (daytime.Contains("双"))
+                    {
+                        if (selected[0].LastWeeks.All(x => x % 2 == 0))
+                            studatalist = AccessDBHelper.GetStuList(selected[0].StudentListUrl);
+                        else
+                            studatalist = AccessDBHelper.GetStuList(selected[1].StudentListUrl);
+
+                    }
+                    else
+                    {
+                        if (selected[0].LastWeeks.All(x => x % 2 != 0))
+                            studatalist = AccessDBHelper.GetStuList(selected[0].StudentListUrl);
+                        else
+                            studatalist = AccessDBHelper.GetStuList(selected[1].StudentListUrl);
+                    }
+                }
+                else
+                {
+                    studatalist = AccessDBHelper.GetStuList(selected[0].StudentListUrl);
+                }
                 onestudent.Visibility = Visibility.Visible;
                 if (studatalist != null)
                     studatalist.Sort(new TeachClassStu());

@@ -35,10 +35,14 @@ namespace TeacherAssistant
             Downloading.Visibility = Visibility.Visible;
             Loginbutton.Cursor = System.Windows.Input.Cursors.No;
             string teachernum = TeacherNumberBox.Text.Trim();
-            bool a = await Task.Run(() =>
+            bool a = false;
+            if (teachernum.Length == 6)
             {
-                return get(teachernum);
-            });
+                a = await Task.Run(() =>
+                {
+                    return get(teachernum);
+                });
+            }
             if (a)
             {
                 await Task.Delay(100);

@@ -27,7 +27,7 @@
             <Grid Grid.Row="1" Background="Bisque"></Grid>
             <Grid Grid.Row="2" Background="CornflowerBlue"></Grid>-->
         <!--</Grid>-->
-        <Grid Grid.Row="1" Margin="40,0,40,30">
+        <Grid Grid.Row="1" Margin="40,0,40,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
