@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,6 +36,11 @@ namespace TeacherAssistant.View
             var course=courselist.SelectedItem as ClassDetail;
             if(course!=null)
             MessageBox.Show(course.StudentListUrl+course.CourseName);
+        }
+
+        private void SortCourseName(object sender, RoutedEventArgs e)
+        {
+            spvm.Cd=new ObservableCollection<ClassDetail>(spvm.Cd.OrderBy(x=>x.CourseName).ToList());
         }
     }
 }

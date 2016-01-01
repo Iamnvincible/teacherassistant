@@ -38,13 +38,39 @@
                     <ColumnDefinition Width="0.5*"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="课程"/>
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <TextBlock Text="课程"/>
+                    <Button Width="16" Margin="20,0,0,0" Click="SortCourseName">
+                        <Button.Style>
+                            <Style  TargetType="Button">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Grid Width="{TemplateBinding Width}">
+                                                <Image Name="img" Source="/Image/Sorting-52.png"></Image>
+                                            </Grid>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Cursor" Value="Hand"></Setter>
+                                                    <Setter Property="Image.Source" Value="/Image/Sorting-52r.png" TargetName="img"></Setter>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                        <!--<Button.Background>
+                            <ImageBrush ImageSource="/Image/Sorting-52.png" Stretch="Fill"/>
+                        </Button.Background>-->
+                    </Button>
+                </StackPanel>
                 <TextBlock Grid.Column="1" Text="上课时间" HorizontalAlignment="Left"/>
                 <TextBlock Grid.Column="2" Text="总人数" HorizontalAlignment="Left"/>
                 <TextBlock Grid.Column="3" Text="周数" HorizontalAlignment="Center"/>
             </Grid>
             <Grid Grid.Row="1">
-                <ListView Name="courselist" ItemsSource="{Binding cd}" MouseDoubleClick="CouseDoubleClick">
+                <ListView Name="courselist" ItemsSource="{Binding Cd}" MouseDoubleClick="CouseDoubleClick">
                     <!--<ListView.View>
                         <GridView>
                             <GridView.Columns>
