@@ -31,6 +31,7 @@ namespace TeacherAssistant.View
         List<TeachClassStu> studatalist;
         Brush brush = default(Brush);
         int selected = 0;
+        string stulisturl = string.Empty;
         /// <summary>
         /// 构造函数，数据绑定VM
         /// </summary>
@@ -129,22 +130,34 @@ namespace TeacherAssistant.View
                     if (daytime.Contains("双"))
                     {
                         if (selected[0].LastWeeks.All(x => x % 2 == 0))
+                        {
                             studatalist = AccessDBHelper.GetStuList(selected[0].StudentListUrl);
+                            stulisturl = selected[0].StudentListUrl;
+                        }
                         else
+                        {
                             studatalist = AccessDBHelper.GetStuList(selected[1].StudentListUrl);
-
+                            stulisturl = selected[1].StudentListUrl;
+                        }
                     }
                     else
                     {
                         if (selected[0].LastWeeks.All(x => x % 2 != 0))
+                        {
                             studatalist = AccessDBHelper.GetStuList(selected[0].StudentListUrl);
+                            stulisturl = selected[0].StudentListUrl;
+                        }
                         else
+                        {
                             studatalist = AccessDBHelper.GetStuList(selected[1].StudentListUrl);
+                            stulisturl = selected[1].StudentListUrl;
+                        }
                     }
                 }
                 else
                 {
                     studatalist = AccessDBHelper.GetStuList(selected[0].StudentListUrl);
+                    stulisturl = selected[0].StudentListUrl;
                 }
                 onestudent.Visibility = Visibility.Visible;
                 if (studatalist != null)
@@ -169,6 +182,7 @@ namespace TeacherAssistant.View
             if (this.current.Text != "现在没有课" && this.combot.Text == "")
             {
                 studatalist = AccessDBHelper.GetStuList(vm.currentcourse.StudentListUrl);
+                stulisturl = vm.currentcourse.StudentListUrl;
                 onestudent.Visibility = Visibility.Visible;
                 if (studatalist != null)
                     studatalist.Sort(new TeachClassStu());
@@ -370,13 +384,14 @@ namespace TeacherAssistant.View
 
 
             string[] SQLTransaction = new string[alist.Count];
-            string itempatten = "insert into " + "Attendance" + " (stunum,coursenum,coursetime,arrivestate) values ";
+            string itempatten = "insert into " + "Attendance" + " (stunum,coursenum,coursetime,arrivestate,stulisturl) values ";
             for (int trans = 0; trans < SQLTransaction.Length; trans++)
             {
-                string insert = String.Format(itempatten + "('{0}','{1}','{2}','{3}')", alist[trans].StuNum, alist[trans].CourseNum, alist[trans].CourseTime, alist[trans].ArriveState);
+                string insert = String.Format(itempatten + "('{0}','{1}','{2}','{3}','{4}')", alist[trans].StuNum, alist[trans].CourseNum, alist[trans].CourseTime, alist[trans].ArriveState, stulisturl);
                 SQLTransaction[trans] = insert;
             }
             AccessDBHelper.Transaction(SQLTransaction, App.Databasefilepath);
+            MessageBox.Show("点名数据成功保存");
         }
 
         private void stuname_MouseEnter(object sender, MouseEventArgs e)

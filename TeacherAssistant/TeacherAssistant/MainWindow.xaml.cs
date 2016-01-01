@@ -71,8 +71,7 @@ namespace TeacherAssistant
             App.Databasefilepath = filePath;
             if (dbfile.Exists)
             {
-                //AccessDBHelper.CreateTable("create table Attendance (id autoincrement primary key, stunum text(20),coursenum text(10),coursetime text(50), arrivestate text(1))", filePath);
-
+                AccessDBHelper.CreateTable("create table Attendance (id autoincrement primary key, stunum text(20),coursenum text(10),coursetime text(50), arrivestate text(1),stulisturl text(50))", filePath);
                 return true;
             }
             else
@@ -168,7 +167,7 @@ namespace TeacherAssistant
                     }
                 }
                 //建表
-                AccessDBHelper.CreateTable("create table Attendance (id autoincrement primary key, stunum text(20),coursenum text(10),coursetime text(50), arrivestate text(1))", filePath);
+                AccessDBHelper.CreateTable("create table Attendance (id autoincrement primary key, stunum text(20),coursenum text(10),coursetime text(50), arrivestate text(1),stulisturl text(50))", filePath);
                 return true;
             }
         }

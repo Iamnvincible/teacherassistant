@@ -32,7 +32,7 @@
                 
                 <TextBlock Text="课程" HorizontalAlignment="Left"></TextBlock>
                 <TextBlock Text="时间" HorizontalAlignment="Center"></TextBlock>
-                <TextBlock Text="人数" HorizontalAlignment="Right"></TextBlock>
+                <TextBlock Text="人数" HorizontalAlignment="Right" Margin="0,0,40,0"></TextBlock>
             </Grid>
             <Grid Grid.Row="1">
                 <ListView Name="courselist" ItemsSource="{Binding cd}">
@@ -45,7 +45,7 @@
                                     <ColumnDefinition></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="{Binding CourseName}"></TextBlock>
-                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
                                     <TextBlock Text="{Binding CourseDay}"></TextBlock>
                                     <TextBlock Text="{Binding CourseTime}"></TextBlock>
                                 </StackPanel>
