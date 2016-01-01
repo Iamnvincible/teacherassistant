@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TeacherAssistant.Model;
 using TeacherAssistant.ViewModel;
 
 namespace TeacherAssistant.View
@@ -28,6 +29,12 @@ namespace TeacherAssistant.View
             spvm = new StatisticsPageViewModel();
             this.DataContext = spvm;
             //courselist.ItemsSource = spvm.cd;
+        }
+        protected void CouseDoubleClick(object sender,MouseButtonEventArgs e)
+        {
+            var course=courselist.SelectedItem as ClassDetail;
+            if(course!=null)
+            MessageBox.Show(course.StudentListUrl+course.CourseName);
         }
     }
 }

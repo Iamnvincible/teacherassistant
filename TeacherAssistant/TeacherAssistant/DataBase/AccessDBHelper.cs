@@ -121,12 +121,26 @@ namespace TeacherAssistant.DataBase
         /// <param name="commandText">存储过程名称或者sql命令语句</param>
         /// <param name="commandParameters">执行命令所用参数的集合</param>
         /// <returns>执行命令所影响的行数</returns>
-        public static int ExecuteNonQuery(OleDbConnection connection, string cmdText, params OleDbParameter[] commandParameters)
+        public static int ExecuteNonQuery(string sql, string path)
         {
+            if (connection.State != ConnectionState.Open)
+                ConnectDB(path);
             OleDbCommand cmd = new OleDbCommand();
-            PrepareCommand(cmd, connection, null, cmdText, commandParameters);
-            int val = cmd.ExecuteNonQuery();
+            cmd.Connection = connection;
+            cmd.CommandText = sql;
+            int val = 0;
+            //PrepareCommand(cmd, connection, null, sql, commandParameters);
+            try
+            {
+                val = (int)cmd.ExecuteScalar();
+
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
             cmd.Parameters.Clear();
+            //CloseConnectDB();
             return val;
         }
         /// <summary>

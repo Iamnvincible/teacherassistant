@@ -54,6 +54,7 @@ namespace TeacherAssistant.Model
         /// </summary>
         public string CourseTime { get; set; }
 
+        public int CourseStuCount { get; set; }
         public bool Compare(ClassDetail other)
         {
             return this.id == other.id && this.StudentListUrl == other.StudentListUrl && this.CourseDay == other.CourseDay && this.CourseTime == other.CourseTime&&this.Subject==other.Subject&&this.LastWeeks!=other.LastWeeks;

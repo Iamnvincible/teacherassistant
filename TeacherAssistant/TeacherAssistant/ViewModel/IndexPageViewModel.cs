@@ -60,6 +60,7 @@ namespace TeacherAssistant.ViewModel
                 tcsa.CourseDay = reader["courseday"].ToString();
                 tcsa.CourseTime = reader["coursetime"].ToString();
                 tcsa.StudentListUrl = reader["stulisturl"].ToString();
+                tcsa.CourseStuCount = AccessDBHelper.ExecuteNonQuery($"select count(*) from {tcsa.StudentListUrl}",App.Databasefilepath);
                 classtable.Add(tcsa);
 
                 //比较是否是同一节课，只是周数不同
@@ -112,6 +113,7 @@ namespace TeacherAssistant.ViewModel
                 classtable.Sort(new ClassDetail());
                 App.classtable = classtable;
                 listclass = classtable;
+
             }
             reader.Close();
             AccessDBHelper.CloseConnectDB();

@@ -21,7 +21,10 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Margin="10">
-            <TextBlock Text="课程总数："></TextBlock>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="课程总数："></TextBlock>
+                <TextBlock Text="{Binding cd.Count}"></TextBlock>
+            </StackPanel>
         </Grid>
         <Grid Grid.Row="1" Margin="10">
             <Grid.RowDefinitions>
@@ -29,30 +32,65 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
-                
-                <TextBlock Text="课程" HorizontalAlignment="Left"></TextBlock>
-                <TextBlock Text="时间" HorizontalAlignment="Center"></TextBlock>
-                <TextBlock Text="人数" HorizontalAlignment="Right" Margin="0,0,40,0"></TextBlock>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="课程"/>
+                <TextBlock Grid.Column="1" Text="上课时间" HorizontalAlignment="Left"/>
+                <TextBlock Grid.Column="2" Text="总人数" HorizontalAlignment="Left"/>
+                <TextBlock Grid.Column="3" Text="周数" HorizontalAlignment="Center"/>
             </Grid>
             <Grid Grid.Row="1">
-                <ListView Name="courselist" ItemsSource="{Binding cd}">
+                <ListView Name="courselist" ItemsSource="{Binding cd}" MouseDoubleClick="CouseDoubleClick">
+                    <!--<ListView.View>
+                        <GridView>
+                            <GridView.Columns>
+                                <GridViewColumn Header="课程" DisplayMemberBinding="{Binding CourseName}" Width="200"/>
+                                <GridViewColumn Header="时间" Width="80">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <TextBlock Text="{Binding CourseDay}"></TextBlock>
+                                                <TextBlock Text="{Binding CourseTime}"></TextBlock>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn.CellTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                <GridViewColumn Header="周数" DisplayMemberBinding="{Binding LastWeeks,Converter={StaticResource ListCountValueConverter}}" Width="200"/>-->
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="{Binding CourseName}"></TextBlock>
-                                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
                                     <TextBlock Text="{Binding CourseDay}"></TextBlock>
                                     <TextBlock Text="{Binding CourseTime}"></TextBlock>
                                 </StackPanel>
-                                <TextBlock Grid.Column="2" Name="sumstudents" Text="{Binding cd ,Converter={StaticResource ListCountValueConverter}}"></TextBlock>
+                                <TextBlock Grid.Column="2" Text="{Binding CourseStuCount}" Margin="10,0,0,0"></TextBlock>
+                                <TextBlock Grid.Column="3" Name="weeks" HorizontalAlignment="Center" Text="{Binding LastWeeks,Converter={StaticResource ListCountValueConverter}}"></TextBlock>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
+                    <!--</GridView.Columns>
+                        </GridView>
+
+
+                    </ListView.View>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <EventSetter Event="MouseDoubleClick" Handler="CouseDoubleClick"></EventSetter>
+                        </Style>
+                    </ListView.ItemContainerStyle>-->
                 </ListView>
             </Grid>
         </Grid>
