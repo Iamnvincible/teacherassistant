@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.OleDb;
 using System.Diagnostics;
 using System.Linq;
@@ -25,47 +26,78 @@ namespace TeacherAssistant.View
     /// </summary>
     public partial class StatisticsDetailPageUserControl : UserControl
     {
+        ObservableCollection<Arrive> attendancelist = new ObservableCollection<Arrive>();
+
         public StatisticsDetailPageUserControl()
         {
             InitializeComponent();
+            this.tab.SelectionChanged += Tab_SelectionChanged;
         }
+
+        private void Tab_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int si = this.tab.SelectedIndex;
+            Debug.WriteLine("选中{0}", si);
+            switch (si)
+            {
+                case 0: break;
+                case 1:
+                    break;
+                case 2:
+                    getattendance();
+                    break;
+                case 3:
+                    break;
+                default:
+                    break;
+            }
+        }
+
         private void Goback(object sender, RoutedEventArgs e)
         {
             this.Content = new StatisticsPageUserControl();
         }
 
-        private void homework(object sender, RoutedEventArgs e)
+        private async void getattendance()
         {
-            StatisticsDetailViewModel sd = (StatisticsDetailViewModel)this.DataContext;
-            string sql = $"select * from Attendance,{sd.DetailCourse.StudentListUrl} where stulisturl='{sd.DetailCourse.StudentListUrl}' and Attendance.stunum={sd.DetailCourse.StudentListUrl}.stunum";
-            OleDbDataReader reader = AccessDBHelper.ExecuteReader(sql, App.Databasefilepath);
-            List<Arrive> attendancelist = new List<Arrive>();
-            while (reader.Read())
+            if (attendancelist != atten.ItemsSource)
             {
-                Arrive a = new Arrive();
-                a.StuNum = reader["Attendance.stunum"].ToString();
-                a.StuName = reader["stuname"].ToString();
-                a.CourseNum = reader["coursenum"].ToString();
-                a.CourseTime = reader["coursetime"].ToString();
-                a.ArriveState = Convert.ToInt32(reader["arrivestate"].ToString());
-                attendancelist.Add(a);
+
+                StatisticsDetailViewModel sd = (StatisticsDetailViewModel)this.DataContext;
+                string sql = $"select * from Attendance,{sd.DetailCourse.StudentListUrl} where stulisturl='{sd.DetailCourse.StudentListUrl}' and Attendance.stunum={sd.DetailCourse.StudentListUrl}.stunum";
+
+                await Task.Run(() =>
+                {
+
+                    OleDbDataReader reader = AccessDBHelper.ExecuteReader(sql, App.Databasefilepath);
+                    while (reader.Read())
+                    {
+                        Arrive a = new Arrive();
+                        a.StuNum = reader["Attendance.stunum"].ToString();
+                        a.StuName = reader["stuname"].ToString();
+                        a.CourseNum = reader["coursenum"].ToString();
+                        a.CourseTime = reader["coursetime"].ToString();
+                        a.ArriveState = Convert.ToInt32(reader["arrivestate"].ToString());
+                        this.Dispatcher.Invoke(() =>
+                        {
+                            attendancelist.Add(a);
+                        });
+                    }
+                    reader.Close();
+                    AccessDBHelper.CloseConnectDB();
+                });
+                this.atten.ItemsSource = attendancelist;
+                this.arrive.ItemsSource = (from n in attendancelist select n.CourseTime).ToList().Distinct();
+                this.arrive.SelectedIndex = 0;
             }
-            MessageBox.Show(attendancelist[0].StuNum);
         }
 
-        private void attendance(object sender, RoutedEventArgs e)
+        private void arrive_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
-        }
-
-        private void edit(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
+            if (arrive.ItemsSource != null)
+            {
+                this.atten.ItemsSource = attendancelist.Select(x => x.CourseTime == arrive.SelectedItem.ToString()).ToList();
+            }
         }
     }
 }

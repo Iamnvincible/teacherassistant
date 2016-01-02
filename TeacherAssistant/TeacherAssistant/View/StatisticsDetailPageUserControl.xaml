@@ -8,46 +8,135 @@
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              mc:Ignorable="d" 
              FontFamily="Microsoft Yahei"
-             FontSize="14"
-             d:DesignHeight="400" d:DesignWidth="650">
+             d:DesignHeight="590" d:DesignWidth="650">
     <UserControl.Resources>
         <converter:ListCountValueConverter x:Key="ListCountValueConverter"/>
-        <Style TargetType="StackPanel">
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-        </Style>
-        <Style TargetType="TextBlock">
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
+        <converter:HeightValueConverter x:Key="HeightValueConverter"/>
+        <converter:ArriveStateValueConverter x:Key="ArriveStateValueConverter"/>
+        <converter:ClassesValueConverter x:Key="ClassesValueConverter"/>
+        <Style x:Key="whitefont" TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="Foreground" Value="White"/>
         </Style>
     </UserControl.Resources>
     <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Row="0" Margin="10,10,10,10">
-            <TabControl>
-                <TabItem Header="作业统计">
-                    <Label>
-                        <Label.Content>
-                            <Grid>
-                                <Button Content="作业统计" Width="100" Height="30" Click="homework" Margin=" 10,0,0,0" Style="{DynamicResource SquareButtonStyle}"></Button>
+        <Grid Grid.Row="0" Margin="0,0,0,0">
+            <TabControl Name="tab">
+                <TabItem Header="课程">
+                    <Label x:Name="label3">
+                        <Grid Margin="0,20" Width="{Binding ActualWidth, ElementName=label3, Mode=OneWay}" Height="{Binding ActualHeight, Converter={StaticResource HeightValueConverter}, ElementName=label3, Mode=OneWay}" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Background="#7cccfe" >
+                                <TextBlock Text="{Binding DetailCourse.CourseName}" Style="{StaticResource whitefont}"/>
                             </Grid>
-                        </Label.Content>
+                            <Grid Grid.Row="1" Background="#2daeff" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="课程编号" Style="{StaticResource whitefont}"/>
+                                <TextBlock Grid.Column="1" Text="{Binding DetailCourse.CourseNum}" Style="{StaticResource whitefont}"/>
+                            </Grid>
+                            <Grid Grid.Row="2" Background="#7cccfe" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="时间" Style="{StaticResource whitefont}"/>
+                                <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Center">
+                                    <TextBlock  Text="{Binding DetailCourse.CourseDay}" Style="{StaticResource whitefont}"/>
+                                    <TextBlock Text="{Binding DetailCourse.CourseTime}" Style="{StaticResource whitefont}"/>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Row="3" Background="#2daeff" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="周次" Style="{StaticResource whitefont}"/>
+                                <TextBlock Grid.Column="1" Text="{Binding DetailCourse.LastWeeks,Converter={StaticResource ListCountValueConverter}}" Style="{StaticResource whitefont}"/>
+                            </Grid>
+                            <Grid Grid.Row="4" Background="#7cccfe" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="教室" Style="{StaticResource whitefont}"/>
+                                <TextBlock Grid.Column="1" Text="{Binding DetailCourse.Classroom}" Style="{StaticResource whitefont}"/>
+                            </Grid>
+                            <Grid Grid.Row="5" Background="#2daeff" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="课程类别" Style="{StaticResource whitefont}"/>
+                                <TextBlock Grid.Column="1" Text="{Binding DetailCourse.ClassType}" Style="{StaticResource whitefont}"/>
+                            </Grid>
+                            <Grid Grid.Row="6" Background="#7cccfe" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="学生专业" Style="{StaticResource whitefont}"/>
+                                <TextBlock Grid.Column="1" Text="{Binding DetailCourse.Subject}" Style="{StaticResource whitefont}"/>
+                            </Grid>
+                            <Grid Grid.Row="7" Background="#2daeff" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="上课班级" Style="{StaticResource whitefont}"/>
+                                <TextBlock Grid.Column="1" Text="{Binding DetailCourse.StuClassNum,Converter={StaticResource ClassesValueConverter}}" Style="{StaticResource whitefont}"/>
+                            </Grid>
+                            <Grid Grid.Row="8" Background="#7cccfe" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="教学班号" Style="{StaticResource whitefont}"/>
+                                <TextBlock Grid.Column="1" Text="{Binding DetailCourse.StudentListUrl}" Style="{StaticResource whitefont}"/>
+                            </Grid>
+                            <Grid Grid.Row="9" Background="#2daeff" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="人数" Style="{StaticResource whitefont}"/>
+                                <TextBlock Grid.Column="1" Text="{Binding DetailCourse.CourseStuCount}" Style="{StaticResource whitefont}"/>
+                            </Grid>
+                        </Grid>
                     </Label>
                 </TabItem>
-                <TabItem Header="考勤统计">
-                    <Label x:Name="label" Background="Beige">
-
-                        <Grid Width="{Binding ActualWidth, ElementName=label, Mode=OneWay}">
+                <TabItem Header="作业统计">
+                    <Label x:Name="label2">
+                        <Grid Width="{Binding ActualWidth, ElementName=label2, Mode=OneWay}">
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
@@ -61,11 +150,67 @@
                                 </StackPanel>
                                 <TextBlock Grid.Column="4" Text="平均分"/>
                             </Grid>
-                            <ListView Grid.Row="1">
+                            <ListView Grid.Row="1" >
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0"  Text="姓名"/>
+                                            <TextBlock Grid.Column="1"  Text="学号"/>
+                                            <TextBlock Grid.Column="2"  Text="班级"/>
+                                            <StackPanel Grid.Column="3" Orientation="Horizontal">
 
+                                            </StackPanel>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Grid>
+
+                    </Label>
+                </TabItem>
+                <TabItem Header="考勤统计">
+                    <Label x:Name="label" Background="Beige">
+                        <Grid Width="{Binding ActualWidth, ElementName=label, Mode=OneWay}" Height="{Binding ActualHeight, Converter={StaticResource HeightValueConverter}, ElementName=label, Mode=OneWay}" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0"  Text="姓名"/>
+                                <TextBlock Grid.Column="1"  Text="学号"/>
+                                <TextBlock Grid.Column="2"  Text="班级"/>
+                                <StackPanel Grid.Column="3" Orientation="Horizontal">
+                                    <TextBlock Text="时间"/>
+                                    <ComboBox Name="arrive" Width="100" Margin="10,0,0,0" Text="选择时间" SelectionChanged="arrive_SelectionChanged"></ComboBox>
+                                </StackPanel>
+                            </Grid>
+                            <ListView Grid.Row="1" Name="atten">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0"  Text="{Binding StuName}" HorizontalAlignment="Center"/>
+                                            <TextBlock Grid.Column="1"  Text="{Binding StuNum}" HorizontalAlignment="Center"/>
+                                            <TextBlock Grid.Column="2"  Text="{Binding CourseNum}" HorizontalAlignment="Center"/>
+                                            <TextBlock Grid.Column="3"  Text="{Binding ArriveState ,Converter={StaticResource ArriveStateValueConverter}}" HorizontalAlignment="Center"/>
                                         </Grid>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
@@ -75,17 +220,67 @@
                     </Label>
                 </TabItem>
                 <TabItem Header="成绩总表">
-                    <Label Content="牛奶咖啡" />
+                    <Label x:Name="label1">
+                        <Grid Width="{Binding ActualWidth, ElementName=label1, Mode=OneWay}" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0"  Text="姓名"/>
+                                <TextBlock Grid.Column="1"  Text="学号"/>
+                                <TextBlock Grid.Column="2"  Text="班级"/>
+                                <TextBlock Grid.Column="3"  Text="专业"/>
+                                <TextBlock Grid.Column="4"  Text="考勤成绩"/>
+                                <TextBlock Grid.Column="5"  Text="平时加分"/>
+                                <TextBlock Grid.Column="6"  Text="作业平均分"/>
+                                <TextBlock Grid.Column="7"  Text="考试成绩"/>
+                                <TextBlock Grid.Column="8" Text="成绩"/>
+                            </Grid>
+                            <ListView Grid.Row="1">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0"  Text="姓名"/>
+                                            <TextBlock Grid.Column="1"  Text="学号"/>
+                                            <TextBlock Grid.Column="2"  Text="班级"/>
+                                            <StackPanel Grid.Column="3" Orientation="Horizontal">
+                                            </StackPanel>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Grid>
+                    </Label>
                 </TabItem>
             </TabControl>
+            <Button Content="返回课程列表" FontSize="14" Margin="0,5,0,0" Width="120" Height="30"   Click="Goback"  VerticalAlignment="Top" HorizontalAlignment="Right" Style="{DynamicResource SquareButtonStyle}"/>
         </Grid>
-        <Grid x:Name="grid" Grid.Column="1"  Margin="0,0,10,0" Background="Red">
+        <!--<Grid x:Name="grid" Grid.Column="1"  Margin="0,0,10,0" Background="Red">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Button Grid.Row="0" Content="返回课程列表" Width="120" Height="30"   Click="Goback"  VerticalAlignment="Top"/>
-            <Grid Grid.Row="1" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}">
+            <Grid Grid.Row="1" >
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -98,45 +293,45 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="{Binding DetailCourse.CourseName}" Background="#7cccfe" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}"/>
-                <StackPanel Grid.Row="1" Orientation="Horizontal" Background="#2daeff" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}">
+                <TextBlock Grid.Row="0" Text="{Binding DetailCourse.CourseName}" Background="#7cccfe" />
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Background="#2daeff" >
                     <TextBlock Text="课程编号："/>
                     <TextBlock Text="{Binding DetailCourse.CourseNum}"/>
                 </StackPanel>
-                <StackPanel Grid.Row="2" Orientation="Horizontal"  Background="#7cccfe" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}">
+                <StackPanel Grid.Row="2" Orientation="Horizontal"  Background="#7cccfe" >
                     <TextBlock Text="{Binding DetailCourse.CourseDay}"/>
                     <TextBlock Text="{Binding DetailCourse.CourseTime}"/>
                 </StackPanel>
-                <StackPanel Grid.Row="3" Background="#2daeff" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}">
-                    <TextBlock Text="周次" />
+                <StackPanel Grid.Row="3" Background="#2daeff" >
+                    <TextBlock Text="周次"/>
                     <TextBlock Text="{Binding DetailCourse.LastWeeks,Converter={StaticResource ListCountValueConverter}}" />
                 </StackPanel>
-                <StackPanel Grid.Row="4" Background="#7cccfe" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}">
+                <StackPanel Grid.Row="4" Background="#7cccfe" >
                     <TextBlock Text="教室" />
                     <TextBlock Text="{Binding DetailCourse.Classroom}" />
                 </StackPanel>
-                <StackPanel Grid.Row="5" Background="#2daeff" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}">
+                <StackPanel Grid.Row="5" Background="#2daeff" >
                     <TextBlock Text="课程类别" />
                     <TextBlock Text="{Binding DetailCourse.ClassType}" />
                 </StackPanel>
-                <StackPanel Grid.Row="6" Background="#7cccfe" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}">
+                <StackPanel Grid.Row="6" Background="#7cccfe" >
                     <TextBlock Text="学生专业" />
                     <TextBlock Text="{Binding DetailCourse.Subject}" />
                 </StackPanel>
-                <StackPanel Grid.Row="7" Background="#2daeff" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}">
+                <StackPanel Grid.Row="7" Background="#2daeff" >
                     <TextBlock Text="上课班级" />
                     <TextBlock Text="{Binding DetailCourse.StuClassNum}" />
                 </StackPanel>
-                <StackPanel Grid.Row="8" Background="#7cccfe" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}">
+                <StackPanel Grid.Row="8" Background="#7cccfe" >
                     <TextBlock Text="教学班号" />
                     <TextBlock Text="{Binding DetailCourse.StudentListUrl}" />
                 </StackPanel>
-                <StackPanel Grid.Row="9" Background="#2daeff" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}">
+                <StackPanel Grid.Row="9" Background="#2daeff" >
                     <TextBlock Text="人数" />
                     <TextBlock Text="{Binding DetailCourse.CourseStuCount}" />
                 </StackPanel>
 
             </Grid>
-        </Grid>
+        </Grid>-->
     </Grid>
 </UserControl>

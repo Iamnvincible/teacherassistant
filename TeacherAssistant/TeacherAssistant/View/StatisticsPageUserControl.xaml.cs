@@ -47,15 +47,5 @@ namespace TeacherAssistant.View
         {
             spvm.Cd = new ObservableCollection<ClassDetail>(spvm.Cd.OrderBy(x => x.CourseName).ToList());
         }
-
-        private void Statistics(object sender, RoutedEventArgs e)
-        {
-            //Page p = new StatisticsDetailPage();
-            //this.NavigationService.Navigate(p);
-            UserControl p = new StatisticsDetailPageUserControl();
-            this.Content = p;
-            //this.gri.Children.Clear();
-            //this.gri.Children.Add(p);
-        }
     }
 }
