@@ -107,6 +107,9 @@
     <Compile Include="View\MorePage.xaml.cs">
       <DependentUpon>MorePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\StatisticsDetailPage.xaml.cs">
+      <DependentUpon>StatisticsDetailPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\StatisticsPage.xaml.cs">
       <DependentUpon>StatisticsPage.xaml</DependentUpon>
     </Compile>
@@ -139,6 +142,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\MorePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StatisticsDetailPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

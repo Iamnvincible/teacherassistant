@@ -24,6 +24,7 @@
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="课程总数："></TextBlock>
                 <TextBlock Text="{Binding cd.Count}"></TextBlock>
+                <Button Content="WTF" Width="100" Click="Statistics"></Button>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1" Margin="10">
