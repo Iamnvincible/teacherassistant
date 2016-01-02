@@ -1,0 +1,99 @@
+﻿<UserControl x:Class="TeacherAssistant.View.IndexPageUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TeacherAssistant.View"
+             xmlns:converters="clr-namespace:TeacherAssistant.Converter"
+             mc:Ignorable="d" 
+             FontSize="16"
+             d:DesignHeight="300" d:DesignWidth="650">
+    <UserControl.Resources>
+        <converters:WeekValueConverter x:Key="WeekValueConverter"/>
+        <converters:DaynameValueConverter x:Key="DaynameValueConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0"  Background="Aquamarine">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Name="date" Text="{Binding Date}" HorizontalAlignment="Center"/>
+                    <TextBlock Name="weekcount" Text="{Binding Now,Converter={StaticResource WeekValueConverter}}" HorizontalAlignment="Center"/>
+                    <TextBlock Name="week" Text="{Binding Week,Converter={StaticResource DaynameValueConverter}}" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Column="1">
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <Grid Margin=" 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" >
+                            <TextBlock Text="当前课程 ："/>
+                            <TextBlock Name="currentcourse" Text="{Binding currentcourse.CourseName}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" >
+                            <TextBlock Text="教室："/>
+                            <TextBlock Name="classroom" Text="{Binding currentcourse.Classroom}"/>
+                        </StackPanel>
+                        <TextBlock Name="classday" Grid.Column="2" Text="{Binding currentcourse.CourseDay}"/>
+                        <TextBlock Name="classtime" Grid.Column="3" Text="{Binding currentcourse.CourseTime}"/>
+                    </Grid>
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Orientation="Horizontal">
+                            <TextBlock Text="下次课程 ："/>
+                            <TextBlock Name="nextcourse" Text="{Binding nextcourse.CourseName}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" >
+                            <TextBlock Text="教室："/>
+                            <TextBlock Name="nextclassroom" Text="{Binding nextcourse.Classroom}"/>
+                        </StackPanel>
+                        <TextBlock Name="nextclassday" Grid.Column="2" Text="{Binding nextcourse.CourseDay}" />
+                        <TextBlock Name="nextclasstime" Grid.Column="3" Text="{Binding nextcourse.CourseTime}" />
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1" Background="Bisque">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <TextBlock Text="授课计划" HorizontalAlignment="Center" Margin=" 0,20,0,0"/>
+            </Grid>
+            <Grid Grid.Column="1">
+                <TextBox Margin=" 10" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"></TextBox>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2" Background="CornflowerBlue">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <TextBlock Text="备忘录" HorizontalAlignment="Center" Margin=" 0,20,0,0"/>
+            </Grid>
+            <Grid Grid.Column="1">
+                <TextBox Margin=" 10" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"></TextBox>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

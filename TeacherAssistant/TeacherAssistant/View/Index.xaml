@@ -1,6 +1,7 @@
 ﻿<Controls:MetroWindow x:Class="TeacherAssistant.View.Index"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:pageTransitions="clr-namespace:WpfPageTransitions;assembly=WpfPageTransitions"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TeacherAssistant.View"
@@ -58,7 +59,8 @@
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
         <!--<Grid Grid.Row="0" Background="White" Margin="40,20,40,20">-->
-        <Frame x:Name="naviFrame" Grid.Row="0" Margin="40,20,40,20" NavigationUIVisibility="Hidden"/>
+        <pageTransitions:PageTransition Name="naviFrame" Grid.Row="0" Margin="40,20,40,20" TransitionType="GrowAndFade"/>
+        <!--<pageTransitions:PageTransition Name="pageTransitionControl" Margin="25" TransitionType="SlideAndFade" />-->
         <!--<Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="2*"/>

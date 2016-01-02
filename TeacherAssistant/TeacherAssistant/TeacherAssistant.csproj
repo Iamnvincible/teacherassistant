@@ -98,6 +98,9 @@
     <Compile Include="View\CoursePage.xaml.cs">
       <DependentUpon>CoursePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\CoursePageUserControl.xaml.cs">
+      <DependentUpon>CoursePageUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Index.xaml.cs">
       <DependentUpon>Index.xaml</DependentUpon>
     </Compile>
@@ -107,11 +110,23 @@
     <Compile Include="View\MorePage.xaml.cs">
       <DependentUpon>MorePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\MorePageUserControl.xaml.cs">
+      <DependentUpon>MorePageUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\StatisticsDetailPage.xaml.cs">
       <DependentUpon>StatisticsDetailPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\StatisticsDetailPageUserControl.xaml.cs">
+      <DependentUpon>StatisticsDetailPageUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\StatisticsPage.xaml.cs">
       <DependentUpon>StatisticsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\IndexPageUserControl.xaml.cs">
+      <DependentUpon>IndexPageUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StatisticsPageUserControl.xaml.cs">
+      <DependentUpon>StatisticsPageUserControl.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -133,6 +148,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\CoursePageUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Index.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -145,11 +164,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\MorePageUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\StatisticsDetailPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\StatisticsDetailPageUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\StatisticsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\IndexPageUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StatisticsPageUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -250,6 +285,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Image\Sorting-52r.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\amvincible\Downloads\Compressed\PageTransitionsDemo\WpfPageTransitions\WpfPageTransitions.csproj">
+      <Project>{22a46d61-1d40-43a9-802c-b9d43dadd9ec}</Project>
+      <Name>WpfPageTransitions</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
