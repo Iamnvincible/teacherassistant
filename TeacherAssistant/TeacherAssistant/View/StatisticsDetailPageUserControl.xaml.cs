@@ -26,7 +26,7 @@ namespace TeacherAssistant.View
         }
         private void Goback(object sender, RoutedEventArgs e)
         {
-         
+            this.Content = new StatisticsPageUserControl();
         }
     }
 }

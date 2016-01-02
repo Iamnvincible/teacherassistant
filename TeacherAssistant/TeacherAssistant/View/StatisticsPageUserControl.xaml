@@ -9,10 +9,9 @@
              d:DesignHeight="300" d:DesignWidth="650">
     <UserControl.Resources>
         <converter:ListCountValueConverter x:Key="ListCountValueConverter"/>
-
     </UserControl.Resources>
 
-    <Grid Background="White">
+    <Grid Name="gri" Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>

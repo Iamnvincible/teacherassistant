@@ -46,8 +46,10 @@ namespace TeacherAssistant.View
         {
             //Page p = new StatisticsDetailPage();
             //this.NavigationService.Navigate(p);
-            UserControl p = new StatisticsPageUserControl();
-            
+            UserControl p = new StatisticsDetailPageUserControl();
+            this.Content = p;
+            //this.gri.Children.Clear();
+            //this.gri.Children.Add(p);
         }
     }
 }

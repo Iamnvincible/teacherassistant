@@ -286,12 +286,6 @@
   <ItemGroup>
     <Resource Include="Image\Sorting-52r.png" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="C:\Users\amvincible\Downloads\Compressed\PageTransitionsDemo\WpfPageTransitions\WpfPageTransitions.csproj">
-      <Project>{22a46d61-1d40-43a9-802c-b9d43dadd9ec}</Project>
-      <Name>WpfPageTransitions</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
