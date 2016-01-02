@@ -3,30 +3,140 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converter="clr-namespace:TeacherAssistant.Converter"
              xmlns:local="clr-namespace:TeacherAssistant.View"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="650">
-    
+             FontFamily="Microsoft Yahei"
+             FontSize="14"
+             d:DesignHeight="400" d:DesignWidth="650">
+    <UserControl.Resources>
+        <converter:ListCountValueConverter x:Key="ListCountValueConverter"/>
+        <Style TargetType="StackPanel">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </UserControl.Resources>
     <Grid Background="White">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Margin="0,10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="20,0,0,0">
-                <Button Content="作业统计" Width="100" Height="25" Click="Goback" Margin=" 10,0,0,0"></Button>
-                <Button Content="考勤统计" Width="100" Height="25" Click="Goback" Margin=" 10,0,0,0"></Button>
-                <Button Content="添加修改成绩" Width="100" Height="25" Click="Goback" Margin=" 10,0,0,0"></Button>
-            </StackPanel>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Margin="10,10,10,10">
+            <TabControl>
+                <TabItem Header="作业统计">
+                    <Label>
+                        <Label.Content>
+                            <Grid>
+                                <Button Content="作业统计" Width="100" Height="30" Click="homework" Margin=" 10,0,0,0" Style="{DynamicResource SquareButtonStyle}"></Button>
+                            </Grid>
+                        </Label.Content>
+                    </Label>
+                </TabItem>
+                <TabItem Header="考勤统计">
+                    <Label x:Name="label" Background="Beige">
 
-            <Button Grid.Column="1" Content="返回课程列表" Width="100" Height="25" Click="Goback" HorizontalAlignment="Right" Margin="0,0,10,0"></Button>
+                        <Grid Width="{Binding ActualWidth, ElementName=label, Mode=OneWay}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0"  Text="姓名"/>
+                                <TextBlock Grid.Column="1"  Text="学号"/>
+                                <TextBlock Grid.Column="2"  Text="班级"/>
+                                <StackPanel Grid.Column="3" Orientation="Horizontal">
+                                    <TextBlock Text="时间"/>
+                                    <ComboBox Name="homeworktime" Width="50" Margin="10,0,0,0" Text="选择时间"></ComboBox>
+                                </StackPanel>
+                                <TextBlock Grid.Column="4" Text="平均分"/>
+                            </Grid>
+                            <ListView Grid.Row="1">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Grid>
+
+                    </Label>
+                </TabItem>
+                <TabItem Header="成绩总表">
+                    <Label Content="牛奶咖啡" />
+                </TabItem>
+            </TabControl>
         </Grid>
-        <Grid Grid.Row="1">
+        <Grid x:Name="grid" Grid.Column="1"  Margin="0,0,10,0" Background="Red">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0" Content="返回课程列表" Width="120" Height="30"   Click="Goback"  VerticalAlignment="Top"/>
+            <Grid Grid.Row="1" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="{Binding DetailCourse.CourseName}" Background="#7cccfe" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}"/>
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Background="#2daeff" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}">
+                    <TextBlock Text="课程编号："/>
+                    <TextBlock Text="{Binding DetailCourse.CourseNum}"/>
+                </StackPanel>
+                <StackPanel Grid.Row="2" Orientation="Horizontal"  Background="#7cccfe" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}">
+                    <TextBlock Text="{Binding DetailCourse.CourseDay}"/>
+                    <TextBlock Text="{Binding DetailCourse.CourseTime}"/>
+                </StackPanel>
+                <StackPanel Grid.Row="3" Background="#2daeff" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}">
+                    <TextBlock Text="周次" />
+                    <TextBlock Text="{Binding DetailCourse.LastWeeks,Converter={StaticResource ListCountValueConverter}}" />
+                </StackPanel>
+                <StackPanel Grid.Row="4" Background="#7cccfe" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}">
+                    <TextBlock Text="教室" />
+                    <TextBlock Text="{Binding DetailCourse.Classroom}" />
+                </StackPanel>
+                <StackPanel Grid.Row="5" Background="#2daeff" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}">
+                    <TextBlock Text="课程类别" />
+                    <TextBlock Text="{Binding DetailCourse.ClassType}" />
+                </StackPanel>
+                <StackPanel Grid.Row="6" Background="#7cccfe" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}">
+                    <TextBlock Text="学生专业" />
+                    <TextBlock Text="{Binding DetailCourse.Subject}" />
+                </StackPanel>
+                <StackPanel Grid.Row="7" Background="#2daeff" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}">
+                    <TextBlock Text="上课班级" />
+                    <TextBlock Text="{Binding DetailCourse.StuClassNum}" />
+                </StackPanel>
+                <StackPanel Grid.Row="8" Background="#7cccfe" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}">
+                    <TextBlock Text="教学班号" />
+                    <TextBlock Text="{Binding DetailCourse.StudentListUrl}" />
+                </StackPanel>
+                <StackPanel Grid.Row="9" Background="#2daeff" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}">
+                    <TextBlock Text="人数" />
+                    <TextBlock Text="{Binding DetailCourse.CourseStuCount}" />
+                </StackPanel>
 
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>

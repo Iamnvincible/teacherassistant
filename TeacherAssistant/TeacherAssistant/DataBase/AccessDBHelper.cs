@@ -196,11 +196,12 @@ namespace TeacherAssistant.DataBase
                 cmd.Parameters.Clear();
                 return reader;
             }
-            catch
+            catch(Exception e)
             {
                 //关闭连接，抛出异常
-                connection.Close();
-                throw;
+                CloseConnectDB();
+                Debug.WriteLine(e.Message);
+                return null;
             }
         }
         /// <summary>

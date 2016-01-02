@@ -42,6 +42,7 @@ namespace TeacherAssistant.View
         }
         private void Combo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            selected = 0;
             this.current.Text = this.combo.SelectedItem as string;
             //课程选定，更改combox时间
             //combot.ItemsSource
@@ -107,7 +108,7 @@ namespace TeacherAssistant.View
         /// <param name="e"></param>
         private void combot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            selected = 0;
             var a = App.classtable;
             if (this.combot.SelectedItem != null)
             {
@@ -352,22 +353,27 @@ namespace TeacherAssistant.View
                 Button theone = b as Button;
                 if (theone.Background == this.Arrived.Background)
                 {
+                    //到
                     arrivestate = 1;
                 }
                 else if (theone.Background == this.Out.Background)
                 {
+                    //缺
                     arrivestate = 2;
                 }
                 else if (theone.Background == this.Unknown.Background)
                 {
+                    //假
                     arrivestate = 3;
                 }
                 else if (theone.Background == this.Late.Background)
                 {
+                    //迟
                     arrivestate = 4;
                 }
                 else
                 {
+                    //没点
                     arrivestate = 0;
                 }
                 alist.Add(new Arrive() { StuNum = studatalist[i].StuNum, CourseNum = coursenum, CourseTime = coursetime, ArriveState = arrivestate });

@@ -34,7 +34,13 @@ namespace TeacherAssistant.View
         {
             var course = courselist.SelectedItem as ClassDetail;
             if (course != null)
-                MessageBox.Show(course.StudentListUrl + course.CourseName);
+            {
+                UserControl p = new StatisticsDetailPageUserControl();
+                StatisticsDetailViewModel sdvm = new StatisticsDetailViewModel();
+                sdvm.DetailCourse = course;
+                p.DataContext = sdvm;
+                this.Content = p;
+            }
         }
 
         private void SortCourseName(object sender, RoutedEventArgs e)

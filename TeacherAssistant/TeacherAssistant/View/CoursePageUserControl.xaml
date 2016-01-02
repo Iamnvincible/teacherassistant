@@ -168,7 +168,7 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <WrapPanel Orientation="Vertical" Margin="3" DataContext="{Binding}">
-                                    <Button Name="stuname" Click="stuname_Click" Content="{Binding StuName}" FontFamily="Microsoft Yahei UI Light" FontSize="14" Width="80" Cursor="Hand" MouseEnter="stuname_MouseEnter" MouseLeave="stuname_MouseLeave">
+                                    <Button Name="stuname" Click="stuname_Click" Content="{Binding StuName}" BorderBrush="#3CC3F5" FontFamily="Microsoft Yahei UI Light" FontSize="14" Width="80" Cursor="Hand" Style="{DynamicResource SquareButtonStyle}">
                                     </Button>
                                 </WrapPanel>
                             </DataTemplate>
@@ -231,7 +231,6 @@
                                                                         <LinearGradientBrush EndPoint="0,0" StartPoint="0,0">
                                                                             <GradientStop Color="#FF7BBA48" Offset="0.5" />
                                                                         </LinearGradientBrush>
-
                                                                     </Border.Background>
                                                                     <Border.Effect>
                                                                         <DropShadowEffect ShadowDepth="1" BlurRadius="0"/>

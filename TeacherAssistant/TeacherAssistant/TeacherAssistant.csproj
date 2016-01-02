@@ -87,6 +87,7 @@
     <Compile Include="ViewModel\CoursePageViewModel.cs" />
     <Compile Include="ViewModel\IndexPageViewModel.cs" />
     <Compile Include="Converter\ListCountValueConverter.cs" />
+    <Compile Include="ViewModel\StatisticsDetailViewModel.cs" />
     <Compile Include="ViewModel\StatisticsPageViewModel.cs" />
     <Compile Include="View\ClassListWindow.xaml.cs">
       <DependentUpon>ClassListWindow.xaml</DependentUpon>
