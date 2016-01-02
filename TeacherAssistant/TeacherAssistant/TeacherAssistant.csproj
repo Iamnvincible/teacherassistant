@@ -38,10 +38,6 @@
     <ApplicationIcon>Image\logo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CenterCLR.SgmlReader, Version=2014.12.7.3, Culture=neutral, PublicKeyToken=46b2db9ca481831b, processorArchitecture=MSIL">
-      <HintPath>..\packages\CenterCLR.SgmlReader.2014.12.7.3\lib\portable-net403+sl50+win+WindowsPhoneApp81+wp80\CenterCLR.SgmlReader.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="DotNetSpeech">
       <HintPath>C:\Users\amvincible\Downloads\Compressed\WpfSpeechDemo\DotNetSpeech.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -285,6 +281,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Image\Sorting-52r.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WpfPageTransitions\WpfPageTransitions.csproj">
+      <Project>{22a46d61-1d40-43a9-802c-b9d43dadd9ec}</Project>
+      <Name>WpfPageTransitions</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
