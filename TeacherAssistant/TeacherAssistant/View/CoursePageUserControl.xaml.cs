@@ -3,17 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using TeacherAssistant.DataBase;
 using TeacherAssistant.Model;
 using TeacherAssistant.ViewModel;
@@ -25,7 +18,7 @@ namespace TeacherAssistant.View
     /// </summary>
     public partial class CoursePageUserControl : UserControl
     {
-        SpVoice speech = new SpVoice();
+        SpVoice speech = new SpVoice();//语音模块
         public CoursePageViewModel vm;
         List<TeachClassStu> studatalist;
         Brush brush = default(Brush);
@@ -376,42 +369,19 @@ namespace TeacherAssistant.View
                     //没点
                     arrivestate = 0;
                 }
-                alist.Add(new Arrive() { StuNum = studatalist[i].StuNum, CourseNum = coursenum, CourseTime = coursetime, ArriveState = arrivestate });
+                alist.Add(new Arrive() { StuNum = studatalist[i].StuNum, StuName=studatalist[i].StuName, ClassNum=studatalist[i].ClassNum, CourseNum = coursenum, CourseTime = coursetime, ArriveState = arrivestate });
             }
-
-
             string[] SQLTransaction = new string[alist.Count];
-            string itempatten = "insert into " + "Attendance" + " (stunum,coursenum,coursetime,arrivestate,stulisturl) values ";
+            string itempatten = "insert into " + "Attendance" + " (stuname,stunum,classnum,coursenum,coursetime,arrivestate,stulisturl) values ";
             for (int trans = 0; trans < SQLTransaction.Length; trans++)
             {
-                string insert = String.Format(itempatten + "('{0}','{1}','{2}','{3}','{4}')", alist[trans].StuNum, alist[trans].CourseNum, alist[trans].CourseTime, alist[trans].ArriveState, stulisturl);
+                string insert = String.Format(itempatten + "('{0}','{1}','{2}','{3}','{4}','{5}','{6}')", alist[trans].StuName, alist[trans].StuNum,alist[trans].ClassNum, alist[trans].CourseNum, alist[trans].CourseTime, alist[trans].ArriveState, stulisturl);
                 SQLTransaction[trans] = insert;
             }
-            AccessDBHelper.Transaction(SQLTransaction, App.Databasefilepath);
-            MessageBox.Show("点名数据成功保存");
+            bool result=AccessDBHelper.Transaction(SQLTransaction, App.Databasefilepath);
+            MessageBox.Show("点名数据保存"+result);
         }
 
-        private void stuname_MouseEnter(object sender, MouseEventArgs e)
-        {
-            Button b = (Button)sender;
-            if (b != null)
-            {
-                brush = b.Foreground;
-                Debug.WriteLine(brush.ToString());
-                b.Foreground = b.Background;
-                Debug.WriteLine(b.Foreground);
-            }
-
-        }
-
-        private void stuname_MouseLeave(object sender, MouseEventArgs e)
-        {
-            Button b = (Button)sender;
-            if (b != null)
-            {
-                b.Foreground = brush;
-            }
-        }
     }
 }
 

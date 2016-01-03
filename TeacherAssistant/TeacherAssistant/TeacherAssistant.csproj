@@ -81,8 +81,10 @@
     <Compile Include="Converter\CurrentcourseValueConverter.cs" />
     <Compile Include="Converter\DaynameValueConverter.cs" />
     <Compile Include="Converter\HeightValueConverter.cs" />
+    <Compile Include="Converter\HeightValueConverter2.cs" />
     <Compile Include="Converter\SexImageValueConverter.cs" />
     <Compile Include="Converter\WeekValueConverter.cs" />
+    <Compile Include="Converter\WidthValueConverter.cs" />
     <Compile Include="DataBase\AccessDBHelper.cs" />
     <Compile Include="Helper\CourseHelper.cs" />
     <Compile Include="Model\Arrive.cs" />

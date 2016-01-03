@@ -59,7 +59,7 @@
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
         <!--<Grid Grid.Row="0" Background="White" Margin="40,20,40,20">-->
-        <pageTransitions:PageTransition Name="naviFrame" Grid.Row="0" Margin="40,20,40,20" TransitionType="GrowAndFade"/>
+        <pageTransitions:PageTransition Name="naviFrame" Grid.Row="0" Margin="40,20,40,20" TransitionType="Fade"/>
         <!--<pageTransitions:PageTransition Name="pageTransitionControl" Margin="25" TransitionType="SlideAndFade" />-->
         <!--<Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>

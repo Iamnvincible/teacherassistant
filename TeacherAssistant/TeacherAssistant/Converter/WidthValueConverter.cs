@@ -8,12 +8,12 @@ using System.Windows.Data;
 
 namespace TeacherAssistant.Converter
 {
-    class HeightValueConverter : IValueConverter
+    class WidthValueConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             double d = (double)value;
-            return d-30;
+            return d - 10;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

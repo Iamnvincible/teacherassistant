@@ -196,7 +196,7 @@ namespace TeacherAssistant.DataBase
                 cmd.Parameters.Clear();
                 return reader;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 //关闭连接，抛出异常
                 CloseConnectDB();
@@ -335,7 +335,7 @@ namespace TeacherAssistant.DataBase
         /// </summary>
         /// <param name="cmdText"></param>
         /// <param name="filepath"></param>
-        public static void Transaction(string[] cmdText, string filepath)
+        public static bool Transaction(string[] cmdText, string filepath)
         {
 
             //连接字符串
@@ -357,14 +357,15 @@ namespace TeacherAssistant.DataBase
                     }
                 }
                 cmd.Transaction.Commit();
+                connection.Close();
+                return true;
             }
             catch (Exception)
             {
                 cmd.Transaction.Rollback();
-            }
-            finally
-            {
+
                 connection.Close();
+                return false;
             }
         }
 

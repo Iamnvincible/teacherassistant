@@ -19,7 +19,7 @@
         <Grid Grid.Row="0" Margin="10">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="课程总数："></TextBlock>
-                <TextBlock Text="{Binding cd.Count}"></TextBlock>
+                <TextBlock Text="{Binding Cd.Count}"></TextBlock>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1" Margin="10">
