@@ -123,9 +123,9 @@
                 </TabItem>
                 <TabItem Header="作业统计">
                     <Label x:Name="label2">
-                        <Grid Width="{Binding ActualWidth, ElementName=label2, Mode=OneWay}">
+                        <Grid Width="{Binding ActualWidth, ElementName=label2, Mode=OneWay,Converter={StaticResource WidthValueConverter}}"  Height="{Binding ActualHeight, Converter={StaticResource HeightValueConverter2}, ElementName=label2, Mode=OneWay}">
                             <Grid.RowDefinitions>
-                                <RowDefinition/>
+                                <RowDefinition Height="auto"/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0">
@@ -133,19 +133,20 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
-                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0"  Text="姓名"/>
-                                <TextBlock Grid.Column="1"  Text="学号"/>
-                                <TextBlock Grid.Column="2"  Text="班级"/>
-                                <StackPanel Grid.Column="3" Orientation="Horizontal">
-                                    <TextBlock Text="时间"/>
-                                    <ComboBox Name="homeworktime" Width="50" Margin="10,0,0,0" Text="选择时间"></ComboBox>
+                                <TextBlock Grid.Column="0"  Text="姓名" HorizontalAlignment="Center"/>
+                                <TextBlock Grid.Column="1"  Text="学号" HorizontalAlignment="Center"/>
+                                <TextBlock Grid.Column="2"  Text="班级" HorizontalAlignment="Center"/>
+                                <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <TextBlock Text="作业次数/分数" HorizontalAlignment="Center"/>
+                                    <ComboBox Name="homeworktime" Width="50" Margin="10,0,0,0" Text="选择时间" SelectionChanged="homeworktime_SelectionChanged"></ComboBox>
+                                    <Button Name="edithome" Content="添加成绩" Margin="10,0,0,0" Click="edithome_Click"></Button>
                                 </StackPanel>
-                                <TextBlock Grid.Column="4" Text="平均分"/>
+                                <TextBlock Grid.Column="4" Text="平均分" HorizontalAlignment="Center"/>
                             </Grid>
-                            <ListView Grid.Row="1" >
+                            <ListView Grid.Row="1" Name="homeworklistview">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
@@ -156,16 +157,16 @@
                                                 <ColumnDefinition/>
                                                 <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
-                                            <TextBlock Grid.Column="0"  Text="姓名"/>
-                                            <TextBlock Grid.Column="1"  Text="学号"/>
-                                            <TextBlock Grid.Column="2"  Text="班级"/>
-                                            <StackPanel Grid.Column="3" Orientation="Horizontal">
-                                                <TextBlock Text="score"></TextBlock>
-                                            </StackPanel>
+                                            <TextBlock Grid.Column="0"  Text="{Binding StuName}" HorizontalAlignment="Center"/>
+                                            <TextBlock Grid.Column="1"  Text="{Binding StuNum}" HorizontalAlignment="Center"/>
+                                            <TextBlock Grid.Column="2"  Text="{Binding ClassNum}" HorizontalAlignment="Center"/>
+                                            <TextBox Grid.Column="3" Text="{Binding Score,Mode=TwoWay}" Width="40" MaxLength="5" HorizontalAlignment="Center"></TextBox>
+                                            <TextBlock Grid.Column="4" Text="Average" HorizontalAlignment="Center"/>
                                         </Grid>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
+                            <Controls:ProgressRing Grid.Row="1" Name="progess" IsActive="False" Width="60" HorizontalAlignment="Center"/>
                         </Grid>
 
                     </Label>
