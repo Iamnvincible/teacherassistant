@@ -45,7 +45,7 @@ namespace TeacherAssistant
             }
             if (a)
             {
-                await Task.Delay(100);
+                //await Task.Delay(100);
                 Downloading.Visibility = Visibility.Collapsed;
                 //Window clw = new ClassListWindow();
                 //clw.Show();

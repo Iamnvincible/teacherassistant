@@ -90,6 +90,7 @@
     <Compile Include="Model\Arrive.cs" />
     <Compile Include="Model\ClassDetail.cs" />
     <Compile Include="Model\Homework.cs" />
+    <Compile Include="Model\Score.cs" />
     <Compile Include="ViewModel\CoursePageViewModel.cs" />
     <Compile Include="ViewModel\IndexPageViewModel.cs" />
     <Compile Include="Converter\ListCountValueConverter.cs" />

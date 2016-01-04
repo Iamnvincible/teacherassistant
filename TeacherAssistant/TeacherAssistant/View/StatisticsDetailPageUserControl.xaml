@@ -166,7 +166,7 @@
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
-                            <Controls:ProgressRing Grid.Row="1" Name="progess" IsActive="False" Width="60" HorizontalAlignment="Center"/>
+                            <Controls:ProgressRing Grid.Row="1" Name="progess" IsActive="True" Visibility="Collapsed"  Width="60" HorizontalAlignment="Center"/>
                         </Grid>
 
                     </Label>
