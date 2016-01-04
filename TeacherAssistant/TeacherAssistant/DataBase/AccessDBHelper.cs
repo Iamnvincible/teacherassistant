@@ -360,11 +360,12 @@ namespace TeacherAssistant.DataBase
                 connection.Close();
                 return true;
             }
-            catch (Exception)
+            catch (Exception x)
             {
                 cmd.Transaction.Rollback();
 
                 connection.Close();
+                Debug.WriteLine(x.Message);
                 return false;
             }
         }

@@ -36,8 +36,8 @@ namespace TeacherAssistant.View
             if (course != null)
             {
                 UserControl p = new StatisticsDetailPageUserControl();
-                StatisticsDetailViewModel sdvm = new StatisticsDetailViewModel();
-                sdvm.DetailCourse = course;
+                StatisticsDetailViewModel sdvm = new StatisticsDetailViewModel(course);
+                //sdvm.DetailCourse = course;
                 p.DataContext = sdvm;
                 this.Content = p;
             }

@@ -32,7 +32,8 @@ namespace TeacherAssistant
             //todo 判断输入时数字
             logoimage.Visibility = Visibility.Collapsed;
             message.Text = "登录中";
-            Downloading.Visibility = Visibility.Visible;
+            //Downloading.Visibility = Visibility.Visible;
+            Downloading.IsActive = true;
             Loginbutton.Cursor = System.Windows.Input.Cursors.No;
             string teachernum = TeacherNumberBox.Text.Trim();
             bool a = false;
@@ -46,7 +47,8 @@ namespace TeacherAssistant
             if (a)
             {
                 //await Task.Delay(100);
-                Downloading.Visibility = Visibility.Collapsed;
+                //Downloading.Visibility = Visibility.Collapsed;
+                Downloading.IsActive = false;
                 //Window clw = new ClassListWindow();
                 //clw.Show();
                 Window clw2 = new Index();

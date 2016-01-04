@@ -117,6 +117,9 @@
     <Compile Include="View\MorePageUserControl.xaml.cs">
       <DependentUpon>MorePageUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\SettingPercentWindow.xaml.cs">
+      <DependentUpon>SettingPercentWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\StatisticsDetailPage.xaml.cs">
       <DependentUpon>StatisticsDetailPage.xaml</DependentUpon>
     </Compile>
@@ -169,6 +172,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\MorePageUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SettingPercentWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

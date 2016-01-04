@@ -31,11 +31,13 @@ namespace TeacherAssistant.View
         List<Arrive> saved = new List<Arrive>();
         List<Homework> readhomelist = new List<Homework>();
         List<Homework> currenthomelist = new List<Homework>();
+        List<Score> readcore = new List<Score>();
         int selectedsection = 0;
         public StatisticsDetailPageUserControl()
         {
             InitializeComponent();
             this.tab.SelectionChanged += Tab_SelectionChanged;
+
         }
 
         private async void Tab_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -50,31 +52,28 @@ namespace TeacherAssistant.View
                     case 0:
                         break;
                     case 1:
-                        await Task.Delay(1000);
-                        this.progess.Visibility = Visibility.Visible;
-                        //var task = Task.Factory.StartNew(() => showloading());
-                        //var task3 = Task.Factory.StartNew(() => gethomework());
-                        //var task2 = Task.Factory.StartNew(() => closeloading());
-                        //await gethomework();
-                        //task.Wait();
-                        //task3.Wait();
-                        //task2.Wait();
+                        await Task.Delay(300);
+                        // this.progess.IsActive = true;
+                        gethomework();
+                        // //}
+                        // currenthomelist = await gethomeworkasync(((StatisticsDetailViewModel)this.DataContext).DetailCourse.StudentListUrl);
+                        // //await Task.Delay(1000);
+                        // this.progess.Visibility = Visibility.Collapsed;
+                        // this.progess.IsActive = false;
+                        //// this.homeworklistview.ItemsSource = currenthomelist;
+                        // this.homeworktime.ItemsSource = (from n in currenthomelist select n.Count).ToList().Distinct();
+                        // readhomelist = currenthomelist;
 
-
-                        await Task.Run(() =>
-                            {
-                                gethomework();
-                            });
-
-                        this.progess.Visibility = Visibility.Collapsed;
                         break;
                     case 2:
                         await Task.Delay(300);
-                        this.progess.IsActive = true;
+                        //this.progess.IsActive = true;
                         getattendance();
-                        this.progess.IsActive = false;
+                        //this.progess.IsActive = false;
                         break;
                     case 3:
+                        await Task.Delay(300);
+                        getscore();
                         break;
                     default:
                         break;
@@ -149,42 +148,44 @@ namespace TeacherAssistant.View
         /// <summary>
         /// 获取作业成绩记录
         /// </summary>
-        private void gethomework()
+        private async void gethomework()
         {
             if (currenthomelist != homeworklistview.ItemsSource)
             {
                 //this.progess.Visibility = Visibility.Visible;
-                StatisticsDetailViewModel sd = new StatisticsDetailViewModel();
+                StatisticsDetailViewModel sd = (StatisticsDetailViewModel)this.DataContext;
                 this.Dispatcher.Invoke(() =>
                 {
                     sd = (StatisticsDetailViewModel)this.DataContext;
                 });
 
                 string sql = $"select stuname,stunum,classnum,score,hcount from Homework where stulisturl='{sd.DetailCourse.StudentListUrl}';";
-
-                OleDbDataReader reader = AccessDBHelper.ExecuteReader(sql, App.Databasefilepath);
-                if (reader != null)
+                await Task.Run(() =>
                 {
-                    if (attendancelist != null)
-                        this.Dispatcher.Invoke(() =>
-                        {
-                            currenthomelist.Clear();
-                        });
-                    while (reader.Read())
+                    OleDbDataReader reader = AccessDBHelper.ExecuteReader(sql, App.Databasefilepath);
+                    if (reader != null)
                     {
-                        Homework a = new Homework();
-                        a.StuNum = reader["stunum"].ToString();
-                        a.StuName = reader["stuname"].ToString();
-                        a.ClassNum = reader["classnum"].ToString();
-                        a.Score = Convert.ToDecimal(reader["score"].ToString());
-                        a.Count = Convert.ToInt32(reader["hcount"].ToString());
-                        this.Dispatcher.Invoke(() =>
+                        if (attendancelist != null)
+                            this.Dispatcher.Invoke(() =>
+                            {
+                                currenthomelist.Clear();
+                            });
+                        while (reader.Read())
                         {
-                            currenthomelist.Add(a);
-                        });
+                            Homework a = new Homework();
+                            a.StuNum = reader["stunum"].ToString();
+                            a.StuName = reader["stuname"].ToString();
+                            a.ClassNum = reader["classnum"].ToString();
+                            a.Score = Convert.ToDecimal(reader["score"].ToString());
+                            a.Count = Convert.ToInt32(reader["hcount"].ToString());
+                            this.Dispatcher.Invoke(() =>
+                            {
+                                currenthomelist.Add(a);
+                            });
+                        }
+                        reader.Close();
                     }
-                    reader.Close();
-                }
+                });
                 this.Dispatcher.Invoke(() =>
                 {
 
@@ -223,7 +224,7 @@ namespace TeacherAssistant.View
                 string sql = $"select stuname,stunum,classnum from {sd.DetailCourse.StudentListUrl}";
                 //this.progess.IsActive = true;
                 //await Task
-                await Task.Delay(1000);
+                //await Task.Delay(1000);
                 await Task.Run(() =>
                 {
                     OleDbDataReader reader = AccessDBHelper.ExecuteReader(sql, App.Databasefilepath);
@@ -290,5 +291,139 @@ namespace TeacherAssistant.View
                 this.progess.Visibility = Visibility.Collapsed;
             });
         }
+        private async Task<List<Homework>> gethomeworkasync(string url)
+        {
+            string sql = $"select stuname,stunum,classnum,score,hcount from Homework where stulisturl='{url}'";
+            List<Homework> c = new List<Homework>();
+            return await Task.Run(() =>
+            {
+                OleDbDataReader reader = AccessDBHelper.ExecuteReader(sql, App.Databasefilepath);
+                if (reader != null)
+                {
+                    while (reader.Read())
+                    {
+                        Homework a = new Homework();
+                        a.StuNum = reader["stunum"].ToString();
+                        a.StuName = reader["stuname"].ToString();
+                        a.ClassNum = reader["classnum"].ToString();
+                        a.Score = Convert.ToDecimal(reader["score"].ToString());
+                        a.Count = Convert.ToInt32(reader["hcount"].ToString());
+                        this.Dispatcher.Invoke(() =>
+                        {
+                            c.Add(a);
+                        });
+                    }
+                    reader.Close();
+                    AccessDBHelper.CloseConnectDB();
+                }
+                return c;
+            });
+
+        }
+
+        private async void getscore()
+        {
+            if (scorelist.ItemsSource != readcore)
+            {
+                StatisticsDetailViewModel sd = (StatisticsDetailViewModel)this.DataContext;
+                string sql = $"select stuname,stunum,attendance,homework,addition,exam,final from Score where stulisturl='{sd.DetailCourse.StudentListUrl}'";
+                readcore.Clear();
+                await Task.Run(() =>
+                {
+                    OleDbDataReader reader = AccessDBHelper.ExecuteReader(sql, App.Databasefilepath);
+                    if (reader != null)
+                    {
+                        while (reader.Read())
+                        {
+                            Score a = new Score();
+                            a.StuNum = reader["stunum"].ToString();
+                            a.StuName = reader["stuname"].ToString();
+
+                            a.Attendance = Convert.ToDecimal(reader["attendance"].ToString());
+                            a.Homework = Convert.ToDecimal(reader["homework"].ToString());
+                            a.Addition = Convert.ToDecimal(reader["addition"].ToString());
+                            a.Exam = Convert.ToDecimal(reader["exam"].ToString());
+                            a.Final = Convert.ToDecimal(reader["final"].ToString());
+                            this.Dispatcher.Invoke(() =>
+                            {
+                                readcore.Add(a);
+                            });
+                        }
+                        reader.Close();
+                        AccessDBHelper.CloseConnectDB();
+                        this.Dispatcher.Invoke(() =>
+                        {
+                            this.scorelist.ItemsSource = readcore;
+                            if (readcore != null&&readcore.Count!=0)
+                                this.ediscore.Content = "保存成绩";
+                        });
+                    }
+                });
+
+            }
+        }
+
+        private void ediscore_Click(object sender, RoutedEventArgs e)
+        {
+            StatisticsDetailViewModel sd = (StatisticsDetailViewModel)this.DataContext;
+            if (this.ediscore.Content.ToString() == "添加成绩")
+            {
+                string sql = $"select stunum,stuname from {sd.DetailCourse.StudentListUrl}";
+                OleDbDataReader reader = AccessDBHelper.ExecuteReader(sql, App.Databasefilepath);
+                while (reader.Read())
+                {
+                    Score a = new Score();
+                    a.StuNum = reader["stunum"].ToString();
+                    a.StuName = reader["stuname"].ToString();
+                    a.Homework = 100;
+                    //a.Attendance = Convert.ToDecimal(reader["attendance"].ToString());
+                    //a.homework = Convert.ToDecimal(reader["homework"].ToString());
+                    //a.Addition=Convert.ToDecimal(reader["addition"].ToString());
+                    //a.Exam = Convert.ToDecimal(reader["exam"].ToString());
+                    //a.Final = Convert.ToDecimal(reader["final"].ToString());
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        readcore.Add(a);
+                    });
+                }
+                reader.Close();
+                AccessDBHelper.CloseConnectDB();
+                this.Dispatcher.Invoke(() =>
+                {
+                    this.scorelist.ItemsSource = null;
+                    this.scorelist.ItemsSource = readcore;
+                    this.ediscore.Content = "保存成绩";
+                });
+            }
+            else if (this.ediscore.Content.ToString() == "保存成绩")
+            {
+                string sql = $"delete from Score";
+                AccessDBHelper.ExecuteNonQuery(sql, App.Databasefilepath);
+                string[] SQLTransaction = new string[readcore.Count];
+                string itempatten = $"insert into Score (stuname,stunum,stulisturl,attendance,homework,addition,exam,final) values ";
+                for (int i = 0; i < SQLTransaction.Length; i++)
+                {
+                    string insert = itempatten + $"('{readcore[i].StuName}','{readcore[i].StuNum}','{sd.DetailCourse.StudentListUrl}','{readcore[i].Attendance}','{readcore[i].Homework}','{readcore[i].Addition}','{readcore[i].Exam}','{readcore[i].Final}')";
+                    SQLTransaction[i] = insert;
+                }
+                if (AccessDBHelper.Transaction(SQLTransaction, App.Databasefilepath))
+                {
+                    getscore();
+                    MessageBox.Show("已保存");
+                }
+                else
+                {
+                    MessageBox.Show("保存失败");
+                }
+            }
+        }
+
+        private void edipercent_Click(object sender, RoutedEventArgs e)
+        {
+            SettingPercentWindow spw = new SettingPercentWindow();
+            spw.Show();
+            
+        }
     }
 }
+

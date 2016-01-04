@@ -166,7 +166,7 @@
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
-                            <Controls:ProgressRing Grid.Row="1" Name="progess" IsActive="True" Visibility="Collapsed"  Width="60" HorizontalAlignment="Center"/>
+                            <Controls:ProgressRing Grid.Row="1" Name="progess" IsActive="False" Visibility="Visible"  Width="60" HorizontalAlignment="Center"/>
                         </Grid>
 
                     </Label>
@@ -221,9 +221,9 @@
                 </TabItem>
                 <TabItem Header="成绩总表">
                     <Label x:Name="label1">
-                        <Grid Width="{Binding ActualWidth, ElementName=label1, Mode=OneWay}" >
+                        <Grid Width="{Binding ActualWidth, ElementName=label1, Mode=OneWay,Converter={StaticResource WidthValueConverter}}" Height="{Binding ActualHeight, Converter={StaticResource HeightValueConverter2}, ElementName=label1, Mode=OneWay}" >
                             <Grid.RowDefinitions>
-                                <RowDefinition/>
+                                <RowDefinition Height="auto"/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0">
@@ -234,21 +234,21 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="2*"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0"  Text="姓名"/>
-                                <TextBlock Grid.Column="1"  Text="学号"/>
-                                <TextBlock Grid.Column="2"  Text="班级"/>
-                                <TextBlock Grid.Column="3"  Text="专业"/>
-                                <TextBlock Grid.Column="4"  Text="考勤成绩"/>
-                                <TextBlock Grid.Column="5"  Text="平时加分"/>
-                                <TextBlock Grid.Column="6"  Text="作业平均分"/>
-                                <TextBlock Grid.Column="7"  Text="考试成绩"/>
-                                <TextBlock Grid.Column="8" Text="成绩"/>
+                                <TextBlock Grid.Column="0"  Text="姓名" HorizontalAlignment="Center"/>
+                                <TextBlock Grid.Column="1"  Text="学号" HorizontalAlignment="Center"/>
+                                <TextBlock Grid.Column="2"  Text="考勤成绩" HorizontalAlignment="Center"/>
+                                <TextBlock Grid.Column="3"  Text="作业平均分" HorizontalAlignment="Center"/>
+                                <TextBlock Grid.Column="4"  Text="平时加分" HorizontalAlignment="Center"/>
+                                <TextBlock Grid.Column="5"  Text="考试成绩" HorizontalAlignment="Center"/>
+                                <StackPanel Grid.Column="6" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <TextBlock Text="成绩"/>
+                                    <Button Name="ediscore" Content="添加成绩" Margin=" 10,0,0,0" Click="ediscore_Click"></Button>
+                                    <Button Name="edipercent" Content="修改比例" Margin=" 10,0,0,0" Click="edipercent_Click"></Button>
+                                </StackPanel>
                             </Grid>
-                            <ListView Grid.Row="1">
+                            <ListView Grid.Row="1" Name="scorelist">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
@@ -259,19 +259,15 @@
                                                 <ColumnDefinition/>
                                                 <ColumnDefinition/>
                                                 <ColumnDefinition/>
-                                                <ColumnDefinition/>
-                                                <ColumnDefinition/>
-                                                <ColumnDefinition/>
+                                                <ColumnDefinition Width="2*"/>
                                             </Grid.ColumnDefinitions>
-                                            <TextBlock Grid.Column="0"  Text="姓名"/>
-                                            <TextBlock Grid.Column="1"  Text="学号"/>
-                                            <TextBlock Grid.Column="2"  Text="班级"/>
-                                            <TextBlock Grid.Column="3"  Text="专业"/>
-                                            <TextBlock Grid.Column="4"  Text="考勤成绩"/>
-                                            <TextBlock Grid.Column="5"  Text="平时加分"/>
-                                            <TextBlock Grid.Column="6"  Text="作业平均分"/>
-                                            <TextBlock Grid.Column="7"  Text="考试成绩"/>
-                                            <TextBlock Grid.Column="8" Text="成绩"/>
+                                            <TextBlock Grid.Column="0"  Text="{Binding StuName}" HorizontalAlignment="Center"/>
+                                            <TextBlock Grid.Column="1"  Text="{Binding StuNum}" HorizontalAlignment="Center"/>
+                                            <TextBlock Grid.Column="2"  Text="{Binding Attendance}" HorizontalAlignment="Center"/>
+                                            <TextBlock Grid.Column="3"  Text="{Binding Homework}" HorizontalAlignment="Center"/>
+                                            <TextBox Grid.Column="4"  Text="{Binding Addition,Mode=TwoWay}" Width="40" HorizontalAlignment="Center" MaxLength="5"/>
+                                            <TextBox Grid.Column="5"  Text="{Binding Exam,Mode=TwoWay}" Width="40" HorizontalAlignment="Center" MaxLength="5"/>
+                                            <TextBlock Grid.Column="6"  Text="{Binding Final}" HorizontalAlignment="Center"/>
                                         </Grid>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>

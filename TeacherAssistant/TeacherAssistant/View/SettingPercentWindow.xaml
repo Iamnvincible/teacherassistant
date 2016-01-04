@@ -1,0 +1,39 @@
+﻿<Controls:MetroWindow x:Class="TeacherAssistant.View.SettingPercentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TeacherAssistant.View"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        mc:Ignorable="d"
+        FontFamily="Microsoft Yahei UI"
+        WindowStartupLocation="CenterScreen"
+        GlowBrush="Black"
+        BorderThickness="0"
+        FontSize="20"
+        Title="设置比例" Height="300" Width="700">
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="FontFamily" Value="Microsoft Yahei"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="MaxLength" Value="2"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <StackPanel VerticalAlignment="Center">
+            <TextBlock Text="设置成绩比例(%)" VerticalAlignment="Center" Margin=" 10,0,0,10"></TextBlock>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="考勤:"></TextBlock>
+                <TextBox Name="arrive" Width="40"></TextBox>
+                <TextBlock Text="作业:" Margin=" 50,0,0,0"></TextBlock>
+                <TextBox Name="homework" Width="40"></TextBox>
+                <TextBlock Text="加分:" Margin=" 50,0,0,0"></TextBlock>
+                <TextBox Name="addition" Width="40"></TextBox>
+                <TextBlock Text="考试:" Margin=" 50,0,0,0"></TextBlock>
+                <TextBox  Name="exam" Width="40"></TextBox>
+            </StackPanel>
+            <Button Content="保存" Width="100" Margin="30" Click="Button_Click"></Button>
+        </StackPanel>
+    </Grid>
+</Controls:MetroWindow>

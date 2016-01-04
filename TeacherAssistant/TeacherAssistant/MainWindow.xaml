@@ -185,7 +185,7 @@
                 <!--<TextBlock Grid.Column="2"  x:Name="openfile"  Text="打开文件" FontSize="13" Foreground="#006FA9"  Margin="10,10,-78,10"/>-->
             </Grid>
         </Grid>
-        <Controls:ProgressRing x:Name="Downloading" Width="70" Height="70" Visibility="Collapsed" IsActive="True"  Foreground="AliceBlue" FontFamily="Microsoft YaHei"/>
+        <Controls:ProgressRing x:Name="Downloading" Width="70" Height="70" Visibility="Visible" IsActive="False"  Foreground="AliceBlue" FontFamily="Microsoft YaHei"/>
 
 
     </Grid>

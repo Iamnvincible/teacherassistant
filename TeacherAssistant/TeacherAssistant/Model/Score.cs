@@ -12,7 +12,7 @@ namespace TeacherAssistant.Model
         public string  StuNum { get; set; }
         public string StuListUrl { get; set; }
         public decimal Attendance { get; set; }
-        public decimal homework { get; set; }
+        public decimal Homework { get; set; }
         public decimal Addition { get; set; }
         public decimal Exam { get; set; }
         public decimal Final { get; set; }
