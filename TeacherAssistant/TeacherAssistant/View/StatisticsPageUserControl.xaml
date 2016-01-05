@@ -93,7 +93,10 @@
                                     <ColumnDefinition Width="0.5*"/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" Text="{Binding CourseName}"></TextBlock>
+                                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                    <Image Source="/Image/book.png"/>
+                                    <TextBlock Text="{Binding CourseName}"></TextBlock>
+                                </StackPanel>
                                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
                                     <TextBlock Text="{Binding CourseDay}"></TextBlock>
                                     <TextBlock Text="{Binding CourseTime}"></TextBlock>

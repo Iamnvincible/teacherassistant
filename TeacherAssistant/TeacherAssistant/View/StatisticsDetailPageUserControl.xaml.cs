@@ -326,7 +326,7 @@ namespace TeacherAssistant.View
             if (scorelist.ItemsSource != readcore)
             {
                 StatisticsDetailViewModel sd = (StatisticsDetailViewModel)this.DataContext;
-                string sql = $"select stuname,stunum,attendance,homework,addition,exam,final from Score where stulisturl='{sd.DetailCourse.StudentListUrl}'";
+                string sql = $"select * from Score where stulisturl='{sd.DetailCourse.StudentListUrl}'";
                 readcore.Clear();
                 await Task.Run(() =>
                 {
@@ -368,32 +368,32 @@ namespace TeacherAssistant.View
             StatisticsDetailViewModel sd = (StatisticsDetailViewModel)this.DataContext;
             if (this.ediscore.Content.ToString() == "添加成绩")
             {
-                string sql = $"select stunum,stuname from {sd.DetailCourse.StudentListUrl}";
-                OleDbDataReader reader = AccessDBHelper.ExecuteReader(sql, App.Databasefilepath);
-                while (reader.Read())
-                {
-                    Score a = new Score();
-                    a.StuNum = reader["stunum"].ToString();
-                    a.StuName = reader["stuname"].ToString();
-                    a.Homework = 100;
-                    //a.Attendance = Convert.ToDecimal(reader["attendance"].ToString());
-                    //a.homework = Convert.ToDecimal(reader["homework"].ToString());
-                    //a.Addition=Convert.ToDecimal(reader["addition"].ToString());
-                    //a.Exam = Convert.ToDecimal(reader["exam"].ToString());
-                    //a.Final = Convert.ToDecimal(reader["final"].ToString());
-                    this.Dispatcher.Invoke(() =>
-                    {
-                        readcore.Add(a);
-                    });
-                }
-                reader.Close();
-                AccessDBHelper.CloseConnectDB();
-                this.Dispatcher.Invoke(() =>
-                {
-                    this.scorelist.ItemsSource = null;
-                    this.scorelist.ItemsSource = readcore;
-                    this.ediscore.Content = "保存成绩";
-                });
+                //string sql = $"select stunum,stuname from {sd.DetailCourse.StudentListUrl}";
+                //OleDbDataReader reader = AccessDBHelper.ExecuteReader(sql, App.Databasefilepath);
+                //while (reader.Read())
+                //{
+                //    Score a = new Score();
+                //    a.StuNum = reader["stunum"].ToString();
+                //    a.StuName = reader["stuname"].ToString();
+                //    a.Homework = 100;
+                //    //a.Attendance = Convert.ToDecimal(reader["attendance"].ToString());
+                //    //a.homework = Convert.ToDecimal(reader["homework"].ToString());
+                //    //a.Addition=Convert.ToDecimal(reader["addition"].ToString());
+                //    //a.Exam = Convert.ToDecimal(reader["exam"].ToString());
+                //    //a.Final = Convert.ToDecimal(reader["final"].ToString());
+                //    this.Dispatcher.Invoke(() =>
+                //    {
+                //        readcore.Add(a);
+                //    });
+                //}
+                //reader.Close();
+                //AccessDBHelper.CloseConnectDB();
+                //this.Dispatcher.Invoke(() =>
+                //{
+                //    this.scorelist.ItemsSource = null;
+                //    this.scorelist.ItemsSource = readcore;
+                //});
+                this.ediscore.Content = "保存成绩";
             }
             else if (this.ediscore.Content.ToString() == "保存成绩")
             {

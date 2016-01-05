@@ -11,6 +11,7 @@ using TeacherAssistant.View;
 using MahApps.Metro.Controls;
 using System.Windows.Input;
 using System.Diagnostics;
+using System.Data.OleDb;
 
 namespace TeacherAssistant
 {
@@ -176,6 +177,8 @@ namespace TeacherAssistant
                         return false;
                     }
                 }
+
+                
                 //建表
                 //考勤表
                 AccessDBHelper.CreateTable("create table Attendance (id autoincrement primary key,stuname text(50), stunum text(20),classnum text(10),coursenum text(10),coursetime text(50), arrivestate text(1),stulisturl text(50))", filePath);
@@ -186,6 +189,41 @@ namespace TeacherAssistant
                 AccessDBHelper.CreateTable("create table Score (id autoincrement primary key,stuname text(50),stunum text(20),stulisturl text(50), attendance text(10), homework text(10),addition text(10), exam text(10),final text(10))", filePath);
                 //作业内容表
                 AccessDBHelper.CreateTable("create table Record (id autoincrement primary key, stulisturl text(50), count text(5),publishtime text(50),content text(200)", filePath);
+
+                List<Score> readcore = new List<Score>();
+                //为成绩表添加内容
+                for (int i = 0; i < disurls.Count; i++)
+                {
+                    string sql = $"select stuname,stunum,classnum from {disurls[i]}";
+                    OleDbDataReader reader = AccessDBHelper.ExecuteReader(sql, App.Databasefilepath);
+                    if (reader != null)
+                    {
+                        while (reader.Read())
+                        {
+                            Score a = new Score();
+                            a.StuNum = reader["stunum"].ToString();
+                            a.StuName = reader["stuname"].ToString();
+                            a.Homework = 0;
+                            a.Attendance = 0;
+                            a.Addition = 0;
+                            a.Exam = 0;
+                            a.Final = 0;
+                        }
+                        reader.Close();
+                        AccessDBHelper.CloseConnectDB();
+                        string[] SQLTransaction = new string[readcore.Count];
+                        string itempatten = $"insert into Score (stuname,stunum,stulisturl,attendance,homework,addition,exam,final) values ";
+                        for (int j = 0; j < SQLTransaction.Length; j++)
+                        {
+                            string insert = itempatten + $"('{readcore[j].StuName}','{readcore[j].StuNum}','{disurls[i]}','{readcore[j].Attendance}','{readcore[j].Homework}','{readcore[j].Addition}','{readcore[j].Exam}','{readcore[j].Final}')";
+                            SQLTransaction[i] = insert;
+                        }
+                        AccessDBHelper.Transaction(SQLTransaction, App.Databasefilepath);
+                    }
+
+
+                }
+
                 return true;
             }
         }
