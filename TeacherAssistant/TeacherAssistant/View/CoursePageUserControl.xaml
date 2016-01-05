@@ -138,14 +138,13 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                    <Button Name="welcomebtn" Content="　欢迎　" Style="{StaticResource buttonstyle}" Click="welcomebtn_Click"/>
                     <Button  Name="callbtn" Content="课堂点名" Style="{StaticResource buttonstyle}" Click="callbtn_Click_1"/>
+                    <Button Name="welcomebtn" Content="点名图表" Style="{StaticResource buttonstyle}" Click="welcomebtn_Click"/>
                     <Button Name="homeworkbtn" Content="作业发布" Style="{StaticResource buttonstyle}" Click="homeworkbtn_Click"/>
                 </StackPanel>
             </Grid>
             <Grid Grid.Column="1">
-                <Grid Name="welcome" Visibility="Visible">
-
+                <Grid Name="welcome" Visibility="Collapsed">
                     <!--<Image Source="/Image/homework.png" Height="180" Margin=" 10,30,0,0"/>-->
                     <WebBrowser x:Name="webBrowser" Source="file://C:/Users/amvincible/Documents/Tencent Files/664940100/FileRecv/pie.html" Margin="10" />
                     <!--file://C:/Users/amvincible/Documents/Tencent Files/664940100/FileRecv/pie.html
@@ -153,7 +152,7 @@
                     -->
                 </Grid>
                 <!--点名模块-->
-                <Grid Name="calltheroll" Visibility="Collapsed" >
+                <Grid Name="calltheroll" Visibility="Visible" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="4*"></RowDefinition>
                         <RowDefinition Height=" 2*"></RowDefinition>
@@ -415,8 +414,8 @@
                         <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Text="作业内容" Margin="10,10,0,10" VerticalAlignment="Bottom"/>
-                    <TextBox  Grid.Row="1"  TextWrapping="Wrap" Margin="10,0,10,0" FontSize="14" VerticalScrollBarVisibility="Auto"></TextBox>
-                    <Button Grid.Row="2" Content="发布" HorizontalAlignment="Right" Width="80" Margin="0,20,20,10"></Button>
+                    <TextBox Name="workbox"  Grid.Row="1"  TextWrapping="Wrap" Margin="10,0,10,0" FontSize="14" VerticalScrollBarVisibility="Auto"></TextBox>
+                    <Button Grid.Row="2" Content="发布" Click="publishclick" HorizontalAlignment="Right" Width="80" Margin="0,20,20,10"></Button>
                 </Grid>
             </Grid>
         </Grid>

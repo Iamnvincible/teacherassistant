@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Data.OleDb;
 using System.Diagnostics;
 using System.Linq;
@@ -185,15 +186,21 @@ namespace TeacherAssistant.View
                         }
                         reader.Close();
                     }
-                });
-                this.Dispatcher.Invoke(() =>
-                {
-
                     AccessDBHelper.CloseConnectDB();
-                    this.homeworklistview.ItemsSource = currenthomelist;
-                    this.homeworktime.ItemsSource = (from n in currenthomelist select n.Count).ToList().Distinct();
-                    readhomelist = currenthomelist;
                 });
+                int c = 0;
+                string avg = $"select homework FROM Score WHERE stulisturl='{sd.DetailCourse.StudentListUrl}'";
+                OleDbDataReader readerw = AccessDBHelper.ExecuteReader(avg, App.Databasefilepath);
+                if (readerw != null)
+                {
+                    while (readerw.Read())
+                    {
+                        currenthomelist[c++].Avg = Convert.ToDecimal(readerw["homework"].ToString());
+                    }
+                }
+                this.homeworklistview.ItemsSource = currenthomelist;
+                this.homeworktime.ItemsSource = (from n in currenthomelist select n.Count).ToList().Distinct();
+                readhomelist = currenthomelist;
             }
         }
         /// <summary>
@@ -271,6 +278,8 @@ namespace TeacherAssistant.View
                 AccessDBHelper.Transaction(SQLTransaction, App.Databasefilepath);
                 this.homeworktime.IsEnabled = true;
                 this.readhomelist.AddRange(currenthomelist);
+                string setscore = $"UPDATE score SET homework=( SELECT AVG(score) FROM homework WHERE stunum = score.stunum and stulisturl = '{currenthomelist[0].Stulisturl}' )";
+                AccessDBHelper.ExecuteNonQuery(setscore, App.Databasefilepath);
                 this.edithome.Content = "添加成绩";
                 this.homeworktime.ItemsSource = null;
                 this.homeworktime.ItemsSource = (from n in readhomelist select n.Count).ToList().Distinct();
@@ -338,7 +347,6 @@ namespace TeacherAssistant.View
                             Score a = new Score();
                             a.StuNum = reader["stunum"].ToString();
                             a.StuName = reader["stuname"].ToString();
-
                             a.Attendance = Convert.ToDecimal(reader["attendance"].ToString());
                             a.Homework = Convert.ToDecimal(reader["homework"].ToString());
                             a.Addition = Convert.ToDecimal(reader["addition"].ToString());
@@ -354,12 +362,11 @@ namespace TeacherAssistant.View
                         this.Dispatcher.Invoke(() =>
                         {
                             this.scorelist.ItemsSource = readcore;
-                            if (readcore != null&&readcore.Count!=0)
+                            if (readcore != null && readcore.Count != 0)
                                 this.ediscore.Content = "保存成绩";
                         });
                     }
                 });
-
             }
         }
 
@@ -397,17 +404,25 @@ namespace TeacherAssistant.View
             }
             else if (this.ediscore.Content.ToString() == "保存成绩")
             {
-                string sql = $"delete from Score";
-                AccessDBHelper.ExecuteNonQuery(sql, App.Databasefilepath);
+                //string sql = $"delete from Score";
+                //AccessDBHelper.ExecuteNonQuery(sql, App.Databasefilepath);
                 string[] SQLTransaction = new string[readcore.Count];
-                string itempatten = $"insert into Score (stuname,stunum,stulisturl,attendance,homework,addition,exam,final) values ";
+                //string itempatten = $"update  Score set (stuname,stunum,stulisturl,attendance,homework,addition,exam,final  values ";
                 for (int i = 0; i < SQLTransaction.Length; i++)
                 {
-                    string insert = itempatten + $"('{readcore[i].StuName}','{readcore[i].StuNum}','{sd.DetailCourse.StudentListUrl}','{readcore[i].Attendance}','{readcore[i].Homework}','{readcore[i].Addition}','{readcore[i].Exam}','{readcore[i].Final}')";
-                    SQLTransaction[i] = insert;
+                    string sqlupdate = $"update Score set addition='{readcore[i].Addition}' , exam='{readcore[i].Exam}' where stulisturl='{sd.DetailCourse.StudentListUrl}'";
+                    //string insert = itempatten + $"('{readcore[i].StuName}','{readcore[i].StuNum}','{sd.DetailCourse.StudentListUrl}','{readcore[i].Attendance}','{readcore[i].Homework}','{readcore[i].Addition}','{readcore[i].Exam}','{readcore[i].Final}')";
+                    SQLTransaction[i] = sqlupdate;
                 }
                 if (AccessDBHelper.Transaction(SQLTransaction, App.Databasefilepath))
                 {
+                    Configuration cfa = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                    int arrive = Convert.ToInt32(cfa.AppSettings.Settings["arrive"].ToString());
+                    int homework = Convert.ToInt32(cfa.AppSettings.Settings["homework"].ToString());
+                    int add = Convert.ToInt32(cfa.AppSettings.Settings["addition"].ToString());
+                    int exam = Convert.ToInt32(cfa.AppSettings.Settings["exam"].ToString());
+                    string updatefinal = $"UPDATE Score SET final=attendance*{arrive / 100}+homework*{homework / 100}+addition*{add / 100}+exam*{exam / 100} WHERE stulisturl='{readcore[0].StuListUrl}'";
+                    AccessDBHelper.ExecuteNonQuery(updatefinal, App.Databasefilepath);
                     getscore();
                     MessageBox.Show("已保存");
                 }
@@ -422,7 +437,7 @@ namespace TeacherAssistant.View
         {
             SettingPercentWindow spw = new SettingPercentWindow();
             spw.Show();
-            
+
         }
     }
 }

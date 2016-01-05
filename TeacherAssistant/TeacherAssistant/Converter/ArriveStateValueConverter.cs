@@ -15,9 +15,9 @@ namespace TeacherAssistant.Converter
             int v = (int)value;
             switch (v)
             {
-                case 0: return "未点到";
-                case 1:return "√";
-                case 2:return "×";
+                case 0: return "没点";
+                case 1:return "到~~";
+                case 2:return "-没来-";
                 case 3:return "请假";
                 case 4:return "迟到";
                 default:return "：-(";

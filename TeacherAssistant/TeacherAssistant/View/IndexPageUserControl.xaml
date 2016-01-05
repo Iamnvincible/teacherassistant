@@ -16,7 +16,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="2*"/>
-            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0"  Background="Aquamarine">
             <Grid.ColumnDefinitions>
@@ -77,13 +76,13 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
-                <TextBlock Text="授课计划" HorizontalAlignment="Center" Margin=" 0,20,0,0"/>
+                <TextBlock Text="课程进度" HorizontalAlignment="Center" Margin=" 0,20,0,0"/>
             </Grid>
             <Grid Grid.Column="1">
-                <TextBox Margin=" 10" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"></TextBox>
+                <TextBox Margin="10" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"></TextBox>
             </Grid>
         </Grid>
-        <Grid Grid.Row="2" Background="CornflowerBlue">
+        <!--<Grid Grid.Row="2" Background="CornflowerBlue">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="3*"/>
@@ -94,6 +93,6 @@
             <Grid Grid.Column="1">
                 <TextBox Margin=" 10" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"></TextBox>
             </Grid>
-        </Grid>
+        </Grid>-->
     </Grid>
 </UserControl>

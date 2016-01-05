@@ -17,6 +17,6 @@ namespace TeacherAssistant.Model
         //作业次数
         public int Count { get; set; }
         public string Stulisturl { get; set; }
-
+        public decimal Avg { get; set; }
     }
 }

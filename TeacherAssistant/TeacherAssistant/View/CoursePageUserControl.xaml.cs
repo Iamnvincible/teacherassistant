@@ -32,6 +32,20 @@ namespace TeacherAssistant.View
             this.DataContext = vm;
             this.combo.ItemsSource = vm.coursename;
             this.combo.SelectionChanged += Combo_SelectionChanged;
+            if (this.vm.currentcourse.CourseName!="")
+            {
+                studatalist = AccessDBHelper.GetStuList(vm.currentcourse.StudentListUrl);
+                stulisturl = vm.currentcourse.StudentListUrl;
+                onestudent.Visibility = Visibility.Visible;
+                if (studatalist != null)
+                    studatalist.Sort(new TeachClassStu());
+                this.namelist.ItemsSource = studatalist;
+                this.onestudent.DataContext = studatalist;
+            }
+            else
+            {
+                this.pleaseselect.Visibility = Visibility.Visible;
+            }
         }
         private void Combo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -369,19 +383,26 @@ namespace TeacherAssistant.View
                     //没点
                     arrivestate = 0;
                 }
-                alist.Add(new Arrive() { StuNum = studatalist[i].StuNum, StuName=studatalist[i].StuName, ClassNum=studatalist[i].ClassNum, CourseNum = coursenum, CourseTime = coursetime, ArriveState = arrivestate });
+                alist.Add(new Arrive() { StuNum = studatalist[i].StuNum, StuName = studatalist[i].StuName, ClassNum = studatalist[i].ClassNum, CourseNum = coursenum, CourseTime = coursetime, ArriveState = arrivestate });
             }
             string[] SQLTransaction = new string[alist.Count];
             string itempatten = "insert into " + "Attendance" + " (stuname,stunum,classnum,coursenum,coursetime,arrivestate,stulisturl) values ";
             for (int trans = 0; trans < SQLTransaction.Length; trans++)
             {
-                string insert = String.Format(itempatten + "('{0}','{1}','{2}','{3}','{4}','{5}','{6}')", alist[trans].StuName, alist[trans].StuNum,alist[trans].ClassNum, alist[trans].CourseNum, alist[trans].CourseTime, alist[trans].ArriveState, stulisturl);
+                string insert = String.Format(itempatten + "('{0}','{1}','{2}','{3}','{4}','{5}','{6}')", alist[trans].StuName, alist[trans].StuNum, alist[trans].ClassNum, alist[trans].CourseNum, alist[trans].CourseTime, alist[trans].ArriveState, stulisturl);
                 SQLTransaction[trans] = insert;
             }
-            bool result=AccessDBHelper.Transaction(SQLTransaction, App.Databasefilepath);
-            MessageBox.Show("点名数据保存"+result);
+            bool result = AccessDBHelper.Transaction(SQLTransaction, App.Databasefilepath);
+            string scoreupdate = "UPDATE score SET attendance=100-20*(SELECT COUNT(*) FROM attendance WHERE stunum = score.stunum and arrivestate = 2 AND stulisturl = 'A041518124736')-10 * (SELECT COUNT(*) FROM attendance WHERE stunum = score.stunum and arrivestate = 4 and stulisturl = 'A041518124736')";
+            AccessDBHelper.ExecuteNonQuery(scoreupdate, App.Databasefilepath);
+            MessageBox.Show("点名数据保存" + result);
         }
 
+        private void publishclick(object sender, RoutedEventArgs e)
+        {
+            string ho = this.workbox.Text;
+
+        }
     }
 }
 
