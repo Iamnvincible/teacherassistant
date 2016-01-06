@@ -19,12 +19,14 @@ namespace TeacherAssistant.ViewModel
         public ClassDetail currentcourse { get; private set; }
         public ClassDetail nextcourse { get; private set; }
         public List<ClassDetail> listclass { get; set; }
+        public List<string> C { get; set; }
         //private List<ClassDetail> listclass { get; set; }
         public IndexPageViewModel()
         {
             setdate();
             getclasstable();
             setcourse();
+            setc();
             // Configuration cfa = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             // cfa.AppSettings.Settings["week"].Value = "kkk";
             //cfa.Save();
@@ -126,6 +128,7 @@ namespace TeacherAssistant.ViewModel
             //查/第几周/的周几/的哪个时间段/有没有课
             //本周有的课
             List<ClassDetail> temp = new List<ClassDetail>();
+            if(listclass!=null&&listclass.Count>0)
             foreach (var item in listclass)
             {
                 DateTime firstday = new DateTime(2015, 9, 7, 0, 0, 0);
@@ -181,7 +184,13 @@ namespace TeacherAssistant.ViewModel
             //listclass
         }
 
-
+       void setc()
+        {
+            string A = ("第一章 绪论,第二章 C++简单程序设计,第三章 函数,第四章 类和对象,第五章 数据的共享和保护,第六章 数组指针和字符串,第七章 继承与派生,第八章 多态性,第九章 群体类和群体数据组织,第十章 泛型程序设计与C++标准模版库,第十一章 流类库与输入输出,第十二章 异常处理");
+            char[] a = new char[] { ',' };
+            var aa =  A.Split(a);
+            C = aa.ToList();
+        }
         /* int transzhweektous(string zhweek)
           {
               int r = 0;

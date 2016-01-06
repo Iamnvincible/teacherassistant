@@ -28,6 +28,22 @@ namespace TeacherAssistant.View
             ipvm = new IndexPageViewModel();
             this.DataContext = ipvm;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.pro.Visibility = Visibility.Visible;
+            this.addpro.Visibility = Visibility.Collapsed;
+        }
+
+        private void pro_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(this.pro.SelectedItem is string)
+            {
+                this.tips.Text = this.pro.SelectedItem as string;
+            }
+            this.pro.Visibility = Visibility.Collapsed;
+            this.addpro.Visibility = Visibility.Visible;
+        }
     }
 }
 

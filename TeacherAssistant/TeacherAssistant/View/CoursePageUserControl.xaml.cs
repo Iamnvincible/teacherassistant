@@ -393,8 +393,8 @@ namespace TeacherAssistant.View
                 SQLTransaction[trans] = insert;
             }
             bool result = AccessDBHelper.Transaction(SQLTransaction, App.Databasefilepath);
-            string scoreupdate = "UPDATE score SET attendance=100-20*(SELECT COUNT(*) FROM attendance WHERE stunum = score.stunum and arrivestate = 2 AND stulisturl = 'A041518124736')-10 * (SELECT COUNT(*) FROM attendance WHERE stunum = score.stunum and arrivestate = 4 and stulisturl = 'A041518124736')";
-            AccessDBHelper.ExecuteNonQuery(scoreupdate, App.Databasefilepath);
+            string scoreupdate = $"UPDATE score SET attendance=100-20*(SELECT COUNT(*) FROM attendance WHERE stunum = score.stunum and arrivestate = 2 AND stulisturl = '{alist[0].Stulisturl}')-10 * (SELECT COUNT(*) FROM attendance WHERE stunum = score.stunum and arrivestate = 4 and stulisturl = '{alist[0].Stulisturl}')";
+            AccessDBHelper.ExecuteNonQuery2(scoreupdate, App.Databasefilepath);
             MessageBox.Show("点名数据保存" + result);
         }
 

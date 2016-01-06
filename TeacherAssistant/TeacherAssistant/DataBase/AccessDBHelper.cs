@@ -44,6 +44,7 @@ namespace TeacherAssistant.DataBase
             //ADODB.Connection cn = new ADODB.Connection();
             ////打开连接
             //cn.Open(connstr, null, null, -1);
+            //cn.Mode = ADODB.ConnectModeEnum.adModeReadWrite;
             //catalog.ActiveConnection = cn;
 
             //ADOX.Table table = new ADOX.Table();
@@ -99,16 +100,27 @@ namespace TeacherAssistant.DataBase
         /// <param name="commandText">存储过程名称或者sql命令语句</param>
         /// <param name="commandParameters">执行命令所用参数的集合</param>
         /// <returns>执行命令所影响的行数</returns>
-        public static int ExecuteNonQuery(string connectionString, string cmdText, params OleDbParameter[] commandParameters)
+        public static int ExecuteNonQuery2(string sql, string path)
         {
+            if (connection.State != ConnectionState.Open)
+                ConnectDB(path);
             OleDbCommand cmd = new OleDbCommand();
-            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            cmd.Connection = connection;
+            cmd.CommandText = sql;
+            int val = 0;
+            //PrepareCommand(cmd, connection, null, sql, commandParameters);
+            try
             {
-                PrepareCommand(cmd, conn, null, cmdText, commandParameters);
-                int val = cmd.ExecuteNonQuery();
-                cmd.Parameters.Clear();
-                return val;
+                val = cmd.ExecuteNonQuery();
+                
             }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+            cmd.Parameters.Clear();
+            //CloseConnectDB();
+            return val;
         }
         /// <summary>
         /// 用现有的数据库连接执行一个sql命令（不返回数据集）
@@ -128,7 +140,7 @@ namespace TeacherAssistant.DataBase
             OleDbCommand cmd = new OleDbCommand();
             cmd.Connection = connection;
             cmd.CommandText = sql;
-            int val = 0;
+            object val = new object();
             //PrepareCommand(cmd, connection, null, sql, commandParameters);
             try
             {
@@ -141,7 +153,7 @@ namespace TeacherAssistant.DataBase
             }
             cmd.Parameters.Clear();
             //CloseConnectDB();
-            return val;
+            return (int)val;
         }
         /// <summary>
         ///使用现有的SQL事务执行一个sql命令（不返回数据集）

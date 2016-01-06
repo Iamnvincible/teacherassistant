@@ -58,7 +58,8 @@ namespace TeacherAssistant
             }
             else
             {
-                Downloading.Visibility = Visibility.Collapsed;
+                Downloading.IsActive = false;
+                //Downloading.Visibility = Visibility.Collapsed;
                 logoimage.Visibility = Visibility.Visible;
                 message.Text = "出现错误!";
                 Loginbutton.Cursor = System.Windows.Input.Cursors.Arrow;
@@ -178,17 +179,17 @@ namespace TeacherAssistant
                     }
                 }
 
-                
+
                 //建表
                 //考勤表
                 AccessDBHelper.CreateTable("create table Attendance (id autoincrement primary key,stuname text(50), stunum text(20),classnum text(10),coursenum text(10),coursetime text(50), arrivestate text(1),stulisturl text(50))", filePath);
                 //作业表
-                AccessDBHelper.CreateTable("create table Homework (id autoincrement primary key,stuname text(50), stunum text(20),classnum text(10),coursenum text(10),score test(10),count text(5),stulisturl test(50))", filePath);
+                AccessDBHelper.CreateTable("create table Homework (id autoincrement primary key,stuname text(50), stunum text(20),classnum text(10),coursenum text(10),score text(10),hcount text(5),stulisturl text(50))", filePath);
                 //成绩表
                 // AccessDBHelper.CreateTable("create table Score (id autoincrement primary key,stuname text(50),stunum text(20),coursenum text(10), attendance text(5), homework text(5),addition text(5), exam text(5),final text(5))", filePath);
                 AccessDBHelper.CreateTable("create table Score (id autoincrement primary key,stuname text(50),stunum text(20),stulisturl text(50), attendance text(10), homework text(10),addition text(10), exam text(10),final text(10))", filePath);
                 //作业内容表
-                AccessDBHelper.CreateTable("create table Record (id autoincrement primary key, stulisturl text(50), count text(5),publishtime text(50),content text(200)", filePath);
+                AccessDBHelper.CreateTable("create table Record (id autoincrement primary key, stulisturl text(50), hcount text(5),publishtime text(50),content text(200))", filePath);
 
                 List<Score> readcore = new List<Score>();
                 //为成绩表添加内容
@@ -208,6 +209,7 @@ namespace TeacherAssistant
                             a.Addition = 0;
                             a.Exam = 0;
                             a.Final = 0;
+                            readcore.Add(a);
                         }
                         reader.Close();
                         AccessDBHelper.CloseConnectDB();
@@ -216,9 +218,10 @@ namespace TeacherAssistant
                         for (int j = 0; j < SQLTransaction.Length; j++)
                         {
                             string insert = itempatten + $"('{readcore[j].StuName}','{readcore[j].StuNum}','{disurls[i]}','{readcore[j].Attendance}','{readcore[j].Homework}','{readcore[j].Addition}','{readcore[j].Exam}','{readcore[j].Final}')";
-                            SQLTransaction[i] = insert;
+                            SQLTransaction[j] = insert;
                         }
                         AccessDBHelper.Transaction(SQLTransaction, App.Databasefilepath);
+                        readcore.Clear();
                     }
 
 

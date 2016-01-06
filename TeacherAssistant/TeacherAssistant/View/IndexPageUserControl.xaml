@@ -76,10 +76,22 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
-                <TextBlock Text="课程进度" HorizontalAlignment="Center" Margin=" 0,20,0,0"/>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <TextBlock Text="课程进度" HorizontalAlignment="Center" Margin=" 0,20,0,0"/>
+                    <Button Name="addpro" Content="添加进度" Margin="10,40,0,0" Width="100" Click="Button_Click"></Button>
+                    <ComboBox Name="pro" Margin="10,20,0,0" Visibility="Collapsed" Width="100" HorizontalAlignment="Center" Height="30" ItemsSource="{Binding C}" SelectionChanged="pro_SelectionChanged"/>
+                </StackPanel>
             </Grid>
             <Grid Grid.Column="1">
-                <TextBox Margin="10" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"></TextBox>
+                <!--<ListView Name="pro" Visibility="Visible" Width="100" HorizontalAlignment="Left" ItemsSource="{Binding C}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}"></TextBlock>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>-->
+                <!--<TextBox Margin="10" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"></TextBox>-->
+                <TextBlock Name="tips" Text="还没进度，请添加课程进度" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
         </Grid>
         <!--<Grid Grid.Row="2" Background="CornflowerBlue">

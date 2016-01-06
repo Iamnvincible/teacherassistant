@@ -142,7 +142,7 @@
                                 <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Center">
                                     <TextBlock Text="作业次数/分数" HorizontalAlignment="Center"/>
                                     <ComboBox Name="homeworktime" Width="50" Margin="10,0,0,0" Text="选择时间" SelectionChanged="homeworktime_SelectionChanged"></ComboBox>
-                                    <Button Name="edithome" Content="保存成绩" Margin="10,0,0,0" Click="edithome_Click"></Button>
+                                    <Button Name="edithome" Content="添加成绩" Margin="10,0,0,0" Click="edithome_Click"></Button>
                                 </StackPanel>
                                 <TextBlock Grid.Column="4" Text="平均分" HorizontalAlignment="Center"/>
                             </Grid>

@@ -195,7 +195,16 @@ namespace TeacherAssistant.View
                 {
                     while (readerw.Read())
                     {
-                        currenthomelist[c++].Avg = Convert.ToDecimal(readerw["homework"].ToString());
+                        try
+                        {
+                            currenthomelist[c++].Avg = Convert.ToDecimal(readerw["homework"].ToString());
+                        }
+                        catch (Exception)
+                        {
+                            readerw.Close();
+                            AccessDBHelper.CloseConnectDB();
+                            break;
+                        }
                     }
                 }
                 this.homeworklistview.ItemsSource = currenthomelist;
@@ -278,8 +287,9 @@ namespace TeacherAssistant.View
                 AccessDBHelper.Transaction(SQLTransaction, App.Databasefilepath);
                 this.homeworktime.IsEnabled = true;
                 this.readhomelist.AddRange(currenthomelist);
-                string setscore = $"UPDATE score SET homework=( SELECT AVG(score) FROM homework WHERE stunum = score.stunum and stulisturl = '{currenthomelist[0].Stulisturl}' )";
-                AccessDBHelper.ExecuteNonQuery(setscore, App.Databasefilepath);
+                string setscore=$"UPDATE score as t1,(SELECT stunum,AVG(score)AS avgscore FROM homework WHERE stulisturl='{currenthomelist[0].Stulisturl}' GROUP BY stunum)as t2 SET t1.homework = t2.avgscore WHERE t1.stunum = t2.stunum";
+                //string setscore = $"UPDATE score SET homework=( SELECT AVG(score) FROM homework WHERE stunum = score.stunum and stulisturl = '{currenthomelist[0].Stulisturl}' )";
+                AccessDBHelper.ExecuteNonQuery2(setscore, App.Databasefilepath);
                 this.edithome.Content = "添加成绩";
                 this.homeworktime.ItemsSource = null;
                 this.homeworktime.ItemsSource = (from n in readhomelist select n.Count).ToList().Distinct();
@@ -410,19 +420,21 @@ namespace TeacherAssistant.View
                 //string itempatten = $"update  Score set (stuname,stunum,stulisturl,attendance,homework,addition,exam,final  values ";
                 for (int i = 0; i < SQLTransaction.Length; i++)
                 {
-                    string sqlupdate = $"update Score set addition='{readcore[i].Addition}' , exam='{readcore[i].Exam}' where stulisturl='{sd.DetailCourse.StudentListUrl}'";
+                    string sqlupdate = $"update Score set addition='{readcore[i].Addition}' , exam='{readcore[i].Exam}' where stulisturl='{sd.DetailCourse.StudentListUrl}' and stunum='{readcore[i].StuNum}'";
                     //string insert = itempatten + $"('{readcore[i].StuName}','{readcore[i].StuNum}','{sd.DetailCourse.StudentListUrl}','{readcore[i].Attendance}','{readcore[i].Homework}','{readcore[i].Addition}','{readcore[i].Exam}','{readcore[i].Final}')";
                     SQLTransaction[i] = sqlupdate;
                 }
                 if (AccessDBHelper.Transaction(SQLTransaction, App.Databasefilepath))
                 {
                     Configuration cfa = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                    int arrive = Convert.ToInt32(cfa.AppSettings.Settings["arrive"].ToString());
-                    int homework = Convert.ToInt32(cfa.AppSettings.Settings["homework"].ToString());
-                    int add = Convert.ToInt32(cfa.AppSettings.Settings["addition"].ToString());
-                    int exam = Convert.ToInt32(cfa.AppSettings.Settings["exam"].ToString());
+                    var a = cfa.AppSettings.Settings["arrive"].ToString();
+                    //ConfigurationManager.AppSettings["arrive"]
+                    int arrive = Convert.ToInt32(ConfigurationManager.AppSettings["arrive"]);
+                    int homework = Convert.ToInt32(ConfigurationManager.AppSettings["homework"]);
+                    int add = Convert.ToInt32(ConfigurationManager.AppSettings["addition"]);
+                    int exam = Convert.ToInt32(ConfigurationManager.AppSettings["exam"]);
                     string updatefinal = $"UPDATE Score SET final=attendance*{arrive / 100}+homework*{homework / 100}+addition*{add / 100}+exam*{exam / 100} WHERE stulisturl='{readcore[0].StuListUrl}'";
-                    AccessDBHelper.ExecuteNonQuery(updatefinal, App.Databasefilepath);
+                    AccessDBHelper.ExecuteNonQuery2(updatefinal, App.Databasefilepath);
                     getscore();
                     MessageBox.Show("已保存");
                 }
